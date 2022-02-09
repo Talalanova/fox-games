@@ -1,10 +1,35 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <div class="wrapper">
+    <sidemenu></sidemenu>
+    <div class="main-content">
+      <header>
+        <MyHeader></MyHeader>
+      </header>
+      <div class="main">
+        <router-view/>
+      </div>
+      <footer>
+        <MyFooter></MyFooter>
+      </footer>
+    </div>
+  </div>  
 </template>
+
+<script>
+// @ is an alias to /src
+import sidemenu from '@/components/sidemenu.vue'
+import MyHeader from '@/components/my-header.vue'
+import MyFooter from '@/components/my-footer.vue'
+
+export default {
+  name: 'App',
+  components: {
+    sidemenu,
+    MyHeader,
+    MyFooter
+  }
+}
+</script>
 
 <style>
 #app {
@@ -15,16 +40,10 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.wrapper {
+  display: grid;
+  grid-template-columns: 240px auto;
+  column-gap: 20px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

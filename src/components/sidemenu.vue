@@ -1,18 +1,15 @@
 <template>
   <div class="sidemenu">
-    <div class="sidebar__logo">
+    <div class="sidemenu__logo">
       <router-link to="/">
         <img src="../assets/logo.svg">
       </router-link>
     </div>
-    
-    <router-link to="/about">About</router-link>
-    <router-link to="/cart">cart</router-link>
-    <router-link to="/news">news</router-link>
-    <router-link to="/contacts">contacts</router-link>
-    <router-link to="/games">games</router-link>
-    <router-link to="/item-full">item-full</router-link> 
-    <router-link to="/noveltys">noveltys</router-link>
+    <span class="sidemenu__item sidemenu__item--active"><router-link to="/Catalog">Каталог</router-link></span>
+    <span class="sidemenu__item"><router-link to="/about">О нас</router-link></span>
+    <span class="sidemenu__item"><router-link to="/news">Новости</router-link></span>
+    <span class="sidemenu__item"><router-link to="/games">Игротеки</router-link></span>
+    <span class="sidemenu__item"><router-link to="/contacts">Контакты</router-link></span>
   </div>
 </template>
 
@@ -30,9 +27,41 @@ export default {
   background: linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
   display: flex;
   flex-direction: column;
+  border-radius: 0 40px 30px 0;
+}
+
+.sidemenu__logo {
+  margin-bottom: 40px;
 }
 
 .sidemenu a {
-  margin: 0 10px;
+  text-decoration: none;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 700;
+}
+.sidemenu__item {
+  height: 65px;
+}
+
+.router-link-exact-active {
+  position: relative;
+  z-index: 2;
+}
+
+.router-link-exact-active {
+  color: #4B0101;
+}
+
+.router-link-exact-active::after {
+  position: absolute;
+  content: "";
+  width: 237px;
+  height: 168px;
+  right: -33px;
+  bottom: -49px;
+  background-image: url('../assets/sidemenu_background.svg');
+  z-index: -1;
+  transition: 0.5s;
 }
 </style>

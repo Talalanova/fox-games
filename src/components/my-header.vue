@@ -47,9 +47,9 @@ export default {
     content: "";
     width: 100px;
     height: 56px;
-    background-image: url(/img/header_before.34810498.svg);
-    left: -43px;
-    bottom: -12px;
+    background-image: url('../assets/header_before.svg');
+    left: -42px;
+    bottom: -10px;
     background-repeat: no-repeat;
 }
 .header__search-bar {

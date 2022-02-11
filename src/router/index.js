@@ -38,7 +38,8 @@ const routes = [
   {
     path: '/news',
     name: 'news',
-    component: () => import('../views/news.vue')
+    component: () => import('../views/news.vue'),
+    props: true
   },
   {
     path: '/noveltys',
@@ -50,7 +51,11 @@ const routes = [
     name: 'Catalog',
     component: () => import('../views/Catalog.vue')
   },
-
+  {
+    path: '/ItemCard',
+    name: 'ItemCard',
+    component: () => import('../components/item-card.vue')
+  },
 ]
 
 const router = createRouter({

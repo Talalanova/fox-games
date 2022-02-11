@@ -21,6 +21,7 @@ import sidemenu from '@/components/sidemenu.vue'
 import MyHeader from '@/components/my-header.vue'
 import MyFooter from '@/components/my-footer.vue'
 
+
 export default {
   name: 'App',
   components: {
@@ -55,11 +56,19 @@ body {
 
 a {
   display: block;
+  text-decoration: none;
 }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
 .wrapper {
   display: grid;
   grid-template-columns: 240px auto;
-  column-gap: 20px;
+  column-gap: 110px;
   height: 100%;
 }
 
@@ -81,8 +90,8 @@ footer {
   flex: 0 0 auto;
   background-image: url("./assets/footer_background.svg");
   background-repeat: no-repeat;
-  background-position: right 45px;
-  min-height: 430px;
+  background-position: right 0px;
+  min-height: 360px;
   display: flex;
   align-items: end;
   padding-bottom: 45px;

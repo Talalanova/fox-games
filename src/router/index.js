@@ -5,7 +5,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    props: true
   },
   {
     path: '/about',
@@ -13,27 +14,32 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    props: true
   },
   {
     path: '/cart',
     name: 'cart',
-    component: () => import( '../views/cart.vue')
+    component: () => import( '../views/cart.vue'),
+    props: true
   },  
   {
     path: '/contacts',
     name: 'contacts',
-    component: () => import( '../views/contacts.vue')
+    component: () => import( '../views/contacts.vue'),
+    props: true
   },  
   {
     path: '/games',
     name: 'games',
-    component: () => import('../views/games.vue')
+    component: () => import('../views/games.vue'),
+    props: true
   },
   {
     path: '/item-full',
     name: 'item-full',
-    component: () => import('../views/item-full.vue')
+    component: () => import('../views/item-full.vue'),
+    props: true
   },
   {
     path: '/news',
@@ -44,17 +50,20 @@ const routes = [
   {
     path: '/noveltys',
     name: 'noveltys',
-    component: () => import('../views/noveltys.vue')
+    component: () => import('../views/noveltys.vue'),
+    props: true
   },
   {
     path: '/Catalog',
     name: 'Catalog',
-    component: () => import('../views/Catalog.vue')
+    component: () => import('../views/Catalog.vue'),
+    props: true
   },
   {
     path: '/ItemCard',
     name: 'ItemCard',
-    component: () => import('../components/item-card.vue')
+    component: () => import('../components/item-card.vue'),
+    props: true
   },
 ]
 

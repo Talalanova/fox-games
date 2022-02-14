@@ -22,12 +22,14 @@ import MyHeader from '@/components/my-header.vue'
 import MyFooter from '@/components/my-footer.vue'
 
 
+
 export default {
   name: 'App',
   components: {
     sidemenu,
     MyHeader,
     MyFooter,
+
   }
 }
 </script>
@@ -62,7 +64,6 @@ a {
 img {
   display: block;
   max-width: 100%;
-  height: auto;
 }
 
 .wrapper {
@@ -80,6 +81,8 @@ header {
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin-left: 350px;
+  width: 1150px;
 }
 
 main {
@@ -88,7 +91,7 @@ main {
 
 footer {
   flex: 0 0 auto;
-  background-image: url("./assets/footer_background.svg");
+  background-image: url("~@/assets/footer_background.svg");
   background-repeat: no-repeat;
   background-position: right 0px;
   min-height: 360px;

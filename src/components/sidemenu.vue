@@ -2,7 +2,7 @@
   <div class="sidemenu">
     <div class="sidemenu__logo">
       <a href="/">
-        <img src="../assets/logo.svg">
+        <img src="@/assets/logo.svg">
       </a>
     </div>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/Catalog">Каталог</router-link></span>
@@ -30,6 +30,10 @@ export default {
   border-radius: 0 40px 30px 0;
   position: relative;
   padding: 40px 0 0;
+  width: 240px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
 
 .sidemenu::after {
@@ -38,7 +42,7 @@ export default {
   width: 240px;
   height: 47px;
   content: "";
-  background-image: url('../assets/sidemenu_bottom-green.svg');
+  background-image: url('~@/assets/sidemenu_bottom-green.svg');
   background-repeat: no-repeat;
   bottom: 0;
   left: 0;
@@ -50,7 +54,7 @@ export default {
   width: 274px;
   height: 75px;
   content: "";
-  background-image: url('../assets/sidemenu_leafs.svg');
+  background-image: url('~@/assets/sidemenu_leafs.svg');
   background-repeat: no-repeat;
   left: 0;
   z-index: 10;
@@ -97,7 +101,7 @@ export default {
   height: 140px;
   right: -1px;
   bottom: -39px;
-  background-image: url('../assets/sidemenu_background.svg');
+  background-image: url('~@/assets/sidemenu_background.svg');
   z-index: -1;
   background-repeat: no-repeat;
 }
@@ -109,7 +113,7 @@ export default {
   height: 21px;
   left: 6px;
   bottom: -1px;
-  background-image: url('../assets/sidemenu_green.svg');
+  background-image: url('~@/assets/sidemenu_green.svg');
   z-index: -1;
   background-repeat: no-repeat;
 }

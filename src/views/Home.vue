@@ -1,10 +1,11 @@
 <template>
   <div class="home">
+    <Slider></Slider>
     <MainSection title="Новости">
-      <ItemCard buttonValue="Читать"></ItemCard>
-      <ItemCard buttonValue="Читать"></ItemCard>
-      <ItemCard buttonValue="Читать"></ItemCard>
-      <ItemCard buttonValue="Читать"></ItemCard>  
+      <NewsCard buttonValue="Читать"></NewsCard>
+      <NewsCard buttonValue="Читать"></NewsCard>
+      <NewsCard buttonValue="Читать"></NewsCard>
+      <NewsCard buttonValue="Читать"></NewsCard>  
     </MainSection>
     <MainSection title="Новинки">
       <ItemCard buttonValue="6990р"></ItemCard>
@@ -25,12 +26,16 @@
 
 import MainSection from '@/components/main-section.vue'
 import ItemCard from '@/components/item-card.vue'
+import NewsCard from '@/components/news-card.vue'
+import Slider from '@/components/Slider.vue'
 
 export default {
   name: 'Home',
   components: {
     MainSection,
-    ItemCard
+    ItemCard,
+    NewsCard,
+    Slider,
   },
   
 }

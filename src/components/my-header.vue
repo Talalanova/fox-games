@@ -35,10 +35,9 @@ export default {
     display: grid;
     grid-template-columns: 410px 110px 140px;
     align-items: center;    
-    column-gap: 205px;
+    column-gap: 150px;
     margin-left: auto;
-    padding: 4px 50px;
-    min-width: 80%;
+    padding: 4px 60px;
     position: relative;
 }
 

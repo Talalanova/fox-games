@@ -10,8 +10,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 
 export default {
   name: 'MainSection',
@@ -25,9 +23,6 @@ export default {
 </script>
 
 <style scoped>
-.section {
-    padding: 20px 65px;
-}
 
 .section h2 {
    font-size: 36px; 
@@ -35,7 +30,7 @@ export default {
    color: #333333;
    font-weight: 300;
    text-align: left;
-   margin: 10px 0;
+   margin: 40px 0 10px;
 }
 
 .section hr {

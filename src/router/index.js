@@ -60,6 +60,12 @@ const routes = [
     props: true
   },
   {
+    path: '/Category',
+    name: 'Category',
+    component: () => import('../views/Category.vue'),
+    props: true
+  },
+  {
     path: '/ItemCard',
     name: 'ItemCard',
     component: () => import('../components/item-card.vue'),

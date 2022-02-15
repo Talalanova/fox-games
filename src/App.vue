@@ -5,7 +5,7 @@
       <header>
         <MyHeader></MyHeader>
       </header>
-      <main>
+      <main class="main">
         <router-view/>
       </main>
       <footer>
@@ -29,7 +29,6 @@ export default {
     sidemenu,
     MyHeader,
     MyFooter,
-
   }
 }
 </script>
@@ -86,7 +85,10 @@ header {
 }
 
 main {
-  flex: 1 0 auto
+  flex: 1 0 auto;
+}
+.index {
+  z-index: -1;
 }
 
 footer {

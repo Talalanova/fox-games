@@ -5,7 +5,6 @@
         <div class="section__content">
             <slot></slot>
         </div>
-
     </section>
 </template>
 
@@ -22,7 +21,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 .section h2 {
    font-size: 36px; 
@@ -33,11 +32,13 @@ export default {
    margin: 40px 0 10px;
 }
 
-.section hr {
+hr {
     width: 100%;
     height: 1px;
     background-color: #CB7D49;
     margin: 10px 0 20px 0;
+    grid-column: 1 / -1;
+    border: none;
 }
 
 .section__content {

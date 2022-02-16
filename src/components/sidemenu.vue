@@ -13,30 +13,101 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-    <div ref="cutCatalog" class="sidemenu__cut-catalog" @mouseleave="openCutCatalog()">
-      <p>Какой-то жанр</p>
-      <p>Какой-то жанр</p>
-      <p>Какой-то жанр</p>
-      <p>Какой-то жанр</p>
-      <p>Какой-то жанр</p>
-      <p>Какой-то жанр</p>
+    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog" @mouseleave="openCutCatalog()">
+      <vue-collapsible-panel-group accordion>
+        <vue-collapsible-panel :expanded="false">
+          <template #title>
+            Настольные игры
+          </template>
+          <template #content>
+            <div class="cut-catalog__list">
+              <router-link to="/Category" v-for="category in categorys" v-bind:key="category.index">
+                {{category.name}}
+              </router-link>
+            </div>
+          </template>
+        </vue-collapsible-panel>
+        <vue-collapsible-panel :expanded="false">
+          <template #title>
+            Аксессуары
+          </template>
+          <template #content>
+            <div class="cut-catalog__list">
+              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
+                {{item}}
+              </router-link>
+            </div>
+          </template>
+        </vue-collapsible-panel>
+        <vue-collapsible-panel :expanded="false">
+          <template #title>
+            Книги и журналы
+          </template>
+          <template #content>
+            <div class="cut-catalog__list">
+              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
+                {{item}}
+              </router-link>
+            </div>
+          </template>
+        </vue-collapsible-panel>
+        <vue-collapsible-panel :expanded="false">
+          <template #title>
+            Мерч и сувениры
+          </template>
+          <template #content>
+            <div class="cut-catalog__list">
+              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
+                {{item}}
+              </router-link>
+            </div>
+          </template>
+        </vue-collapsible-panel>
+        <vue-collapsible-panel :expanded="false">
+          <template #title>
+            Миниатюрки
+          </template>
+          <template #content>
+            <div class="cut-catalog__list">
+              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
+                {{item}}
+              </router-link>
+            </div>
+          </template>
+        </vue-collapsible-panel>
+      </vue-collapsible-panel-group>
     </div>
   </div>
 </template>
 
 <script>
+import {accessories, categorys} from '@/data.js'
+
+import  { VueCollapsiblePanelGroup, VueCollapsiblePanel } from '@dafcoe/vue-collapsible-panel'
+import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'
+
 export default {
   name: 'sidemenu',
+  data() {
+    return {
+      accessories,
+      categorys,
+    }
+  },
   methods: {
     openCutCatalog() {
       document.querySelector('.main').classList.toggle('index')
       this.$refs.cutCatalog.classList.toggle('sidemenu__cut-catalog--opened');
     }
-  }
+  },components: {
+    VueCollapsiblePanelGroup,
+    VueCollapsiblePanel,
+  } 
 }
 </script>
 
 <style scoped>
+
 .sidemenu {
   background: -webkit-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
   background: -moz-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
@@ -91,6 +162,7 @@ export default {
   background-repeat: no-repeat;
   transition: 0.5s;
   border: none;
+  border-radius: 5px;
   background-color: white;
   margin: auto;
   cursor: pointer;
@@ -121,7 +193,7 @@ export default {
   grid-template-columns: 200px 30px;
 }
 
-.router-link-exact-active {
+.sidemenu__item .router-link-exact-active {
   position: relative;
   z-index: 2;
   color: #4B0101;
@@ -133,7 +205,7 @@ export default {
   animation-name: slideUp;
 }
 
-.router-link-exact-active::after {
+.sidemenu__item .router-link-exact-active::after {
   position: absolute;
   content: "";
   width: 30px;
@@ -145,7 +217,7 @@ export default {
   background-repeat: no-repeat;
 }
 
-.router-link-exact-active::before {
+.sidemenu__item .router-link-exact-active::before {
   position: absolute;
   content: "";
   width: 90px;
@@ -179,20 +251,34 @@ export default {
 
 .sidemenu__cut-catalog {
   background-color: white;
-  border-radius: 30px;
+  border-radius: 20px;
   border: 1px solid #CB7D49;
-  padding: 10px 20px;
+  padding: 25px 0;
   position: absolute;
   left: 105%;
-  top: 50px;
+  top: 90px;
   z-index: 100;
-  min-width: 200px;
+  min-width: 240px;
   font-size: 18px;
   line-height: 25px;
   display: none;
+  overflow: hidden;
 }
 
 .sidemenu__cut-catalog--opened {
   display: block;
+}
+
+.cut-catalog__list  {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cut-catalog__list a {
+  color: #4B0101;
+}
+.cut-catalog__list a:hover {
+  color: #6A1F12;
 }
 </style>

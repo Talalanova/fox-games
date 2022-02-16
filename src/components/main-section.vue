@@ -45,5 +45,6 @@ hr {
     display: grid;
     grid-template-columns: repeat(auto-fill, 250px);
     column-gap: 40px;
+    row-gap: 40px;
 }
 </style>

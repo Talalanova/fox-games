@@ -36,6 +36,7 @@
                             <input type="checkbox" :value="tag" :id="tag" v-model="checked"/>
                         </label>
                     </div>
+                    <SliderRange></SliderRange>
                 </form>
             </div>
             <div v-else>Контент для фильтров</div>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-
+import SliderRange from '@/components/price-range.vue'
 
 export default {
     name: 'SortingBar',
@@ -52,14 +53,19 @@ export default {
         return {
             sorting: true,
             tags: ['Фентези', 'Детектив', 'Романтичные', 'Карточные', 'Новое', 'Ужасы', 'На воображение',],
-            tagsOpen: false
+            tagsOpen: false,
+            value: [20, 40]
         }
-        
     },
+    components: {
+        SliderRange
+    }
 }
 </script>
 
 <style scoped>
+
+
 .sorting {
     display: flex;
     flex-direction: column;

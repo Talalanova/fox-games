@@ -76,6 +76,18 @@ header {
   display: flex;
   align-items: end;
 }
+
+h1 {
+  font-weight: 300;
+  font-size: 36px;
+  line-height: 49px;
+  font-family: "Nunito", "Arial", sans-serif;
+  grid-column: 1 / -1;
+  width: 100%;
+  text-align: left;
+  margin: 0;
+}
+
 .main-content {
   display: flex;
   flex-direction: column;
@@ -87,6 +99,7 @@ header {
 main {
   flex: 1 0 auto;
 }
+
 .index {
   z-index: -1;
 }

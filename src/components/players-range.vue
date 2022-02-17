@@ -1,15 +1,15 @@
 <template>
-    <Slider  :min="10" :max="5000" v-model="value" />
+    <Slider :min="0" :max="6" v-model="value" />
 </template>
 
 <script>
 
 import Slider from '@vueform/slider'
 export default {
-    name: 'SliderRange',
+    name: 'PlayerRange',
     data() {
         return {
-            value: [800, 3000]
+            value: [1, 5]
         }
     },
     components: {
@@ -17,7 +17,7 @@ export default {
     },
     props: {
         min: Number,
-        max: Number
+        max: Number,
     }
 }
 </script>

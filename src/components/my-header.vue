@@ -26,7 +26,7 @@ export default {
     
 }
 </script>
-З
+
 <style>
 .header {
     background: -webkit-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
@@ -75,10 +75,8 @@ export default {
     min-width: 320px;
 }
 
-
 .header__phone {
     color: white;
     margin-left: auto;
 }
-
 </style>

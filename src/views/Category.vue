@@ -47,21 +47,11 @@ export default {
   padding: 40px 0;
   position: relative;
 }
-.category h1 {
-  font-weight: 300;
-  font-size: 36px;
-  line-height: 49px;
-  font-family: "Nunito", "Arial", sans-serif;
-  grid-column: 1 / -1;
-  width: 100%;
-  text-align: left;
-  margin: 0;
-}
 
 .intro {
   display: grid;
   grid-template-columns: auto 270px;
-  column-gap: 10px;
+  column-gap: 30px;
   padding: 30px 0;
 }
 

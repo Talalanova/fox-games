@@ -71,6 +71,12 @@ const routes = [
     component: () => import('../components/item-card.vue'),
     props: true
   },
+  {
+    path: '/Delivery',
+    name: 'Delivery',
+    component: () => import('../views/delivery-rules.vue'),
+    props: true
+  },
 ]
 
 const router = createRouter({

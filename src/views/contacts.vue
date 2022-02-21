@@ -119,7 +119,7 @@ export default {
   font-size: 21px;
   border-radius: 0 0 8px 8px;
   cursor: pointer;
-  margin-top: 7px;
+  margin-top: 10px;
   margin-left: auto;
   transition: 0.7s;
   position: absolute;

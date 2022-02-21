@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import {accessories, categorys} from '@/data.js'
+import { accessories, categorys } from '@/data.js'
 
 import  { VueCollapsiblePanelGroup, VueCollapsiblePanel } from '@dafcoe/vue-collapsible-panel'
 import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'

@@ -36,6 +36,12 @@ const routes = [
     props: true
   },
   {
+    path: '/games-item',
+    name: 'games-item',
+    component: () => import('../views/games-item.vue'),
+    props: true
+  },
+  {
     path: '/item-full',
     name: 'item-full',
     component: () => import('../views/item-full.vue'),
@@ -45,6 +51,12 @@ const routes = [
     path: '/news',
     name: 'news',
     component: () => import('../views/news.vue'),
+    props: true
+  },
+  {
+    path: '/news-item',
+    name: 'news-item',
+    component: () => import('../views/news-item.vue'),
     props: true
   },
   {

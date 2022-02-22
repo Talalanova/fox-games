@@ -52,6 +52,10 @@ export default {
     color: #333;
 }
 
+.news-item__title:hover {
+    color: #CB7D49;
+}
+
 .news-item__text {
     color: rgba(51, 51, 51, 0.5);
     font-size: 22px;

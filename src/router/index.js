@@ -84,11 +84,17 @@ const routes = [
     props: true
   },
   {
-    path: '/Delivery',
+    path: '/delivery',
     name: 'Delivery',
     component: () => import('../views/delivery-rules.vue'),
     props: true
   },
+  { 
+    path: '/404', 
+    name: '404', 
+    component: () => import('../views/404.vue'),
+  }, 
+
 ]
 
 const router = createRouter({

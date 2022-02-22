@@ -30,11 +30,4 @@ export default {
   padding: 40px 0;
 }
 
-.games a {
-  color: #333333;
-}
-
-.games a:hover {
-  color: #CB7D49;
-}
 </style>

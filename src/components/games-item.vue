@@ -52,6 +52,10 @@ export default {
     color: #333;
 }
 
+.games-item__title:hover {
+    color: #CB7D49;
+}
+
 .games-item__text {
     color: rgba(51, 51, 51, 0.5);
     font-size: 22px;

@@ -31,7 +31,7 @@
                 <router-link to="/contacts">Контакты</router-link>
             </li>
             <li>
-                <router-link to="/">Доставка</router-link>
+                <router-link to="/Delivery">Доставка</router-link>
             </li>
         </ul>
         <SocialList></SocialList>

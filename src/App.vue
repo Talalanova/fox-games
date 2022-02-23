@@ -11,6 +11,7 @@
       <footer>
         <MyFooter></MyFooter>
       </footer>
+      <div class="fox-trail"></div>
     </div>
   </div>  
 </template>
@@ -114,4 +115,22 @@ footer {
   align-items: end;
   padding-bottom: 45px;
 }
+
+/* .fox-trail {
+  background: url('~@/assets/fox-trail.png') 0 0 no-repeat;
+  position: absolute;
+  top: 100px;
+  width: 1100px;
+  height: 120px;
+  animation: slideIn 15s;
+}
+
+@keyframes slideIn {
+  0%{
+    transform: translate(100%, 0)
+  }
+  100% {
+    transform: translate(-100%, 0)
+  }
+} */
 </style>

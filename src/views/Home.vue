@@ -8,16 +8,16 @@
       <NewsCard buttonValue="Читать"></NewsCard>  
     </MainSection>
     <MainSection title="Новинки">
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>  
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>  
     </MainSection>
     <MainSection title="Топ настольных игр 2020 года">
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>
-      <ItemCard buttonValue="6990р"></ItemCard>
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>
+      <ItemCard></ItemCard>
     </MainSection>
   </div>
 </template>

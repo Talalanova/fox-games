@@ -117,6 +117,7 @@ export default {
     position: absolute;
     right: 0px;
     top: 71px;
+    z-index: 1;
 }
 
 .sorting__tabs {

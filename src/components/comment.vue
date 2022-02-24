@@ -11,7 +11,8 @@
                 {{ date }}
             </span>
             <span class="comment__text">
-                {{ text }}
+                <!-- {{ text }} -->
+                <slot></slot>
             </span>
         </div>
     </div>
@@ -24,7 +25,7 @@ export default {
     name: 'Comment',    
     props: {        
         date: String,
-        text: String,
+        // text: String,
     },
     data() {
         return {

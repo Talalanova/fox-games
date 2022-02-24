@@ -148,6 +148,10 @@ export default {
     padding: 10px;
 }
 
+.sorting__content form {
+    text-align: left;
+}
+
 .sorting__label {
     margin: 5px 0;
     text-align: left;

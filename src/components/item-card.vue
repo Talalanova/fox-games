@@ -70,7 +70,7 @@ export default {
     position: absolute;
     top: 6px;
     font-size: 12px;
-    left: -7px;
+    left: -10px;
     display: none;
 }
 
@@ -94,38 +94,38 @@ export default {
     background-repeat: no-repeat;
     /* background-position: -8px, 0;     */
     position: relative;
-    padding: 4px 5px 4px 14px;
+    padding: 4px 5px 4px 18px;
+    background-size: 55px, 27px;   
 }
 
 .age::before {
-    background-image: url('~@/assets/mark-age_icon.png');
+    background-image: url('~@/assets/mark-age_icon.svg');
     
 }
 
 .players {
     background-image: url('~@/assets/mark.svg');
     background-repeat: no-repeat;
+    background-size: 69px, 27px;   
     position: relative;
-    padding: 4px 5px 4px 14px;
+    padding: 7px 5px 4px 18px;
 }
 
 .players::before {
-    background-image: url('~@/assets/mark-players_icon.png');
+    background-image: url('~@/assets/mark-players_icon.svg');
 }
 
 .time {
     background-image: url('~@/assets/mark-time.svg');
     background-repeat: no-repeat;
-    background-size: 72px, 25px;    
+    background-size: 78px, 27px;
     position: relative;
-    padding: 4px 5px 4px 14px;
+    padding: 7px 5px 4px 18px;
 }
 
 .time::before {
-    background-image: url('~@/assets/mark-time_icon.png');
+    background-image: url('~@/assets/mark-time_icon.svg');
 }
-
-
 
 .item-card__pic {
     margin: auto;

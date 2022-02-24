@@ -5,9 +5,9 @@
     <form method="post" action="#">
       <button class="cart__choose-button">Выделить все</button>
       <button class="cart__remove-button">Удалить выбранное</button>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont"></CartItem>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont"></CartItem>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont"></CartItem>
+      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
+      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
+      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
       <div class="sum">
         <span>Итог</span>
         <span> 13200₽ </span>
@@ -227,7 +227,7 @@ export default {
   background-color: white;
   text-align: center;
   border-radius: 10px;
-  margin-top: 30px;
+  margin-top: 115px;
   transition: 0.7s;
 }
 

@@ -7,14 +7,14 @@
     </div>
     <span class="sidemenu__item sidemenu__item--catalog">
       <router-link class="sidemenu__link" to="/Catalog">Каталог</router-link>
-      <button class="sidemenu__button" @click="openCutCatalog"></button>
+      <button ref="sidemenuButton" class="sidemenu__button" @click="openCutCatalog"></button>
       </span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/about">О нас</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog" @mouseleave="openCutCatalog()">
-      <vue-collapsible-panel-group accordion>
+    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog">
+      <vue-collapsible-panel-group accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
         <vue-collapsible-panel :expanded="false">
           <template #title>
             Настольные игры
@@ -98,6 +98,14 @@ export default {
     openCutCatalog() {
       document.querySelector('.main').classList.toggle('index')
       this.$refs.cutCatalog.classList.toggle('sidemenu__cut-catalog--opened');
+      this.$refs.sidemenuButton.classList.toggle('sidemenu__button--clicked');
+      document.querySelector('.main-content').addEventListener('click', () => {
+        if (this.$refs.cutCatalog.classList.contains('sidemenu__cut-catalog--opened')) {
+          this.$refs.cutCatalog.classList.toggle('sidemenu__cut-catalog--opened');
+          document.querySelector('.main').classList.toggle('index')
+          this.$refs.sidemenuButton.classList.toggle('sidemenu__button--clicked');
+        }
+      })
     }
   },components: {
     VueCollapsiblePanelGroup,
@@ -163,16 +171,19 @@ export default {
   transition: 0.5s;
   border: none;
   border-radius: 5px;
-  background-color: white;
+  background-color: inherit;
   margin: auto;
   cursor: pointer;
   margin-left: -35px;
   z-index: 2;
-  transform: rotate(-90deg);
 }
 
 .sidemenu__button:hover {
-  background-image: url('~@/assets/catalog_icon_arrow-down.svg')
+  background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
+}
+
+.sidemenu__button--clicked {
+  transform: rotate(-90deg);
 }
 
 .sidemenu__link {
@@ -181,11 +192,13 @@ export default {
   line-height: 35px;
   font-weight: 700;
   color: white;
-  padding: 15px 0;
+  padding: 15px 0 15px 20px;
+  
 }
 
 .sidemenu__item {
-  padding: 0 0 0 40px;
+  padding: 0 0 0 30px;
+  text-align: left;
 }
 
 .sidemenu__item--catalog {
@@ -205,6 +218,10 @@ export default {
   animation-name: slideUp;
 }
 
+.sidemenu__item .router-link-exact-active + .sidemenu__button {
+  background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
+}
+
 .sidemenu__item .router-link-exact-active::after {
   position: absolute;
   content: "";
@@ -215,6 +232,10 @@ export default {
   background-image: url('~@/assets/sidemenu_background.svg');
   z-index: -1;
   background-repeat: no-repeat;
+}
+
+.sidemenu__item--catalog .router-link-exact-active::after {
+  right: -11px;
 }
 
 .sidemenu__item .router-link-exact-active::before {
@@ -281,4 +302,5 @@ export default {
 .cut-catalog__list a:hover {
   color: #6A1F12;
 }
+
 </style>

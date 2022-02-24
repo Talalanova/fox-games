@@ -40,3 +40,9 @@ export default {
   
 }
 </script>
+
+<style scoped>
+.home {
+  padding: 40px 0;
+}
+</style>

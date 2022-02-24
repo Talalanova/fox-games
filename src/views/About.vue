@@ -30,5 +30,9 @@ export default {
   text-align: left;
 }
 
+.about img {
+  border-radius: 15px;
+}
+
 
 </style>

@@ -25,7 +25,7 @@
                 <router-link to="/games">Турниры</router-link>
             </li>
             <li>
-                <router-link to="/">Акции</router-link>
+                <router-link to="/404">Акции</router-link>
             </li>
             <li>
                 <router-link to="/contacts">Контакты</router-link>
@@ -52,10 +52,11 @@ export default {
 <style scoped>
 .footer {
     display: grid;
-    grid-template-columns: 510px 300px 160px;
+    grid-template-columns: 430px 300px 160px;
     column-gap: 45px;
     margin-left: auto;
     align-items: center;
+    margin-bottom: -30px;
 }
 .footer__links {
     display: grid;
@@ -64,6 +65,7 @@ export default {
     color: white;
     padding: 0;
     margin: 0;
+    text-align: left;
 }
 
 .footer__links a {
@@ -75,12 +77,12 @@ export default {
     background-color: #CB7D49;
     border-radius: 35px;
     color: white;
-    padding: 0 30px;
+    
 }
 
 .footer__subscribe form {
     margin: 20px 0;
-    text-align: left;
+    text-align: center;
     font-family: "Nunito", "Arial", sans-serif;
 }
 
@@ -88,6 +90,7 @@ form input {
     border-radius: 5px;
     padding: 5px 20px;
     border: none;
+    margin-right: 15px;
 }
 
 form h3,

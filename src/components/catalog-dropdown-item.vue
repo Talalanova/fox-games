@@ -63,7 +63,7 @@ export default {
 .catalog__button {
     width: 28px;
     height: 28px;
-    background-image: url('~@/assets/catalog_icon_arrow.svg');
+    background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
     background-repeat: no-repeat;
     transition: 0.5s;
     border: none;
@@ -73,7 +73,7 @@ export default {
 }
 
 .catalog__button:hover {
-    background-image: url('~@/assets/catalog_icon_arrow-down.svg')
+    background-image: url('~@/assets/catalog_arrow-brown.svg')
 }
 
 .catalog__sublist {

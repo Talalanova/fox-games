@@ -40,7 +40,33 @@ export default {
 <style>
 
 .carousel__prev, .carousel__next {
-    display: none;
+  display: none;
 }
 
+.carousel img {
+  border-radius: 20px;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel__pagination {
+  position: absolute;
+  margin: 0;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%,0);
+}
+
+.carousel__pagination-button {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: aliceblue;
+}
+.carousel__pagination-button--active {
+  width: 14px;
+  height: 14px;
+}
 </style>

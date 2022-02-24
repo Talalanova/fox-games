@@ -109,7 +109,7 @@ footer {
   flex: 0 0 auto;
   background-image: url("~@/assets/footer_background.svg");
   background-repeat: no-repeat;
-  background-position: right 0px;
+  background-position: -70px 0px;
   min-height: 360px;
   display: flex;
   align-items: end;

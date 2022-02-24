@@ -1,15 +1,18 @@
 <template>
-    <div class="cart-item">
+    <div class="cart-item" :class="[inStock <= 2 ? 'cart-item--outofstock' : '']">
         <div>
             <input type="checkbox" :id="itemId" :value="itemId">
             <label :for="itemId"></label>
             <img :src= pic width="89" height="89" alt="">
         </div>
        <router-link to="/item-full" class="cart-item__title">{{ title }}</router-link>
-       <span class="counter">
-           <button @click="counter += 1">+</button>
+       <span class="counter" v-if="inStock > 2">
+           <button @click="plus">+</button>
            <p>{{ counter }}</p>
-           <button @click="counter -= 1">-</button>
+           <button @click="minus">-</button>
+       </span>
+        <span class="item__outofstock" v-if="inStock <= 2">           
+           <p>Нет в наличии</p>           
        </span>
        <span class="cart-item__price" :class="[discont > 0 ? 'cart-item__price--discont' : '']">
             <span class="current-price">
@@ -38,11 +41,26 @@ export default {
         price: Number,
         pic: String,
         itemId: Number,
-        discont: Number
+        discont: Number,
+        inStock: Number,
+
     },
     computed: {
         discontPrice: function() {
             return this.price - (this.price*this.discont/100)
+        }
+    },
+    methods: {
+        plus() {
+            this.counter += 1
+        },
+        minus() {
+            if (this.counter <= 1) {
+                return
+            } else {
+               this.counter -= 1  
+            }
+
         }
     }
 }
@@ -52,13 +70,17 @@ export default {
 
 .cart-item {
     display: grid;
-    grid-template-columns: 125px auto 100px auto;
+    grid-template-columns: 95px auto 100px auto;
     column-gap: 15px;
     border: 1px solid #CB7D49;
     border-radius: 10px;
     overflow: hidden;
-    padding: 8px 0 8px 30px;
+    padding: 8px 0 8px 45px;
     margin: 20px 0;
+}
+
+.cart-item--outofstock {
+    grid-template-columns: 95px auto 200px auto;
 }
 
 .cart-item__title {
@@ -95,7 +117,7 @@ export default {
     border-radius: 10px;
     font-size: 21px;
     position: absolute;
-    right: -83px;
+    right: -68px;
     top: -23px;
 }
 
@@ -113,6 +135,13 @@ export default {
 
 .counter p {
     margin: auto 0;
+}
+
+.item__outofstock p {
+    background-color: #ECECEC;
+    border-radius: 10px;
+    font-size: 23px;
+    padding: 5px 0;
 }
 .counter button {
     border: none;

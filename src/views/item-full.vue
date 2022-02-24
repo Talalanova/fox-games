@@ -12,17 +12,17 @@
         <img v-for="(item,index) in itemData.pics" :key="item.index" :src="item" @click="updateImage(index)" width="125" height="90" alt="">
       </div>
       <div class="item__information">
-        <span class="price"> {{ itemData.price }}</span>
+        <span class="price"> {{ itemData.price }}₽</span>
         <span v-for="(value,name) in itemParameters" v-bind:key="value.index" class="row">
           <span class="parameters">{{ value }}</span>
           <span class="value"> {{ itemData[name] }}</span>          
         </span>
         <router-link to="delivery" class="delivery">Условия заказа</router-link>
-        <button type="button" :disabled="!itemData.inStock || itemData.inStock === 1">
-          <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.28229 2.31158L3.16204 1.81437H2.6505H1.19392C1.0564 1.81437 0.9202 1.75818 0.816501 1.65116C0.712127 1.54344 0.65 1.39309 0.65 1.23218C0.65 1.07128 0.712127 0.920932 0.816501 0.813212C0.9202 0.70619 1.0564 0.65 1.19392 0.65H3.58174C3.58175 0.65 3.58175 0.65 3.58176 0.65C3.69762 0.650007 3.8127 0.689826 3.90854 0.767021L4.23844 0.357425L3.90854 0.767021C4.0047 0.844473 4.07651 0.955846 4.10812 1.08574C4.10814 1.08585 4.10817 1.08597 4.1082 1.08609L4.47816 2.61705L4.59834 3.11437H5.10997H17.9084C17.9972 3.11442 18.0856 3.13781 18.1655 3.18382C18.2456 3.22991 18.3152 3.29774 18.3661 3.38277L18.9239 3.04891L18.3661 3.38278C18.4171 3.46792 18.447 3.56663 18.4515 3.66945C18.456 3.77228 18.4348 3.87381 18.3911 3.96408L14.8094 11.357L14.8094 11.3572C14.7618 11.4554 14.6901 11.5352 14.6047 11.5897C14.5196 11.644 14.4233 11.6718 14.3267 11.6718H6.46388H6.18861L5.99707 11.8695L4.80315 13.1017L3.73507 14.204H5.26996H15.5209C15.6585 14.204 15.7947 14.2602 15.8984 14.3672C16.0027 14.475 16.0649 14.6253 16.0649 14.7862C16.0649 14.9471 16.0027 15.0975 15.8984 15.2052C15.7947 15.3122 15.6585 15.3684 15.5209 15.3684H5.26996C3.75865 15.3684 2.91445 13.4349 4.04831 12.2643C4.04833 12.2643 4.04834 12.2643 4.04835 12.2643C4.04842 12.2642 4.0485 12.2641 4.04857 12.264L5.11448 11.1652L5.36406 10.9079L5.27964 10.5595L3.6583 3.86877L3.65833 3.86876L3.65673 3.86243C3.65463 3.85412 3.6527 3.84576 3.65094 3.83734L3.64885 3.82729L3.64643 3.81731L3.28229 2.31158Z" stroke="white" stroke-width="1.3"/>
-            <path d="M15.7237 18.2441L16.1905 17.7918L15.7237 18.2441C15.94 18.4674 16.0651 18.7745 16.0651 19.0988C16.0651 19.4231 15.94 19.7301 15.7237 19.9534C15.5081 20.1759 15.22 20.297 14.9242 20.297C14.6283 20.297 14.3403 20.1759 14.1246 19.9534L13.6578 20.4057L14.1246 19.9534C13.9083 19.7301 13.7833 19.4231 13.7833 19.0988C13.7833 18.7745 13.9083 18.4674 14.1246 18.2441C14.3403 18.0216 14.6283 17.9005 14.9242 17.9005C15.22 17.9005 15.5081 18.0216 15.7237 18.2441Z" stroke="white" stroke-width="1.3"/>
-            <path d="M6.17098 18.2441L6.63779 17.7918L6.17098 18.2441C6.3873 18.4674 6.51232 18.7745 6.51232 19.0988C6.51232 19.4231 6.3873 19.7301 6.17098 19.9534C5.95533 20.1759 5.66729 20.297 5.37145 20.297C5.0756 20.297 4.78756 20.1759 4.57191 19.9534L4.1051 20.4057L4.57191 19.9534C4.35559 19.7301 4.23057 19.4231 4.23057 19.0988C4.23057 18.7745 4.35559 18.4674 4.57191 18.2441C4.78756 18.0216 5.0756 17.9005 5.37145 17.9005C5.66729 17.9005 5.95533 18.0216 6.17098 18.2441Z" stroke="white" stroke-width="1.3"/>
+        <button type="button" :disabled="!itemData.inStock || itemData.inStock === 1" class="item__button">
+          <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.98247 1.83333L3.85425 1.35H3.3542H2.0575C1.93564 1.35 1.82615 1.30409 1.75134 1.2337C1.67787 1.16458 1.64463 1.07959 1.64463 1C1.64463 0.920406 1.67787 0.835425 1.75134 0.766301C1.82615 0.695913 1.93564 0.65 2.0575 0.65H4.18323C4.18323 0.65 4.18324 0.65 4.18324 0.65C4.28514 0.650006 4.37984 0.682291 4.45243 0.73559C4.52434 0.78839 4.56802 0.856457 4.58606 0.924068C4.58608 0.924126 4.5861 0.924184 4.58611 0.924241L4.91542 2.16655L5.04357 2.65H5.54372L16.9374 2.65C16.9375 2.65 16.9376 2.65 16.9377 2.65C17.015 2.65009 17.0893 2.66885 17.1529 2.70226C17.2164 2.73562 17.2652 2.78126 17.298 2.83118C17.3306 2.88079 17.3472 2.93408 17.3497 2.98609C17.3522 3.03803 17.3407 3.0915 17.3138 3.14211L14.1253 9.14197L14.1252 9.14211C14.0958 9.1976 14.0474 9.24984 13.9807 9.28866C13.9137 9.32763 13.8333 9.34996 13.7488 9.35H6.74901H6.4913L6.30361 9.52659L5.24074 10.5266L4.28552 11.4253C4.12166 10.98 4.19906 10.4636 4.62865 10.0594L5.57753 9.16766L5.86024 8.90197L5.76057 8.52702L4.31719 3.09702L4.31723 3.09701L4.31534 3.09018C4.31412 3.0858 4.31301 3.0814 4.312 3.07699L4.30951 3.06611L4.30665 3.05533L3.98247 1.83333ZM5.68614 12.35C5.07725 12.35 4.62797 12.0475 4.39241 11.65H5.68614H14.812C14.9338 11.65 15.0433 11.6959 15.1181 11.7663C15.1916 11.8354 15.2248 11.9204 15.2248 12C15.2248 12.0796 15.1916 12.1646 15.1181 12.2337C15.0433 12.3041 14.9338 12.35 14.812 12.35H5.68614Z" fill="white" stroke="white" stroke-width="1.3"/>
+          <path d="M15.2246 15.4999C15.2246 15.7121 15.1354 15.9243 14.9623 16.0872C14.7878 16.2513 14.5431 16.3499 14.2803 16.3499C14.0175 16.3499 13.7729 16.2513 13.5984 16.0872C13.4253 15.9243 13.336 15.7121 13.336 15.4999C13.336 15.2877 13.4253 15.0756 13.5984 14.9127C13.7729 14.7485 14.0175 14.6499 14.2803 14.6499C14.5431 14.6499 14.7878 14.7485 14.9623 14.9127C15.1354 15.0756 15.2246 15.2877 15.2246 15.4999Z" fill="white" stroke="white" stroke-width="1.3"/>
+          <path d="M6.45838 16.0872C6.2839 16.2513 6.03924 16.3499 5.77644 16.3499C5.51364 16.3499 5.26897 16.2513 5.09449 16.0872C4.92136 15.9243 4.83213 15.7121 4.83213 15.4999C4.83213 15.2877 4.92136 15.0756 5.09449 14.9127C5.26897 14.7485 5.51363 14.6499 5.77644 14.6499C6.03924 14.6499 6.2839 14.7485 6.45838 14.9127C6.63151 15.0756 6.72074 15.2877 6.72074 15.4999C6.72074 15.7121 6.63151 15.9243 6.45838 16.0872Z" fill="white" stroke="white" stroke-width="1.3"/>
           </svg>
           Добавить в корзину
         </button>
@@ -58,10 +58,11 @@
           </div>
           <div v-if="activetab ==='5'" class="tabcontent">
             <div>
-              <Comment v-for="item in itemData.comments" v-bind:key="item.index" :text="item.message" :date="item.date"></Comment>
+              <Comment v-for="item in itemData.comments.slice(0,3)" v-bind:key="item.index" :text="item.message" :date="item.date">{{item.message}}</Comment>
               <form method="post" action="#">                
-                <textarea class="comment__field" placeholder="Напишите комментарий" required></textarea>
-                <button type="submit" class="tabcontent__button">Отправить</button>
+                <textarea class="comment__field" placeholder="Напишите комментарий" required v-bind="newComment"></textarea>
+                <button type="button" class="tabcontent__button--inverted" @click="updateComments">Еще комментарии...</button>
+                <button type="submit" class="tabcontent__button" @click="addComment">Отправить</button>
               </form>
             </div>
           </div>
@@ -91,7 +92,8 @@ export default {
       itemData, 
       selectedPic: 0,
       activetab: '1' ,
-      stockStatus
+      stockStatus,
+      newComment: ''
     }
   },
   components: {
@@ -125,6 +127,14 @@ export default {
       {
         return 'inStock'
       }
+    },
+    updateComments() {
+      this.itemData.comments = this.itemData.comments.slice(3,itemData.comments.length + 1);
+    },
+    addComment() {
+      this.newComment = ''
+      this.itemData.comments.push(this.newComment) 
+      //Не отправляет значение поля в массив комментариев
     }
   }
 }
@@ -212,6 +222,11 @@ export default {
   color: #B6B6B6;
 }
 
+.item__button svg {
+  vertical-align: baseline;
+  margin-right: 20px;
+}
+
 .delivery {
   color: #B6B6B6;
   font-size: 22px;
@@ -252,7 +267,6 @@ export default {
   transform: translate(0, -100%) rotate(-135deg);
 }
 
-
 .container {
   margin: 40px auto;
   font-family: "Nunito Sans", Arial, Helvetica, sans-serif;
@@ -260,11 +274,9 @@ export default {
   color: #333333;
 }
 
-
 .tabs {
   overflow: hidden;
-  margin-bottom: -2px; 
-    
+  margin-bottom: -2px;  
 }
 
 .tabs a{
@@ -281,6 +293,7 @@ export default {
   line-height: 25px;
   font-weight: 300;
 }
+
 .tabs a:last-child { 
   border-right: 1px solid #ccc;
 }
@@ -324,6 +337,7 @@ export default {
   position: absolute;
   bottom: 0;
   right: 20px;
+  transition: background-color 0.3s;
 }
 
 .tabcontent__button:hover {
@@ -333,13 +347,37 @@ export default {
   border-bottom: none;
 }
 
+.tabcontent__button--inverted {
+  font-family: "Nunito", "Arial", sans-serif;
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: 400;
+  padding: 7px 30px;
+  background-color: #fff;
+  border: 1px solid #CB7D49;
+  border-bottom: none;
+  color: #4B0101;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 180px;
+  transition: background-color 0.3s;
+}
+
+.tabcontent__button--inverted:hover {
+  background-color: #CB7D49;
+  border: 1px solid #CB7D49;
+  color: white;
+}
+
 .comment__field {
   border: 1px solid #CB7D49;
   border-radius: 10px;
   padding: 8px 10px;
   max-width: 100%;
   width: 1020px;
-  margin: 10px 0;
+  margin: 10px 0 30px 0;
   font-size: 16px;
   resize: none;
   margin-left: 85px;

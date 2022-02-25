@@ -15,7 +15,7 @@
         </form>
       </div>
       <div class="contacts__map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru" width="542" height="456" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru" width="100%" height="456" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
 
 .contacts__frame {
   display: grid;
-  grid-template-columns: auto 542px;
+  grid-template-columns: 1fr 1fr;
   border: 1px solid #CB7D49;
   border-radius: 40px;
   overflow: hidden;
@@ -104,7 +104,8 @@ export default {
   border: 1px solid #CB7D49;
   border-radius: 10px;
   padding: 8px 10px;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   margin: 10px 0;
   font-size: 16px;
   resize: none;

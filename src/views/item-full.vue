@@ -279,7 +279,7 @@ export default {
   margin-bottom: -2px;  
 }
 
-.tabs a{
+.tabs a {
   float: left;
   cursor: pointer;
   padding: 12px 24px;
@@ -426,4 +426,32 @@ export default {
   right: 20px;
   top: 10px;
 }
+
+@media (max-width: 1440px) { 
+  .item__data {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item__thumbs {
+    display: flex;
+    flex-direction: row;
+    margin: 15px 0;
+  }
+
+  .price {
+    margin-top: 15px;
+    border: 1px solid #CB7D49;
+    border-radius: 5px;
+  }
+
+  .tabs a {
+    padding: 9px 6px;
+  }
+
+  .comment__field {
+    max-width: 560px;
+  }
+}
+
 </style>

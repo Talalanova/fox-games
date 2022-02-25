@@ -75,7 +75,7 @@ export default {
     border: 1px solid #CB7D49;
     border-radius: 10px;
     overflow: hidden;
-    padding: 8px 0 8px 45px;
+    padding: 8px 30px 8px 45px;
     margin: 20px 0;
 }
 
@@ -117,7 +117,7 @@ export default {
     border-radius: 10px;
     font-size: 21px;
     position: absolute;
-    right: -68px;
+    right: -30px;
     top: -23px;
 }
 

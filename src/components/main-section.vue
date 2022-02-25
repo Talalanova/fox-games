@@ -43,8 +43,11 @@ hr {
 
 .section__content {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 250px);
-    column-gap: 40px;
-    row-gap: 40px;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    -moz-column-gap: 2%;
+    column-gap: 2%;
+    row-gap: 2%;
+    /* display: flex;
+    justify-content: space-between; */
 }
 </style>

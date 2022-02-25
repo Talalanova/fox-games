@@ -38,13 +38,12 @@ export default {
 html,
 body {
   height: 100%;
+  width: 100%;
 }
 
 body {
   box-sizing: border-box;
-  max-width: 1600px;
-  min-width: 320px;
-  margin: auto;
+  margin: 0;
 }
 
 #app {
@@ -64,12 +63,18 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 .wrapper {
   display: grid;
   grid-template-columns: 240px auto;
-  column-gap: 110px;
+  /* grid-template-columns: 1fr auto; */
+  max-width: 1500px;
+  min-width: 320px;
+  margin: 0 auto;
+  /* column-gap: 110px; */
+  column-gap: 5%;
   height: 100%;
 }
 
@@ -92,9 +97,8 @@ h1 {
 .main-content {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-left: 350px;
-  width: 1150px;
+  /* width: 1145px; */
+  /* margin-left: 350px; */
 }
 
 main {
@@ -133,4 +137,12 @@ footer {
     transform: translate(-100%, 0)
   }
 } */
+
+@media (max-width: 1080px) {
+  footer {
+    min-height: 600px;
+    background-image: url("~@/assets/footer-mobile.svg");
+  }
+
+}
 </style>

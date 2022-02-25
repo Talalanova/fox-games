@@ -3,7 +3,6 @@
     <slide v-for="slide in slides" :key="slide">
       <img v-bind:src="slide.img" width="1140" height="215"> 
     </slide>
-
     <template #addons>
       <navigation />
       <pagination />

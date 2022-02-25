@@ -32,10 +32,15 @@ export default {
     background: -webkit-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
     background: -moz-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
     background: linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
-    display: grid;
-    grid-template-columns: 410px 110px 140px;
-    align-items: center;    
-    column-gap: 150px;
+    /* display: grid;
+    grid-template-columns: 410px 110px 140px;  
+    column-gap: 150px; */
+    align-items: center;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+
     margin-left: auto;
     padding: 4px 60px;
     position: relative;
@@ -78,6 +83,7 @@ export default {
 
 .header__cart {
     position: relative;
+    margin-left: 20px;
 }
 
 
@@ -96,5 +102,15 @@ export default {
 .header__phone {
     color: white;
     margin-left: auto;
+}
+
+@media (max-width: 1080px) {
+    .header__search-bar input {
+        min-width: 100px;
+    }
+
+    .header__phone {
+        display: none;
+    }
 }
 </style>

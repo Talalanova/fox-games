@@ -77,4 +77,10 @@ export default {
     color: #B6B6B6;
     font-weight: 300;
 }
+
+@media (max-width: 1440px) {
+    .comment__content {
+        column-gap: 0px;
+    }
+}
 </style>

@@ -123,10 +123,11 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 0 40px 30px 0;
-  position: relative;
   padding: 40px 0 0;
-  width: 240px;
-  position: fixed;
+  /* width: 240px; */
+  /* position: fixed; */
+  max-width: 240px;
+  position: relative;
   top: 0;
   bottom: 0;
 }

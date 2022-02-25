@@ -3,8 +3,10 @@
     <h1>Корзина</h1>
     <hr>
     <form method="post" action="#">
-      <button class="cart__choose-button">Выделить все</button>
-      <button class="cart__remove-button">Удалить выбранное</button>
+      <div class="cart__buttons">
+        <button class="cart__choose-button">Выделить все</button>
+        <button class="cart__remove-button">Удалить выбранное</button>
+      </div>
       <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
       <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
       <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
@@ -21,7 +23,7 @@
           <button type="button" @click="delivery = !delivery" class="cart__delivery-rules">Правила резерва товара</button>
         </div>
         <div class="cart__contacts-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru" width="542" height="456" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru" width="100%" height="456" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
       </div>
     </form>
@@ -106,6 +108,10 @@ export default {
   padding: 40px 0;
 }
 
+.cart__buttons {
+  text-align: right;
+}
+
 .cart__choose-button {
   font-size: 13px;
   line-height: 14px;
@@ -114,7 +120,6 @@ export default {
   background-color: white;
   position: relative;
   padding-left: 30px;
-  margin-left: 78%;
   cursor: pointer;
 }
 
@@ -159,7 +164,7 @@ export default {
 
 .cart__contacts-frame {
   display: grid;
-  grid-template-columns: auto 542px;
+  grid-template-columns: auto auto;
   border: 1px solid #CB7D49;
   border-radius: 0 0 40px 40px;
   border-top: none;
@@ -209,9 +214,9 @@ export default {
   right: 66px;
 }
 
-@-moz-document url-prefix() {
+/* @-moz-document url-prefix() {
   .cart__contacts-info .submit { top: 244px;}
-}
+} */
 
 .cart__contacts-info .submit:hover {
   color: #4B0101;

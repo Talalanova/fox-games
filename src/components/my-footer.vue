@@ -51,16 +51,19 @@ export default {
 
 <style scoped>
 .footer {
-    display: grid;
-    grid-template-columns: 430px 300px 160px;
-    column-gap: 45px;
-    margin-left: auto;
+    /* display: grid;
+    grid-template-columns: auto auto auto; */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 2% 0 6%;
     align-items: center;
     margin-bottom: -30px;
 }
 .footer__links {
     display: grid;
     grid-template-columns: auto auto auto;
+    column-gap: 15px;
     list-style: none;
     color: white;
     padding: 0;
@@ -77,11 +80,10 @@ export default {
     background-color: #CB7D49;
     border-radius: 35px;
     color: white;
-    
 }
 
 .footer__subscribe form {
-    margin: 20px 0;
+    padding: 12px;
     text-align: center;
     font-family: "Nunito", "Arial", sans-serif;
 }
@@ -107,11 +109,32 @@ form button {
     padding: 5px 10px;
     font-weight: 700;
 }
+
 .footer__copyright {
     color: white;
     text-decoration: none;
-    grid-column: 1 / -1;
-    margin-left: auto;
-    margin-right: 050px;
+    width: 100%;
+    margin-left: 50%;
+}
+
+@media (max-width: 1080px) {
+    .footer {
+        padding: 0;
+        flex-direction: column;
+    }
+
+    .footer__subscribe {
+        border-radius: 0;
+    }
+
+    .footer__links {
+        order: -1;
+        margin: 20px auto;
+        column-gap: 35px;
+    }
+
+    .footer__copyright {
+        margin: 0;
+    }
 }
 </style>

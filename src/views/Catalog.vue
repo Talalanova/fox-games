@@ -49,7 +49,7 @@ export default {
 
 .catalog__section {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 350px);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   margin-bottom: 40px;
 
 }

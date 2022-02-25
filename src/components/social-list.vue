@@ -34,4 +34,14 @@ export default {
     align-items: center;
 }
 
+@media (max-width: 1080px) {
+    .header .social-list {
+        display: none;
+    }
+
+    .footer .social-list {
+        margin: 15px auto;
+    }
+}
+
 </style>

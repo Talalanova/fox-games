@@ -1,6 +1,6 @@
 <template>
     <div class="cart-item" :class="[inStock <= 2 ? 'cart-item--outofstock' : '']">
-        <div>
+        <div class="cart-item__pic">
             <input type="checkbox" :id="itemId" :value="itemId">
             <label :for="itemId"></label>
             <img :src= pic width="89" height="89" alt="">
@@ -187,5 +187,33 @@ export default {
 input[type="checkbox"]:checked + label::before {
     background-color: #CB7D49;
     border-color: #CB7D49;
+}
+
+@media (max-width: 568px) {
+    .cart-item {
+        grid-template-columns: 95px auto;
+        padding: 2% 2% 2% 6%;
+        margin: 20px 0;
+    }
+
+    .cart-item__pic {
+        grid-row: 1 / 4;
+    }
+
+    .cart-item__title {
+        font-size: 18px;
+        line-height: 19px;
+    }
+
+    .counter {
+        order: 3;
+        max-width: 120px;
+    }
+
+    .cart-item__price--discont {
+        align-items: center;
+        gap: 4%;
+        margin: 15px auto;
+    }
 }
 </style>

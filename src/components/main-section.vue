@@ -50,4 +50,10 @@ hr {
     /* display: flex;
     justify-content: space-between; */
 }
+
+@media (max-width: 1080px) {
+    .section__content {
+        grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+    }
+}
 </style>

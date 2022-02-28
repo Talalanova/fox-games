@@ -44,7 +44,7 @@ export default {
 
 <style>
 .catalog-page {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 
 .catalog__section {

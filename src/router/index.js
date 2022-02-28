@@ -60,12 +60,6 @@ const routes = [
     props: true
   },
   {
-    path: '/noveltys',
-    name: 'noveltys',
-    component: () => import('../views/noveltys.vue'),
-    props: true
-  },
-  {
     path: '/Catalog',
     name: 'Catalog',
     component: () => import('../views/Catalog.vue'),

@@ -1,5 +1,12 @@
 <template>
     <div class="header">
+        <button type="button" aria-label="Открыть боковое меню" class="header__close-button" @click="openSideMenu">
+            <svg width="25" height="22" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="1" x2="24" y2="1" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="1" y1="11" x2="24" y2="11" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <line x1="1" y1="21" x2="24" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
         <span class="header__search-bar">
             <input type="text" id="" placeholder="Поиск...">
             <router-link to="/cart" class="header__cart header__cart--active">
@@ -22,6 +29,11 @@ export default {
     name: 'MyHeader',
     components: {
     SocialList   
+    },
+    methods: {
+        openSideMenu() {
+            document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
+        }
     }
     
 }
@@ -55,6 +67,10 @@ export default {
     left: -42px;
     bottom: -10px;
     background-repeat: no-repeat;
+}
+
+.header__close-button {
+    display: none;
 }
 
 .header__search-bar {
@@ -105,6 +121,26 @@ export default {
 }
 
 @media (max-width: 1080px) {
+    .header {
+        position: static;
+        padding: 3%;
+        width: 100%;
+    }
+
+    .header::before  {
+        width: 0;
+    }
+
+    .header__close-button {
+        display: block;
+        background: none;
+        border: none;
+    }
+
+    .header__search-bar {
+      margin-left: auto;  
+    }
+
     .header__search-bar input {
         min-width: 100px;
     }

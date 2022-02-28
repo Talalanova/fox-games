@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 .about {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 
 .about__text {

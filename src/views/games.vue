@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 .games {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 
 </style>

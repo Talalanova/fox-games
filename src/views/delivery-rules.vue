@@ -24,7 +24,7 @@ export default {
 
 <style scoped>
 .delivery {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 
 .delivery__info {

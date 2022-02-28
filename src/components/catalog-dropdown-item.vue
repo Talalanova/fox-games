@@ -110,4 +110,14 @@ export default {
 .catalog__sublist--opened {
     display: block;
 }
+
+@media (max-width: 1080px) {
+    .catalog__sublist {
+        box-shadow: none;
+        position: static;
+        border: none;
+        width: auto;
+        padding: 10px 10px 0 66px;
+    }
+}
 </style>

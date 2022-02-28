@@ -33,6 +33,6 @@ export default {
 
 <style scoped>
 .news {
-  padding: 40px 0;
+  padding: 40px 10px;
 }
 </style>

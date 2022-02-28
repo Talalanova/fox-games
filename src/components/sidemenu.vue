@@ -8,11 +8,7 @@
     <span class="sidemenu__item sidemenu__item--catalog">
       <router-link class="sidemenu__link" to="/Catalog">Каталог</router-link>
       <button ref="sidemenuButton" class="sidemenu__button" @click="openCutCatalog"></button>
-      </span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/about">О нас</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
+    </span>
     <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog">
       <vue-collapsible-panel-group accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
         <vue-collapsible-panel :expanded="false">
@@ -77,6 +73,11 @@
         </vue-collapsible-panel>
       </vue-collapsible-panel-group>
     </div>
+    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/about">О нас</router-link></span>
+    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
+    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
+    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
+
   </div>
 </template>
 
@@ -158,6 +159,7 @@ export default {
 
 .sidemenu__logo {
   margin-bottom: 40px;
+  max-width: 320px;
 }
 
 .sidemenu__logo img {
@@ -302,6 +304,30 @@ export default {
 }
 .cut-catalog__list a:hover {
   color: #6A1F12;
+}
+
+@media (max-width: 1080px) {
+  .sidemenu {
+    z-index: 3;
+    height: 100%;
+    display: none;
+    position: fixed;
+    border-radius: 0;
+  }
+
+  .sidemenu--opened {
+    display: flex;
+  }
+
+  .sidemenu__cut-catalog--opened {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 0;
+    padding: 0;
+  }
 }
 
 </style>

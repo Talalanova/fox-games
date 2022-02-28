@@ -59,6 +59,7 @@ export default {
     padding: 0 2% 0 6%;
     align-items: center;
     margin-bottom: -30px;
+    width: 100%;
 }
 .footer__links {
     display: grid;
@@ -125,12 +126,13 @@ form button {
 
     .footer__subscribe {
         border-radius: 0;
+        width: 100%;
     }
 
     .footer__links {
         order: -1;
         margin: 20px auto;
-        column-gap: 35px;
+        column-gap: 50px;
     }
 
     .footer__copyright {

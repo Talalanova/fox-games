@@ -35,7 +35,7 @@ export default {
 <style scoped>
 
 .news-page {
-    padding: 40px 0;
+    padding: 40px 10px;
 }
 
 .news-page h3 {

@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <sidemenu></sidemenu>
+    <div class="overlay"></div>
     <div class="main-content">
       <header>
         <MyHeader></MyHeader>
@@ -71,7 +72,7 @@ img {
   grid-template-columns: 240px auto;
   /* grid-template-columns: 1fr auto; */
   max-width: 1500px;
-  min-width: 320px;
+  min-width: 350px;
   margin: 0 auto;
   /* column-gap: 110px; */
   column-gap: 5%;
@@ -138,11 +139,36 @@ footer {
   }
 } */
 
+.overlay {
+  position: fixed; 
+  display: none; 
+  width: 100%; 
+  height: 100%; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); 
+  z-index: 2; 
+  cursor: pointer; 
+}
+
 @media (max-width: 1080px) {
   footer {
     min-height: 600px;
     background-image: url("~@/assets/footer-mobile.svg");
   }
+  .wrapper {
+    display: block;
+  }
 
+  .main-content {
+
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 28px;
+  }
 }
 </style>

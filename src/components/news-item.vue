@@ -61,4 +61,11 @@ export default {
     font-size: 22px;
     line-height: 23px;
 }
+
+@media (max-width: 1080px) { 
+    .news-item {
+        grid-template-rows: 250px auto;
+        grid-template-columns: auto;
+    }
+}
 </style>

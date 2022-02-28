@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 .contacts {
-  padding: 40px 0;
+  padding: 40px 10px;
   position: relative;
 }
 
@@ -132,5 +132,16 @@ export default {
   color: #4B0101;
   border: 1px solid #CB7D49;
   background-color: white;
+}
+
+@media (max-width: 568px) {
+  .contacts__frame {
+    grid-template-columns: auto;
+    grid-template-rows: auto auto;
+  }
+
+  .contacts__info {
+    font-size: 18px;
+  }
 }
 </style>

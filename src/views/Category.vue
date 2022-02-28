@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 .category {
-  padding: 40px 0;
+  padding: 40px 10px;
   position: relative;
 }
 
@@ -63,5 +63,12 @@ export default {
   line-height: 25px;
   word-break: break-word;
   text-align: left;
+}
+
+@media (max-width: 1080px) {
+  .intro {
+    grid-template-rows: auto auto;
+    grid-template-columns: auto;
+  }
 }
 </style>

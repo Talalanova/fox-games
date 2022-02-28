@@ -34,7 +34,7 @@ export default {
 <style scoped>
 
 .game-page {
-    padding: 40px 0;
+    padding: 40px 10px;
 }
 
 .game-page h3 {

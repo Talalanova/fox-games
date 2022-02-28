@@ -142,7 +142,7 @@ export default {
 
 <style scoped>
 .item-page {
-  padding: 40px 0;
+  padding: 40px 5px;
 }
 
 .item__data {
@@ -437,6 +437,7 @@ export default {
     display: flex;
     flex-direction: row;
     margin: 15px 0;
+    overflow: scroll;
   }
 
   .price {
@@ -445,12 +446,25 @@ export default {
     border-radius: 5px;
   }
 
+  .tabs {
+    display: flex;
+    overflow: scroll;
+  }
+
   .tabs a {
     padding: 9px 6px;
+    font-size: 18px;
+    line-height: 18px;
   }
 
   .comment__field {
     max-width: 560px;
+    width: 90%;
+    margin: 20px 0;
+  }
+
+  .tabcontent__button--inverted {
+    padding: 7px;
   }
 }
 

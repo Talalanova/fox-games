@@ -5,14 +5,13 @@
         </div>
         <div class="comment__content">
             <span class="comment__name">
-                {{ getRandomArrayElement(someRandomNames).name }}
+                {{ name }}
             </span>
             <span class="comment__date">
                 {{ date }}
             </span>
             <span class="comment__text">
-                <!-- {{ text }} -->
-                <slot></slot>
+               {{ text }}
             </span>
         </div>
     </div>
@@ -25,12 +24,12 @@ export default {
     name: 'Comment',    
     props: {        
         date: String,
-        // text: String,
+        name: String,
+        text: String
     },
     data() {
         return {
             someRandomNames,
-            
         }
     },
     methods: {

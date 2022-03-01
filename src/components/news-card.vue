@@ -59,4 +59,23 @@ export default {
     padding: 8px 20px;
 }
 
+@media (max-width: 1080px) {
+
+    .news-card {
+        padding: 10px;
+    }
+
+    .news-card__title {
+        font-size: 18px;
+        line-height: 19px;
+        margin: 5px 0;
+    }
+
+    .news-card__desc {
+        margin: 5px 0;
+        font-size: 16px;
+        line-height: 17px;
+    }
+}
+
 </style>

@@ -125,10 +125,9 @@ export default {
   flex-direction: column;
   border-radius: 0 40px 30px 0;
   padding: 40px 0 0;
-  /* width: 240px; */
-  /* position: fixed; */
+  width: 240px; 
+  position: fixed;
   max-width: 240px;
-  position: relative;
   top: 0;
   bottom: 0;
 }
@@ -196,7 +195,6 @@ export default {
   font-weight: 700;
   color: white;
   padding: 15px 0 15px 20px;
-  
 }
 
 .sidemenu__item {
@@ -297,6 +295,7 @@ export default {
   list-style: none;
   padding: 0;
   margin: 0;
+  text-align: left;
 }
 
 .cut-catalog__list a {
@@ -311,7 +310,6 @@ export default {
     z-index: 3;
     height: 100%;
     display: none;
-    position: fixed;
     border-radius: 0;
   }
 

@@ -108,8 +108,6 @@ export default {
 </script>
 
 <style scoped>
-
-
 .sorting {
     display: flex;
     flex-direction: column;
@@ -288,5 +286,11 @@ input[type="checkbox"]:checked + label::before {
     background-color: #CB7D49;
     color: white;
     cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .sorting {
+        
+    }
 }
 </style>

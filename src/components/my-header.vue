@@ -33,6 +33,7 @@ export default {
     methods: {
         openSideMenu() {
             document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
+            document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
         }
     }
     
@@ -123,7 +124,7 @@ export default {
 @media (max-width: 1080px) {
     .header {
         position: static;
-        padding: 3%;
+        padding: 10px;
         width: 100%;
     }
 

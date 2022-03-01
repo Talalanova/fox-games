@@ -159,4 +159,23 @@ export default {
     padding: 8px 20px;
 }
 
+@media (max-width: 1080px) {
+
+    .item-card {
+        padding: 10px;
+    }
+
+    .item-card__title {
+        font-size: 18px;
+        line-height: 19px;
+        margin: 5px 0;
+    }
+
+    .item-card__desc {
+        margin: 5px 0;
+        font-size: 16px;
+        line-height: 17px;
+    }
+}
+
 </style>

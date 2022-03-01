@@ -2,6 +2,12 @@
   <div class="item-page item">    
     <h1>{{ itemData.title }}</h1>
     <hr>
+    <Breadcrumbs>
+      <router-link to="/Catalog">Категории</router-link>
+      <router-link to="/Catalog">Ужасы</router-link>
+      <router-link to="/Catalog">Вселенная Лавкрафта</router-link>
+      <router-link to="/">Особняки безумия</router-link>
+    </Breadcrumbs>
     <div class="item__data">
       <div class="item__current-pic" v-bind:class="[ getStatus(itemData.inStock) ]" :title="stockStatus[itemData.inStock]">
         <span class="prev" @click="updateImage(selectedPic - 1)" ></span>
@@ -37,12 +43,14 @@
           <a v-on:click="activetab='5'" v-bind:class="[ activetab === '5' ? 'active' : '' ]">Отзывы и вопросы({{itemData.comments.length}})</a>
         </div>
         <div class="content">
-          <div v-if="activetab ==='1'" class="tabcontent">
+          <div v-if="activetab ==='1'" class="tabcontent text-hidden" ref="tabContent">
             {{itemData.description}}
+            <button type="button" class="tabcontent__button--inverted tabcontent__button--right" @click="showMore">Продолжение...</button>
             <!-- <img src="@/assets/description_border.png" width="1100" height="85" alt=""> плохо масштабируется, лучше убрать-->
           </div>
-          <div v-if="activetab ==='2'" class="tabcontent">
+          <div v-if="activetab ==='2'" class="tabcontent text-hidden" ref="tabContent">
             {{itemData.rules}}
+            <button type="button" class="tabcontent__button--inverted tabcontent__button--right" @click="showMore">Продолжение...</button>
           </div>
           <div v-if="activetab ==='3'" class="tabcontent section__content">
             <ItemCard buttonValue="6990р"></ItemCard>
@@ -58,11 +66,12 @@
           </div>
           <div v-if="activetab ==='5'" class="tabcontent">
             <div>
-              <Comment v-for="item in itemData.comments.slice(0,3)" v-bind:key="item.index" :text="item.message" :date="item.date">{{item.message}}</Comment>
-              <form method="post" action="#">                
-                <textarea class="comment__field" placeholder="Напишите комментарий" required v-bind="newComment"></textarea>
+              <Comment v-for="item in itemData.comments.slice(0,3)" v-bind:key="item.index" :text="item.message" :date="item.date" :name="item.name"></Comment>
+              <form method="post" action="#">
+                <input class="comment__field--name" type="text" :placeholder="getRandomArrayElement(someRandomNames).name" v-model="commentName" id="commentName"/>
+                <textarea class="comment__field" placeholder="Напишите комментарий" required v-model="commentText" id="commentText"></textarea>
                 <button type="button" class="tabcontent__button--inverted" @click="updateComments">Еще комментарии...</button>
-                <button type="submit" class="tabcontent__button" @click="addComment">Отправить</button>
+                <button type="submit" class="tabcontent__button" @click.prevent="addComment">Отправить</button>
               </form>
             </div>
           </div>
@@ -78,11 +87,12 @@
 </template>
 
 <script>
-
+import { someRandomNames } from '@/data.js'
 import Comment from '@/components/comment.vue'
 import {itemParameters,itemData,stockStatus} from '@/data.js'
 import MainSection from '@/components/main-section.vue'
 import ItemCard from '@/components/item-card.vue'
+import Breadcrumbs from '@/components/breadcrumbs.vue'
 
 export default {
   name: 'ItemPage',
@@ -93,13 +103,16 @@ export default {
       selectedPic: 0,
       activetab: '1' ,
       stockStatus,
-      newComment: ''
+      commentText: '',
+      someRandomNames,
+      commentName: null
     }
   },
   components: {
     MainSection,
     ItemCard,
-    Comment
+    Comment,
+    Breadcrumbs
   },
     methods: {
 		updateImage(index = 0) {
@@ -132,9 +145,19 @@ export default {
       this.itemData.comments = this.itemData.comments.slice(3,itemData.comments.length + 1);
     },
     addComment() {
-      this.newComment = ''
-      this.itemData.comments.push(this.newComment) 
-      //Не отправляет значение поля в массив комментариев
+      let newComment = {
+        name: this.commentName,
+        message: this.commentText
+      }
+      this.itemData.comments.push(newComment) 
+      this.commentName = ''
+      this.commentText = ''
+    },
+    showMore() {
+      this.$refs.tabContent.classList.toggle('text-hidden')
+    },
+    getRandomArrayElement(arr) {
+      return arr[Math.floor(Math.random()*arr.length)]
     }
   }
 }
@@ -171,8 +194,8 @@ export default {
   border-radius: 0 0 10px 10px;
   border-top: none;
   padding: 0 25px 5px 25px;
-  margin-bottom: 15px;
-  margin-top: -20px;
+  margin-bottom: 53px;
+  margin-top: -58px;
 }
 
 .parameters {
@@ -239,6 +262,12 @@ export default {
 
 .item__current-pic {
   position: relative;
+}
+
+.item__thumbs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .item__thumbs img:first-child {
@@ -311,16 +340,23 @@ export default {
 }
 
 .tabcontent {
-  padding: 30px 10px;
+  padding: 40px 10px;
   border: 1px solid #ccc;
   border-radius: 0 0 10px 10px;
   box-shadow: 4px 4px 8px #e1e1e1;
   font-family: "Nunito", "Arial", sans-serif;
-  font-size: 21px;
-  line-height: 23px;
-  font-weight: 300;
+  font-size: 24px;
+  line-height: 25px;
+  font-weight: 200;
   text-align: left;
   position: relative;
+  min-height: 300px;
+}
+
+.tabcontent form{
+  display: flex;
+  flex-direction: column;
+  padding: 0 9%;
 }
 
 .tabcontent__button {
@@ -372,15 +408,28 @@ export default {
 }
 
 .comment__field {
+  font-family: 'Nunito', 'Arial', sans-serif;
   border: 1px solid #CB7D49;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 8px 10px;
   max-width: 100%;
-  width: 1020px;
+  width: 90%;
   margin: 10px 0 30px 0;
   font-size: 16px;
   resize: none;
-  margin-left: 85px;
+  /* margin-left: 85px; */
+}
+
+.comment__field--name {
+  border: 1px solid #CB7D49;
+  border-radius: 5px;
+  max-width: 100%;
+  min-width: 150px;
+  width: 40%;
+  margin: 30px 0 10px 0;
+  padding: 5px;
+  /* margin-left: 85px; */
+  font-size: 16px;
 }
 
 .inStock::after {
@@ -427,6 +476,10 @@ export default {
   top: 10px;
 }
 
+.tabcontent__button--right {
+  right: 20px;
+}
+
 @media (max-width: 1440px) { 
   .item__data {
     display: flex;
@@ -465,6 +518,7 @@ export default {
 
   .tabcontent__button--inverted {
     padding: 7px;
+    line-height: 16px;
   }
 }
 

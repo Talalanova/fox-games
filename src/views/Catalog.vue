@@ -1,42 +1,48 @@
 <template>
   <div class="catalog-page">
-      <div class="catalog__section">
-        <h2>Настольные игры</h2>
-        <hr>
-        <CatalogDropdownItem></CatalogDropdownItem>
-      </div>
-      <div class="catalog__section">
-        <h2>Аксессуары</h2>
-        <hr>
-        <CatalogList></CatalogList>
-      </div>
-      <div class="catalog__section">
-        <h2>Миниатюрки</h2>
-        <hr>
-        <CatalogList></CatalogList>
-      </div>
-      <div class="catalog__section">
-        <h2>Книги и журналы</h2>
-        <hr>
-        <CatalogList></CatalogList>
-      </div>
-      <div class="catalog__section">
-        <h2>Мерч и сувениры</h2>
-        <hr>
-        <CatalogList></CatalogList>
-      </div>
+    <h2>Настольные игры</h2>
+    <hr>
+    <Breadcrumbs>
+      <router-link to="/">Главная</router-link>
+      <router-link to="/Catalog">Каталог</router-link>
+    </Breadcrumbs>
+    <div class="catalog__section">
+      <CatalogDropdownItem></CatalogDropdownItem>
+    </div>
+    <div class="catalog__section">
+      <h2>Аксессуары</h2>
+      <hr>
+      <CatalogList></CatalogList>
+    </div>
+    <div class="catalog__section">
+      <h2>Миниатюрки</h2>
+      <hr>
+      <CatalogList></CatalogList>
+    </div>
+    <div class="catalog__section">
+      <h2>Книги и журналы</h2>
+      <hr>
+      <CatalogList></CatalogList>
+    </div>
+    <div class="catalog__section">
+      <h2>Мерч и сувениры</h2>
+      <hr>
+      <CatalogList></CatalogList>
+    </div>
   </div>
 </template>
 
 <script>
 import CatalogDropdownItem from '@/components/catalog-dropdown-item.vue'
 import CatalogList from '@/components/catalog-list.vue'
+import Breadcrumbs from '@/components/breadcrumbs.vue'
 
 export default {
     name: 'Catalog',
     components: {
       CatalogDropdownItem,
       CatalogList,
+      Breadcrumbs
     },
 
 }
@@ -54,7 +60,7 @@ export default {
 
 }
 
-.catalog__section h2 {
+.catalog-page h2 {
   font-weight: 300;
   font-size: 36px;
   line-height: 49px;

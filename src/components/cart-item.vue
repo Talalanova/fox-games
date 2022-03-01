@@ -7,9 +7,9 @@
         </div>
        <router-link to="/item-full" class="cart-item__title">{{ title }}</router-link>
        <span class="counter" v-if="inStock > 2">
-           <button @click="plus">+</button>
-           <p>{{ counter }}</p>
            <button @click="minus">-</button>
+           <p>{{ counter }}</p>
+           <button @click="plus">+</button>
        </span>
         <span class="item__outofstock" v-if="inStock <= 2">           
            <p>Нет в наличии</p>           
@@ -214,6 +214,28 @@ input[type="checkbox"]:checked + label::before {
         align-items: center;
         gap: 4%;
         margin: 15px auto;
+        flex-direction: row;
+        font-size: 21px;
+        line-height: 22px;
+        margin: 15px auto 15px 0;
     }
+
+    .discont {
+        position: static;
+        padding: 3px;
+    }
+
+    .cart-item label::before {
+        left: -65px;
+    }
+
+    .cart-item label::after {
+        left: -63px;
+    }
+}
+
+@media (max-width: 1080px) {
+
+
 }
 </style>

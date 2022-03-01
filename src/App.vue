@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <sidemenu></sidemenu>
-    <div class="overlay"></div>
+    <div class="overlay--white" @click.self="closeSidemenu"></div>
     <div class="main-content">
       <header>
         <MyHeader></MyHeader>
@@ -31,6 +31,12 @@ export default {
     sidemenu,
     MyHeader,
     MyFooter,
+  },
+  methods: {
+    closeSidemenu() {
+      document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
+      document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
+    }
   }
 }
 </script>
@@ -68,8 +74,8 @@ img {
 }
 
 .wrapper {
-  display: grid;
-  grid-template-columns: 240px auto;
+  /* display: grid; */
+  /* grid-template-columns: min-content 1fr; */
   /* grid-template-columns: 1fr auto; */
   max-width: 1500px;
   min-width: 350px;
@@ -98,8 +104,8 @@ h1 {
 .main-content {
   display: flex;
   flex-direction: column;
-  /* width: 1145px; */
-  /* margin-left: 350px; */
+  margin-left: 350px;
+  height: 100%;
 }
 
 main {
@@ -141,7 +147,6 @@ footer {
 
 .overlay {
   position: fixed; 
-  display: none; 
   width: 100%; 
   height: 100%; 
   top: 0;
@@ -151,6 +156,39 @@ footer {
   background-color: rgba(0,0,0,0.5); 
   z-index: 2; 
   cursor: pointer; 
+}
+
+.overlay--white {
+  position: fixed; 
+  width: 100%; 
+  height: 100%; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.904); 
+  z-index: 2; 
+  cursor: pointer;
+  display: none;
+}
+
+.overlay--white--show {
+  display: block;
+}
+
+.text-hidden {
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -ms-line-clamp: 10;
+  -webkit-line-clamp: 10;
+  line-clamp: 10;
+  display: -webkit-box;
+  display: box;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
 }
 
 @media (max-width: 1080px) {
@@ -163,7 +201,7 @@ footer {
   }
 
   .main-content {
-
+    margin-left: 0;
   }
 
   h1 {

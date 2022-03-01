@@ -64,7 +64,7 @@ export default {
 .footer__links {
     display: grid;
     grid-template-columns: auto auto auto;
-    column-gap: 15px;
+    column-gap: 65px;
     list-style: none;
     color: white;
     padding: 0;

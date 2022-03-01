@@ -2,6 +2,9 @@
   <div class="cart">    
     <h1>Корзина</h1>
     <hr>
+    <Breadcrumbs>
+      <router-link to="/cart">Корзина</router-link>
+    </Breadcrumbs>
     <form method="post" action="#">
       <div class="cart__buttons">
         <button class="cart__choose-button">Выделить все</button>
@@ -43,12 +46,14 @@
 
 <script>
 import CartItem from '@/components/cart-item.vue'
+import Breadcrumbs from '@/components/breadcrumbs.vue'
 import { itemData } from '@/data.js'
 
 export default {
   name: 'Cart',
   components: {
-    CartItem
+    CartItem,
+    Breadcrumbs
   },
   data() {
     return {
@@ -63,20 +68,7 @@ export default {
 </script>
 
 <style scoped>
-.overlay {
-  position: fixed;
-  top: 0px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
-  overflow: auto;
-}
+
 
 .delivery__info {
   position: absolute;
@@ -241,6 +233,7 @@ export default {
   border: 1px solid #CB7D49;
   color: white;
 }
+
 @media (max-width: 568px) {
   .cart__contacts-frame {
     grid-template-columns: auto;

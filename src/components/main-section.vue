@@ -36,7 +36,7 @@ hr {
     width: 100%;
     height: 1px;
     background-color: #CB7D49;
-    margin: 10px 0 20px 0;
+    margin: 10px 0;
     grid-column: 1 / -1;
     border: none;
 }
@@ -54,6 +54,10 @@ hr {
 @media (max-width: 1080px) {
     .section__content {
         grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+    }
+
+    .section h2 {
+        font-size: 30px;
     }
 }
 </style>

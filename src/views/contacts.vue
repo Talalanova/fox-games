@@ -8,6 +8,7 @@
         <span class="contacts__worktime">с 10:00 до 19:00</span>
         <span class="contacts__adress">улица Гоголя, 39А, Владивосток</span>
         <form method="post" action="#">
+          <p>Обратная связь</p>
           <input type="text" placeholder="*Имя" required/>
           <input type="tel" placeholder="*Номер" required/>
           <textarea placeholder="Комментарий"></textarea>
@@ -38,13 +39,26 @@ export default {
 .contacts__frame {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.contacts__map {
   border: 1px solid #CB7D49;
   border-radius: 40px;
   overflow: hidden;
+  position: relative;
+}
+
+.contacts__map::before {
+  position: absolute;
+  content: "";
+  width: 142px;
+  height: 30px;
   background-image: url('~@/assets/sidemenu_green.svg');
   background-repeat: no-repeat;
-  background-position: bottom left;
-  background-size: 142px 30px;
+  background-size: 142px, 30px;
+  bottom: 0;
+  left: 0;
 }
 
 .contacts__info {
@@ -60,6 +74,7 @@ export default {
 
 .contacts__info form {
   position: relative;
+  font-family: "Nunito", "Arial", sans-serif;
 }
 
 .contacts__phone {

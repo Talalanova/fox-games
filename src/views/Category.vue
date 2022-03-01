@@ -3,6 +3,11 @@
     <SortingBar></SortingBar>
     <h1>{{ title }}</h1>
     <hr>
+    <Breadcrumbs>
+      <router-link to="/Catalog">Категории</router-link>
+      <router-link to="/Catalog">Ужасы</router-link>
+      <router-link to="/Catalog">Вселенная Лавкрафта</router-link>
+    </Breadcrumbs>
     <div class="intro">
       <span class="intro__text">
         Приехав в Аркхэм и добравшись по грязным переулкам до особняков, вы сразу понимаете, что они покинуты и привычных обитателей внутри точно нет. Дома явно покидали в спешке... Вы также чувствуете напряжённость и ощущение чего-то потустороннего, опасного и необъяснимого. Сыщики без работы не останутся точно.
@@ -27,12 +32,14 @@
 <script>
 import ItemCard from '@/components/item-card.vue'
 import SortingBar from '@/components/sorting-bar.vue'
+import Breadcrumbs from '@/components/breadcrumbs.vue'
 
 export default {
   name: 'Category',
   components: {
     ItemCard,
     SortingBar,
+    Breadcrumbs,
   },
   data() {
     return {
@@ -69,6 +76,17 @@ export default {
   .intro {
     grid-template-rows: auto auto;
     grid-template-columns: auto;
+    padding: 20px 0;
   }
+
+  .intro__text {
+    font-size: 22px;
+    line-height: 22px;
+  }
+
+  .category h1 {
+    margin-bottom: 31px;
+  }
+
 }
 </style>

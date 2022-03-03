@@ -6,7 +6,7 @@
       <header>
         <MyHeader></MyHeader>
       </header>
-      <main class="main">
+      <main class="main" @mouseenter="foxTrail()"> <!-- -->
         <router-view/>
       </main>
       <footer>
@@ -36,12 +36,31 @@ export default {
     closeSidemenu() {
       document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
       document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
+    },
+    foxTrail() {
+      for (let i = 0; i < 6; i++) {
+        let trail = document.createElement('div');
+        trail.className = "trail"
+        trail.style.right = i + `9px`
+        trail.style.bottom = i + `10px`   
+        setTimeout(() => {
+          document.querySelector('.main').append(trail)
+        },1500*(i + 1))
+        
+      }
     }
   }
 }
 </script>
 
 <style>
+.trail {
+  position: absolute;
+  height: 27px; width: 40px;
+  background-image: url('~@/assets/fox-trail.svg');
+  background-repeat: no-repeat;
+}
+
 html,
 body {
   height: 100%;
@@ -74,13 +93,9 @@ img {
 }
 
 .wrapper {
-  /* display: grid; */
-  /* grid-template-columns: min-content 1fr; */
-  /* grid-template-columns: 1fr auto; */
   max-width: 1550px;
   min-width: 350px;
   margin: 0 auto;
-  /* column-gap: 110px; */
   column-gap: 5%;
   height: 100%;
 }
@@ -124,26 +139,7 @@ footer {
   min-height: 415px;
   display: flex;
   align-items: end;
-  /* padding-bottom: 45px; */
 }
-
-/* .fox-trail {
-  background: url('~@/assets/fox-trail.png') 0 0 no-repeat;
-  position: absolute;
-  top: 100px;
-  width: 1100px;
-  height: 120px;
-  animation: slideIn 15s;
-}
-
-@keyframes slideIn {
-  0%{
-    transform: translate(100%, 0)
-  }
-  100% {
-    transform: translate(-100%, 0)
-  }
-} */
 
 .overlay {
   position: fixed; 

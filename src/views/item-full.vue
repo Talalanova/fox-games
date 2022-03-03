@@ -44,11 +44,11 @@
     </div>
     <div id="tabs" class="container">
         <div class="tabs">
-          <a v-on:click="activetab='1'" v-bind:class="[ activetab === '1' ? 'active' : '' ]">Описание</a>
-          <a v-on:click="activetab='2'" v-bind:class="[ activetab === '2' ? 'active' : '' ]">Правила</a>
+          <a v-if="itemData.description" v-on:click="activetab='1'" v-bind:class="[ activetab === '1' ? 'active' : '' ]">Описание</a>
+          <a v-if="itemData.rules" v-on:click="activetab='2'" v-bind:class="[ activetab === '2' ? 'active' : '' ]">Правила</a>
           <a v-on:click="activetab='3'" v-bind:class="[ activetab === '3' ? 'active' : '' ]">Игры серии</a>
           <a v-on:click="activetab='4'" v-bind:class="[ activetab === '4' ? 'active' : '' ]">Аксессуары</a>
-          <a v-on:click="activetab='5'" v-bind:class="[ activetab === '5' ? 'active' : '' ]">Отзывы и вопросы({{itemData.comments.length}})</a>
+          <a v-if="itemData.comments" v-on:click="activetab='5'" v-bind:class="[ activetab === '5' ? 'active' : '' ]">Отзывы и вопросы({{itemData.comments.length}})</a>
         </div>
         <div class="content">
           <div v-if="activetab ==='1'" class="tabcontent text-hidden" ref="tabContent">

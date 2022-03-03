@@ -82,6 +82,8 @@ export default {
   background-repeat: no-repeat;
   background-position: left top, bottom right;
   animation: 0.7s slideDown;
+  max-width: 600px;
+  width: 91%;
 }
 
 @keyframes slideDown {

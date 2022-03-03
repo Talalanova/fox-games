@@ -38,7 +38,7 @@
             </li>
         </ul>
         <SocialList></SocialList>
-        <a href="https://delomain.com/" class="footer__copyright">© 2021 Разработано Digital Agency “Delomain”</a>
+        <a href="https://delomain.com/" class="footer__copyright">© 2022 Разработано Digital Agency “Delomain”</a>
     </div>
 </template>
 
@@ -64,6 +64,7 @@ export default {
     /* margin-bottom: -30px; */
     width: 100%;
 }
+
 .footer__links {
     display: grid;
     grid-template-columns: auto auto auto;

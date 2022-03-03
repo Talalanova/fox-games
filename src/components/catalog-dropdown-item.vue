@@ -58,14 +58,12 @@ export default {
     grid-template-columns: 258px 28px;
 }
 
-
 .catalog__link {
     color: black;
     margin: auto 0;
     cursor: pointer;
     position: relative;
     line-height: 45px;
-    /* border-bottom: 1px solid #CB7D49; */
 }
 
 .catalog__link:hover {
@@ -82,7 +80,6 @@ export default {
     background-image: url('~@/assets/catalog__arrow-down-noborder.svg');
     background-repeat: no-repeat;
     background-position: 6px;
-    /* transition: 0.5s; */
     border: none;
     background-color: white;
     margin: auto;
@@ -106,9 +103,10 @@ export default {
     margin: 0;
     box-shadow: none;
     position: static;
-    border: none;
     width: auto;
     padding: 0 0 0 66px;
+    /* border: 1px solid #CB7D49;
+    border-radius: 5px; */
 }
 
 .catalog__genre--noicon .catalog__sublist {

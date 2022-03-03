@@ -7,43 +7,48 @@
       <router-link to="/Catalog">Каталог</router-link>
     </Breadcrumbs>
     <div class="catalog__section">
-      <CatalogDropdownItem></CatalogDropdownItem>
+      <CatalogDropdownItem :categorys="tableGames"></CatalogDropdownItem>
     </div>
     <div class="catalog__section">
       <h2>Аксессуары</h2>
       <hr>
-      <CatalogList></CatalogList>
+      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
     </div>
     <div class="catalog__section">
       <h2>Миниатюрки</h2>
       <hr>
-      <CatalogList></CatalogList>
+      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
     </div>
     <div class="catalog__section">
       <h2>Книги и журналы</h2>
       <hr>
-      <CatalogList></CatalogList>
+      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
     </div>
     <div class="catalog__section">
       <h2>Мерч и сувениры</h2>
       <hr>
-      <CatalogList></CatalogList>
+      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
     </div>
   </div>
 </template>
 
 <script>
 import CatalogDropdownItem from '@/components/catalog-dropdown-item.vue'
-import CatalogList from '@/components/catalog-list.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
+import {tableGames, otherCategorys} from '@/data.js'
 
 export default {
     name: 'Catalog',
     components: {
       CatalogDropdownItem,
-      CatalogList,
-      Breadcrumbs
+      Breadcrumbs,
     },
+    data() {
+      return {
+        tableGames,
+        otherCategorys
+      }
+    }
 
 }
 </script>

@@ -77,7 +77,7 @@ img {
   /* display: grid; */
   /* grid-template-columns: min-content 1fr; */
   /* grid-template-columns: 1fr auto; */
-  max-width: 1500px;
+  max-width: 1550px;
   min-width: 350px;
   margin: 0 auto;
   /* column-gap: 110px; */
@@ -120,11 +120,11 @@ footer {
   flex: 0 0 auto;
   background-image: url("~@/assets/footer_background.svg");
   background-repeat: no-repeat;
-  background-position: -70px 0px;
-  min-height: 360px;
+  background-position: -30px 0px;
+  min-height: 415px;
   display: flex;
   align-items: end;
-  padding-bottom: 45px;
+  /* padding-bottom: 45px; */
 }
 
 /* .fox-trail {

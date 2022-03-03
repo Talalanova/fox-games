@@ -2,6 +2,11 @@
     <div class="game-page">
         <h1>Игротеки</h1>
         <hr>
+        <Breadcrumbs>
+            <router-link to="/">Главная</router-link>
+            <router-link to="/games">Игротеки</router-link>
+            <router-link to="/games-item">Игротека в эту субботу</router-link>
+        </Breadcrumbs>
         <div class="game-page__content">
             <h3>Игротека в эту субботу!</h3>
             <img src="@/assets/news-img-mini.jpg" width="250" height="200" alt="">
@@ -26,8 +31,13 @@
 </template>
 
 <script>
+import Breadcrumbs from '@/components/breadcrumbs.vue'
+
 export default {
-    name: 'gamePage'
+    name: 'gamePage',
+    components: {
+        Breadcrumbs
+    }
 }
 </script>
 

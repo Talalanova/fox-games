@@ -1,89 +1,175 @@
-export let categorys = [
+export let tableGames = [
     {
         name: 'Вечериночные',
         icon: require('@/assets/catalog_icon_party.png'),
-        games: ['Свинтус', 'Фанты', 'Обмани меня', 'Loonacy'],
+        subcategorys: ['Свинтус', 'Фанты', 'Обмани меня', 'Loonacy'],
         id: 1
     },
     {
         name: 'Викторины',
         icon: require('@/assets/catalog_icon_party.png'),
-        games: ['Какой ты мем', 'Эпичные схватки боевых магов', 'Мафия', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: ['Какой ты мем', 'Эпичные схватки боевых магов', 'Мафия', 'Взрывные котята', 'Фанты', 'Обмани меня'],
         id: 2
     },
     {
         name: 'Детективные',
         icon: require('@/assets/catalog_icon_party.png'),
-        games: ['Мафия', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 3
     },
     {
         name: 'Детские',
         icon: require('@/assets/catalog_icon_child.png'),
-        games: ['Языколом', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 4
     },
     {
         name: 'Стратегические',
         icon: require('@/assets/catalog_icon_strategy.png'),
-        games: ['Языколом', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: ['Языколом', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
         id: 5
     },
     {
         name: 'Дуэльные',
         icon: require('@/assets/catalog_icon_fight.png'),
-        games: ['Языколом', 'Мафия', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: ['Языколом', 'Мафия', 'Взрывные котята', 'Фанты', 'Обмани меня'],
         id: 6
     },
     {
         name: 'Карточные',
         icon: require('@/assets/catalog_icon_card.png'),
-        games: ['Языколом', 'Эпичные схватки боевых магов', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 7
     },
     {
         name: 'Классические',
         icon: require('@/assets/catalog_icon_classic.png'),
-        games: ['Языколом', 'Экономикус', 'Взрывные котята', 'Эпичные схватки боевых магов', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 8
     },
     {
         name: 'Логические',
         icon: require('@/assets/catalog_icon_logyc.png'),
-        games: ['Мафия', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 9
     },
     {
         name: 'Хорроры',
         icon: require('@/assets/catalog_icon_horror.png'),
-        games: ['Языколом', 'Эпичные схватки боевых магов', 'Экономикус', 'Мафия', 'Фанты', 'Обмани меня'],
+        subcategorys: ['Языколом', 'Эпичные схватки боевых магов', 'Экономикус', 'Мафия', 'Фанты', 'Обмани меня'],
         id: 10
     },
     {
         name: 'Приключенческие',
         icon: require('@/assets/catalog_icon_adventure.png'),
-        games: ['Языколом', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: ['Языколом', 'Экономикус', 'Взрывные котята', 'Фанты', 'Обмани меня'],
         id: 11
     },
     {
         name: 'Семейные',
         icon: require('@/assets/catalog_icon_family.png'),
-        games: ['Языколом', 'Экономикус', 'Эпичные схватки боевых магов', 'Взрывные котята', 'Фанты', 'Обмани меня'],
+        subcategorys: null,
         id: 12
     },
 ]
 
-export let accessories = [
-    'Фигурки и блоки',
-    'Сувениры Гарри Поттер',
-    'Модели военной техники',
-    'Наклейки и карточки',
-    'Наборы для покера',
-    'Кубики для игры',
-    'Сувениры DC',
-    'Сувениры Marvel',
-    'Плакаты',
-    'Карты для D&D',
+export let otherCategorys = [
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 21
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 22
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 13
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 14
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 15
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 16
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 17
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 18
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 19
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 110
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 111
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 112
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 921
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: ['Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория', 'Подкатегория'],
+        id: 922
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 913
+    },
+    {
+        name: 'Категория',
+        icon: null,
+        subcategorys: null,
+        id: 914
+    },
 
 ]
 
@@ -103,13 +189,13 @@ export let stockStatus =  {
 }
 
 export let itemData = {
-    discont: 10,
+    discont: 15,
     id: 2795,
     inStock: 3 ,
     title: 'Особняки безумия. Вторая редакция',
     desc: 'Никто не выйдет',
     price : 6990,
-    age : '+13',
+    age : '13+',
     time : '120 - 180',
     players : '1 - 5',
     cardSize : '119х69мм, 41х63мм',

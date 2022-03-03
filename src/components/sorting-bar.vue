@@ -46,7 +46,7 @@
                     </div>
                     <p class="sorting__label">Цена</p>
                     <SliderRange></SliderRange>
-                    <input class="sorting__checkbox" type="checkbox" :value="discont" id="discont"/>
+                    <input class="sorting__checkbox" type="checkbox" value="discont" id="discont"/>
                     <label for="discont">Только со скидкой</label>
                     <p class="sorting__label">Наличие</p>
                     <span class="tags-wrapper">
@@ -96,7 +96,7 @@ export default {
             tagsOpen: false,
             inStocks: ['В наличии', 'Не важно', 'С доставкой'],
             inStockOpen: false,
-            ages: ['3-5 лет', '6-7 лет', '8-12 лет', '13-15 лет', '16-17 лет', '18+']
+            ages: ['3+', '6+', '12+', '15+', '18+']
         }
     },
     components: {

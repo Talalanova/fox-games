@@ -1,5 +1,5 @@
 <template>
-  <div class="sidemenu">
+  <div ref="sidemenu" class="sidemenu">
     <div class="sidemenu__logo">
       <a href="/">
         <img src="@/assets/logo.svg">
@@ -9,15 +9,15 @@
       <router-link class="sidemenu__link" to="/Catalog">Каталог</router-link>
       <button ref="sidemenuButton" class="sidemenu__button" @click="openCutCatalog"></button>
     </span>
-    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog">
+    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog" id="sidemenuCutCatalog">
       <vue-collapsible-panel-group accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
         <vue-collapsible-panel :expanded="false">
           <template #title>
             Настольные игры
           </template>
           <template #content>
-            <div class="cut-catalog__list">
-              <router-link to="/Category" v-for="category in categorys" v-bind:key="category.index">
+            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
+              <router-link to="/Category" v-for="category in tableGames" v-bind:key="category.index">
                 {{category.name}}
               </router-link>
             </div>
@@ -28,9 +28,9 @@
             Аксессуары
           </template>
           <template #content>
-            <div class="cut-catalog__list">
-              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
-                {{item}}
+            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
+              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
+                {{item.name}}
               </router-link>
             </div>
           </template>
@@ -40,9 +40,9 @@
             Книги и журналы
           </template>
           <template #content>
-            <div class="cut-catalog__list">
-              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
-                {{item}}
+            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
+              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
+                {{item.name}}
               </router-link>
             </div>
           </template>
@@ -52,9 +52,9 @@
             Мерч и сувениры
           </template>
           <template #content>
-            <div class="cut-catalog__list">
-              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
-                {{item}}
+            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
+              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
+                {{item.name}}
               </router-link>
             </div>
           </template>
@@ -64,9 +64,9 @@
             Миниатюрки
           </template>
           <template #content>
-            <div class="cut-catalog__list">
-              <router-link to="/Category" v-for="item in accessories" v-bind:key="item.index">
-                {{item}}
+            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
+              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
+                {{item.name}}
               </router-link>
             </div>
           </template>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { accessories, categorys } from '@/data.js'
+import { otherCategorys, tableGames } from '@/data.js'
 
 import  { VueCollapsiblePanelGroup, VueCollapsiblePanel } from '@dafcoe/vue-collapsible-panel'
 import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'
@@ -91,8 +91,8 @@ export default {
   name: 'sidemenu',
   data() {
     return {
-      accessories,
-      categorys,
+      otherCategorys, 
+      tableGames,
     }
   },
   methods: {
@@ -107,7 +107,14 @@ export default {
           this.$refs.sidemenuButton.classList.toggle('sidemenu__button--clicked');
         }
       })
-    }
+    },
+    closeCatalogOnMobile() {
+      if (window.innerWidth <= 1080) {
+        this.openCutCatalog()
+        document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
+        this.$refs.sidemenu.classList.toggle('sidemenu--opened')
+      }
+    },
   },components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
@@ -124,12 +131,13 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 0 40px 30px 0;
-  padding: 40px 0 0;
+  /* padding: 40px 0 0; */
   width: 240px; 
   position: fixed;
   max-width: 240px;
   top: 0;
   bottom: 0;
+  height: 100%;
 }
 
 .sidemenu::after {
@@ -157,7 +165,7 @@ export default {
 }
 
 .sidemenu__logo {
-  margin-bottom: 40px;
+  margin: 40px 0;
   max-width: 320px;
 }
 
@@ -278,7 +286,7 @@ export default {
   padding: 25px 0;
   position: absolute;
   left: 105%;
-  top: 90px;
+  top: 60px;
   z-index: 100;
   min-width: 240px;
   font-size: 18px;
@@ -308,9 +316,10 @@ export default {
 @media (max-width: 1080px) {
   .sidemenu {
     z-index: 3;
-    height: 100%;
+    /* height: 100%; */
     display: none;
     border-radius: 0;
+    overflow: auto;
   }
 
   .sidemenu--opened {

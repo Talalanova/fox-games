@@ -1,33 +1,43 @@
 <template>
-    <div v-for="category in categorys" v-bind:key="category.name" class="catalog__genre">
-        <img v-bind:src="category.icon" width="50" height="50">
+    <div v-for="category in categorys" v-bind:key="category.name" :class="[category.icon == null ? 'catalog__genre catalog__genre--noicon' : 'catalog__genre']">
+        <img v-bind:src="category.icon" width="50" height="50" v-if="category.icon != null">
         <router-link to="/Category" class="catalog__link">
             {{ category.name }}
         </router-link>
-        <button class="catalog__button" @click="showId(category.id)"></button>
-        <div class="catalog__sublist" v-bind:id= category.id @mouseleave="showId(category.id)">
-            <router-link to="/item-full" v-for="item in category.games" v-bind:key="item.index">
+        <button class="catalog__button" @click="showId(category.id)" v-if="category.subcategorys != null"></button>
+        <div class="catalog__sublist" v-bind:id = category.id>  
+            <router-link to="/Category" v-for="item in category.subcategorys" v-bind:key="item.index">
                 {{ item }}
             </router-link>
         </div>
     </div>
 </template>
+
 <script>
-import {categorys} from '@/data.js'
 
 export default {
     name: 'CatalogDropdownItem',
     data() {
         return {
-            categorys, 
+
         }
     },
     methods: {
         showId: function (key){	
-            let item = document.getElementById(key)                  				
+            let item = document.getElementById(key)
+            let sublist = item.parentNode.querySelector('.catalog__sublist')
             item.classList.toggle('catalog__sublist--opened')
             item.previousSibling.classList.toggle('catalog__button--fill')
+            item.parentNode.classList.toggle('catalog__genre--opened')
+            if (item.classList.contains('catalog__sublist--opened')) {
+                item.parentNode.style.gridRow = `span ${sublist.childElementCount}`
+            } else {
+               item.parentNode.style.gridRow = `span 1` 
+            } 
         }
+    },
+    props: {
+        categorys: Object
     }
 }
 </script>
@@ -39,10 +49,16 @@ export default {
     text-align: left;
     column-gap: 15px;
     font-family: "Nunito", "Arial", sans-serif;
-    font-size: 24px;
-    line-height: 33px;
+    font-size: 22px;
+    line-height: 30px;
     position: relative;
 }
+
+.catalog__genre--noicon {
+    grid-template-columns: 258px 28px;
+}
+
+
 .catalog__link {
     color: black;
     margin: auto 0;
@@ -63,9 +79,10 @@ export default {
 .catalog__button {
     width: 28px;
     height: 28px;
-    background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
+    background-image: url('~@/assets/catalog__arrow-down-noborder.svg');
     background-repeat: no-repeat;
-    transition: 0.5s;
+    background-position: 6px;
+    /* transition: 0.5s; */
     border: none;
     background-color: white;
     margin: auto;
@@ -73,7 +90,11 @@ export default {
 }
 
 .catalog__button:hover {
-    background-image: url('~@/assets/catalog_arrow-brown.svg')
+    background-image: url('~@/assets/catalog_arrow-brown.svg');
+    background-position: 0px 0px;
+}
+.catalog__genre--opened .catalog__button {
+    background-position: 0px 0px;
 }
 
 .catalog__sublist {
@@ -83,16 +104,15 @@ export default {
     grid-column: 1 / -1;
     display: none;
     margin: 0;
-    position: absolute;
-    background-color: white;
-    width: calc(100% - 115px);
-    top: 94%;
-    left: 63px;
-    border: 1px solid #CB7D49;
-    border-radius: 5px;
-    padding: 10px 25px;
-    z-index: 1;
-    box-shadow: -1px 7px 24px -2px rgba(34, 60, 80, 0.4);
+    box-shadow: none;
+    position: static;
+    border: none;
+    width: auto;
+    padding: 0 0 0 66px;
+}
+
+.catalog__genre--noicon .catalog__sublist {
+    padding: 10px;
 }
 
 .catalog__sublist a {
@@ -113,11 +133,7 @@ export default {
 
 @media (max-width: 1080px) {
     .catalog__sublist {
-        box-shadow: none;
-        position: static;
-        border: none;
-        width: auto;
-        padding: 10px 10px 0 66px;
+        
     }
 }
 </style>

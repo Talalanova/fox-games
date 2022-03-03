@@ -115,7 +115,7 @@ export default {
     color: white;
     padding: 5px;
     border-radius: 10px;
-    font-size: 21px;
+    font-size: 18px;
     position: absolute;
     right: -30px;
     top: -23px;
@@ -194,6 +194,7 @@ input[type="checkbox"]:checked + label::before {
         grid-template-columns: 95px auto;
         padding: 2% 2% 2% 6%;
         margin: 20px 0;
+        column-gap: 5px;
     }
 
     .cart-item__pic {

@@ -18,7 +18,15 @@
         <img v-for="(item,index) in itemData.pics" :key="item.index" :src="item" @click="updateImage(index)" width="125" height="90" alt="">
       </div>
       <div class="item__information">
-        <span class="price"> {{ itemData.price }}₽</span>
+        <span :class="[itemData.discont > 0 ? 'price price--discont' : 'price']">
+          <span class="current-price">{{ itemData.price }}₽</span>
+          <span v-if="itemData.discont > 0" class="discont">
+            {{`-` + itemData.discont + `%` }}
+          </span>
+          <span v-if="itemData.discont > 0" class="discont-price">
+            {{ discontPrice + `₽`}}
+          </span>
+        </span>
         <span v-for="(value,name) in itemParameters" v-bind:key="value.index" class="row">
           <span class="parameters">{{ value }}</span>
           <span class="value"> {{ itemData[name] }}</span>          
@@ -46,7 +54,6 @@
           <div v-if="activetab ==='1'" class="tabcontent text-hidden" ref="tabContent">
             {{itemData.description}}
             <button type="button" class="tabcontent__button--inverted tabcontent__button--right" @click="showMore">Продолжение...</button>
-            <!-- <img src="@/assets/description_border.png" width="1100" height="85" alt=""> плохо масштабируется, лучше убрать-->
           </div>
           <div v-if="activetab ==='2'" class="tabcontent text-hidden" ref="tabContent">
             {{itemData.rules}}
@@ -105,7 +112,9 @@ export default {
       stockStatus,
       commentText: '',
       someRandomNames,
-      commentName: null
+      commentName: null,
+      price: Number,
+      discont: Number,
     }
   },
   components: {
@@ -113,6 +122,11 @@ export default {
     ItemCard,
     Comment,
     Breadcrumbs
+  },
+  computed: {
+    discontPrice: function() {
+        return this.itemData.price - (this.itemData.price*this.itemData.discont/100)
+    }
   },
     methods: {
 		updateImage(index = 0) {
@@ -165,12 +179,13 @@ export default {
 
 <style scoped>
 .item-page {
-  padding: 40px 5px;
+  padding: 40px 10px;
 }
 
 .item__data {
   display: grid;
   grid-template-columns: auto auto 417px;
+  align-items: stretch;
 }
 
 .item__data img {
@@ -185,17 +200,51 @@ export default {
 }
 
 .price {
-  font-size: 48px;
   font-weight: 700;
-  line-height: 49px;
+  line-height: 32px;
   color: #333333;
   margin-left: auto;
   border: 1px solid #CB7D49;
   border-radius: 0 0 10px 10px;
   border-top: none;
-  padding: 0 25px 5px 25px;
-  margin-bottom: 53px;
+  padding: 6px 13px 0 13px;
+  margin-bottom: 55px;
   margin-top: -58px;
+  align-items: center;
+
+}
+
+.current-price {
+  font-size: 48px;
+}
+
+.price--discont {
+  margin-bottom: 41px;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 5%;
+  padding: 2px 10px;
+}
+
+.price--discont .current-price {
+  font-size: 26px;
+  font-weight: 500;
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.discont {
+  background-color: #CB7D49;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.discont-price {
+  font-size: 26px;
+  grid-column: 1 / -1;
 }
 
 .parameters {
@@ -439,7 +488,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  right: 20px;
+  right: 30px;
   top: 10px;
 }
 
@@ -450,7 +499,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  right: 20px;
+  right: 30px;
   top: 10px;
 }
 
@@ -461,7 +510,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  right: 20px;
+  right: 30px;
   top: 10px;
 }
 
@@ -472,7 +521,7 @@ export default {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  right: 20px;
+  right: 30px;
   top: 10px;
 }
 

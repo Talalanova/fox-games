@@ -4,9 +4,10 @@
     <h1>{{ title }}</h1>
     <hr>
     <Breadcrumbs>
-      <router-link to="/Catalog">Категории</router-link>
-      <router-link to="/Catalog">Ужасы</router-link>
-      <router-link to="/Catalog">Вселенная Лавкрафта</router-link>
+      <router-link to="/">Главная</router-link>
+      <router-link to="/Catalog">Каталог</router-link>
+      <router-link to="/Catalog">Название категории</router-link>
+      <router-link to="/Catalog">Название подкатегории</router-link>
     </Breadcrumbs>
     <div class="intro">
       <span class="intro__text">
@@ -43,7 +44,7 @@ export default {
   },
   data() {
     return {
-      title: 'Вселенная Лавкрафта'
+      title: 'Категория/Подкатегория'
     }
   }
 }

@@ -88,7 +88,20 @@ const routes = [
     name: '404', 
     component: () => import('../views/404.vue'),
   }, 
-
+  { 
+    path: '/stocks', 
+    name: 'stocks', 
+    component: () => import('../views/stocks.vue'),
+  },
+  { 
+    path: '/privacy', 
+    name: 'privacy', 
+    component: () => import('../views/privacy.vue'),
+  }, 
+  {
+    path: "/:catchAll(.*)",    
+    redirect: '/404',
+  },
 ]
 
 const router = createRouter({

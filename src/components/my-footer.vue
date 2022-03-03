@@ -25,13 +25,16 @@
                 <router-link to="/games">Турниры</router-link>
             </li>
             <li>
-                <router-link to="/404">Акции</router-link>
+                <router-link to="/stocks">Акции</router-link>
             </li>
             <li>
                 <router-link to="/contacts">Контакты</router-link>
             </li>
             <li>
                 <router-link to="/Delivery">Доставка</router-link>
+            </li>
+            <li>
+                <router-link to="/privacy">Политика<br>конфиденциальности</router-link>
             </li>
         </ul>
         <SocialList></SocialList>
@@ -56,9 +59,9 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 0 2% 0 6%;
+    padding: 0 5% 0 6%;
     align-items: center;
-    margin-bottom: -30px;
+    /* margin-bottom: -30px; */
     width: 100%;
 }
 .footer__links {
@@ -75,6 +78,7 @@ export default {
 .footer__links a {
     color: white;
     text-decoration: none;
+    word-break: break-all;
 }
 
 .footer__subscribe {

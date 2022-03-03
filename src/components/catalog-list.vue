@@ -8,6 +8,7 @@
 
 <script>
 import {accessories} from '@/data.js'
+
 export default {
     name: 'CatalogList',
     data() {

@@ -42,6 +42,7 @@ export default {
 .games-item__pic img {
     background-color: #FFE9D4;
     border-radius: 10px;
+    margin: 0 auto;
 }
 
 .games-item__title {

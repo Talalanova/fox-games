@@ -2,9 +2,6 @@
   <div class="cart">    
     <h1>Корзина</h1>
     <hr>
-    <Breadcrumbs>
-      <router-link to="/cart">Корзина</router-link>
-    </Breadcrumbs>
     <form method="post" action="#">
       <div class="cart__buttons">
         <button class="cart__choose-button">Выделить все</button>
@@ -23,6 +20,8 @@
           <input type="tel" placeholder="*Номер" required/>
           <textarea placeholder="Комментарий"></textarea>
           <button class="submit" type="submit">Отправить</button>
+          <input class="cart__privacy--input" type="checkbox" id="privacy" value="privacy">
+          <label class="cart__privacy" for="privacy">Я подтверждаю свое согласие на обработку персональных данных</label>
           <button type="button" @click="delivery = !delivery" class="cart__delivery-rules">Правила резерва товара</button>
         </div>
         <div class="cart__contacts-map">
@@ -46,14 +45,12 @@
 
 <script>
 import CartItem from '@/components/cart-item.vue'
-import Breadcrumbs from '@/components/breadcrumbs.vue'
 import { itemData } from '@/data.js'
 
 export default {
   name: 'Cart',
   components: {
     CartItem,
-    Breadcrumbs
   },
   data() {
     return {
@@ -234,10 +231,62 @@ export default {
   color: white;
 }
 
+.cart__privacy {
+  padding: 0 0 0 40px;
+  position: relative;
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.cart__privacy::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 0.5px solid #B6B6B6;
+  left: 2px;
+  bottom: 5px;
+}
+
+.cart__privacy::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-image: url('~@/assets/icon_checked.svg');
+  background-repeat: no-repeat;
+  left: 3px;
+  bottom: 6px;
+}
+
+input[type="checkbox"]:checked + .cart__privacy::before {
+  background-color: #CB7D49;
+  border-color: #CB7D49;
+}
+
+.cart__privacy--input {
+  display: none;
+}
+
 @media (max-width: 568px) {
   .cart__contacts-frame {
     grid-template-columns: auto;
     grid-template-rows: auto auto;
+    position: relative;
+    background-image: none;
+  }
+
+  .cart__contacts-frame::after {
+    position: absolute;
+    content: "";
+    width: 175px;
+    height: 47px;
+    bottom: 0;
+    background-image: url('~@/assets/sidemenu_green.svg');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: 146px 33px;
   }
 }
 

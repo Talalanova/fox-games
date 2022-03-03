@@ -1,6 +1,12 @@
 <template>
     <div class="news-page">
         <h1>Новости</h1>
+        <hr>
+        <Breadcrumbs>
+            <router-link to="/">Главная</router-link>
+            <router-link to="/news">Новости</router-link>
+            <router-link to="/news-item">Новость недели</router-link>
+        </Breadcrumbs>
         <div class="news-page__content">
             <h3>Главная новость этой недели!</h3>
               <img src="@/assets/news-img-mini.jpg" width="250" height="200" alt="">
@@ -27,8 +33,12 @@
 </template>
 
 <script>
+import Breadcrumbs from '@/components/breadcrumbs.vue'
 export default {
-    name: 'newsPage'
+    name: 'newsPage',
+    components: {
+        Breadcrumbs
+    }
 }
 </script>
 

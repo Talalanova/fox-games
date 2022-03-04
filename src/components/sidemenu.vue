@@ -77,12 +77,19 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-
+    <div class="sidemenu__ad">
+      <img :src='sidemenuAd.img' width="110" height="100">
+      <span>
+        <router-link to="/stocks">
+          {{ sidemenuAd.text }}
+        </router-link>        
+        </span>
+    </div>
   </div>
 </template>
 
 <script>
-import { otherCategorys, tableGames } from '@/data.js'
+import { otherCategorys, tableGames, sidemenuAd } from '@/data.js'
 
 import  { VueCollapsiblePanelGroup, VueCollapsiblePanel } from '@dafcoe/vue-collapsible-panel'
 import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'
@@ -93,6 +100,7 @@ export default {
     return {
       otherCategorys, 
       tableGames,
+      sidemenuAd
     }
   },
   methods: {
@@ -312,6 +320,35 @@ export default {
 .cut-catalog__list a:hover {
   color: #6A1F12;
 }
+
+.sidemenu__ad {
+  margin: auto auto 0;
+  background-image: url('~@/assets/sidemenu-add.png');
+  background-repeat: no-repeat;
+  min-height: 210px;
+  min-width: 190px;
+  word-break: break-word;
+  z-index: 100;
+}
+
+.sidemenu__ad a {
+  color: white;
+  font-size: 14px;
+  line-height: 19px;
+  font-weight: 600;
+}
+
+.sidemenu__ad  img {
+  margin: 0 auto;
+  margin-top: 55px;
+}
+
+.sidemenu__ad span {
+  max-width: 110px;
+  display: inline-block;
+  margin-top: 8px;
+}
+
 
 @media (max-width: 1080px) {
   .sidemenu {

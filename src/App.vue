@@ -6,7 +6,7 @@
       <header>
         <MyHeader></MyHeader>
       </header>
-      <main class="main" @mouseenter="foxTrail()"> <!-- -->
+      <main class="main"> 
         <router-view/>
       </main>
       <footer>
@@ -33,34 +33,91 @@ export default {
     MyFooter,
   },
   methods: {
+
     closeSidemenu() {
       document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
       document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
     },
-    foxTrail() {
-      for (let i = 0; i < 6; i++) {
-        let trail = document.createElement('div');
-        trail.className = "trail"
-        trail.style.right = i + `9px`
-        trail.style.bottom = i + `10px`   
-        setTimeout(() => {
-          document.querySelector('.main').append(trail)
-        },1500*(i + 1))
-        
-      }
-    }
-  }
+  },
+  mounted() {
+    window.addEventListener('load', () => {
+          let foxTrail = () => {
+            for (let i = 0; i < 11; i++) {
+              let trail = document.createElement('div');
+              trail.className = "trail"
+              trail.style.right = Math.round(i/2) + 4*i + `9px`
+              trail.style.top = 10 - i + `4px`
+              
+              setTimeout(() => {
+                document.querySelector('.header').append(trail)
+              },1100*(i + 1))
+
+              setTimeout(() => {
+                let trail = document.querySelector('.trail')
+                trail.style.opacity = 0
+
+                setTimeout(() => {
+                  trail.parentNode.removeChild(trail)
+                },700)
+                
+              },1300*(i + 4))
+            }
+          };
+
+          let foxTrailSideMenu = () => {
+            for (let i = 0; i < 6; i++) {
+              let trail = document.createElement('div');
+              trail.className = "trail--sidemenu"
+              trail.style.left = Math.round(i/2) + 5*i + `7px`
+              trail.style.bottom = 1 + i + `9px`
+              //  trail.style.top = 10 + Math.round(i/2) + 2*i + `4`
+
+              setTimeout(() => {
+                document.querySelector('.sidemenu').append(trail)
+              },1100*(i + 1))
+
+              setTimeout(() => {
+                let trail = document.querySelector('.trail--sidemenu')
+                trail.style.opacity = 0
+
+                setTimeout(() => {
+                  trail.parentNode.removeChild(trail)
+                },600)
+                
+              },1300*(i + 4))
+            }
+          };
+
+        setInterval(() => {
+          foxTrail();
+        },60000)
+
+        setInterval(() => {
+          foxTrailSideMenu();
+        },30000)
+    })
+},
 }
 </script>
 
 <style>
 .trail {
   position: absolute;
-  height: 27px; width: 40px;
+  height: 29px; width: 42px;
   background-image: url('~@/assets/fox-trail.svg');
   background-repeat: no-repeat;
+  /* transform: rotate(-20deg); */
+  transition: 1.5s;
 }
 
+.trail--sidemenu {
+  position: absolute;
+  height: 29px; width: 42px;
+  background-image: url('~@/assets/fox-trail-sidemenu.svg');
+  background-repeat: no-repeat;
+  transform: rotate(-252deg);
+  transition: 1.5s;
+}
 html,
 body {
   height: 100%;
@@ -125,6 +182,7 @@ h1 {
 
 main {
   flex: 1 0 auto;
+  position: relative;
 }
 
 .index {

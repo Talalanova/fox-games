@@ -11,6 +11,12 @@
       <GamesItem title="Важное!" img='card_img.png'>
         Игротека по Особнякам Безумия переносится на следующую среду! 
       </GamesItem>
+      <div class="pagination">
+        <router-link to="/games">1</router-link>
+        <router-link to="/games">2</router-link>
+        <router-link to="/games">3</router-link>
+        <router-link to="/games">4</router-link>
+      </div>
   </div>
 </template>
 
@@ -28,6 +34,26 @@ export default {
 <style scoped>
 .games {
   padding: 40px 10px;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  margin: 40px 0 0 0;
+  justify-content: center;
+}
+
+.pagination a {
+  color: #333333;
+  border: 1px solid #CB7D49;
+  padding: 5px;
+  border-radius: 4px;
+  margin-right: 12px;
+}
+
+.pagination a:hover {
+  background-color: #CB7D49;
+  color: white;
 }
 
 </style>

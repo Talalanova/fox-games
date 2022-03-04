@@ -71,7 +71,7 @@ export default {
     column-gap: 65px;
     list-style: none;
     color: white;
-    padding: 0;
+    padding: 0 5px;
     margin: 0;
     text-align: left;
 }

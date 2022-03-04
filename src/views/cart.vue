@@ -19,7 +19,7 @@
           <input type="text" placeholder="*Имя" required/>
           <input type="tel" placeholder="*Номер" required/>
           <textarea placeholder="Комментарий"></textarea>
-          <button class="submit" type="submit">Отправить</button>
+          <button class="submit" type="submit">Оформить заказ</button>
           <input class="cart__privacy--input" type="checkbox" id="privacy" value="privacy">
           <label class="cart__privacy" for="privacy">Я подтверждаю свое согласие на обработку персональных данных</label>
           <button type="button" @click="delivery = !delivery" class="cart__delivery-rules">Правила резерва товара</button>

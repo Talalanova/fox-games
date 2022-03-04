@@ -210,6 +210,7 @@ footer {
   background-color: rgba(0,0,0,0.5); 
   z-index: 2; 
   cursor: pointer; 
+  overflow: auto;
 }
 
 .overlay--white {

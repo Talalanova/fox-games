@@ -372,6 +372,10 @@ export default {
     border-radius: 0;
     padding: 0;
   }
+
+  .sidemenu::after {
+    background-image: none;
+  }
 }
 
 </style>

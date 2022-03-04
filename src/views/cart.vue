@@ -290,6 +290,12 @@ input[type="checkbox"]:checked + .cart__privacy::before {
     background-position: bottom left;
     background-size: 146px 33px;
   }
+
+  .delivery__info {
+    top: 20px;
+    transform: translate(-50%, 0);
+    width: 80%;
+  }
 }
 
 </style>

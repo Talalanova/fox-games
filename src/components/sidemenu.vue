@@ -328,7 +328,7 @@ export default {
   min-height: 210px;
   min-width: 190px;
   word-break: break-word;
-  z-index: 100;
+  z-index: 10;
 }
 
 .sidemenu__ad a {
@@ -351,6 +351,7 @@ export default {
 
 
 @media (max-width: 1080px) {
+
   .sidemenu {
     z-index: 3;
     /* height: 100%; */
@@ -371,6 +372,7 @@ export default {
     left: 0;
     border-radius: 0;
     padding: 0;
+    overflow: auto;
   }
 
   .sidemenu::after {

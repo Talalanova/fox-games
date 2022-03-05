@@ -10,6 +10,9 @@
         <span class="header__search-bar">
             <form method="get" action="#">
                 <input type="text" id="" placeholder="Поиск...">
+                <div class="header__datalist" >
+                    <span v-for="item in searched" :key="item">{{item.name}}</span>
+                </div>
             </form>
             <router-link to="/cart" class="header__cart header__cart--active">
                 <svg width="25" height="25" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,9 +29,15 @@
 
 <script>
 import SocialList from '@/components/social-list.vue'
+import {searched} from '@/data.js'
 
 export default {
     name: 'MyHeader',
+    data() {
+        return {
+            searched
+        }
+    },
     components: {
     SocialList   
     },
@@ -96,6 +105,20 @@ export default {
     padding: 8px 20px;
     border: none;
     min-width: 320px;
+}
+
+.header__datalist {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    background-color: white;
+    z-index: 1;
+    font-size: 21px;
+    line-height: 22px;
+    border: 1px solid #CB7D49;
+    border-radius: 0 5px 5px 5px;
 }
 
 .header__cart {

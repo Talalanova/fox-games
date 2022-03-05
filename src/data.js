@@ -230,3 +230,11 @@ export let sidemenuAd = {
     text: 'Комплектом дешевле!',
     img: require('@/assets/sidemenuAdPic.png')
 }
+
+export let searched = [
+    {pic: require('@/assets/card_img.png'), name: 'Взрывные котята'},
+    {pic: require('@/assets/card_img.png'), name: 'Взрывные котята'},
+    {pic: require('@/assets/card_img.png'), name: 'Взрывные котята'},
+    {pic: require('@/assets/card_img.png'), name: 'Взрывные котята'},
+    {pic: require('@/assets/card_img.png'), name: 'Взрывные котята'}
+]

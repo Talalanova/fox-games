@@ -6,13 +6,13 @@
       <header>
         <MyHeader></MyHeader>
       </header>
-      <main class="main"> 
+      <main class="main">
+        <img class="trail" v-for="step in genSteps" :key="step.index" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }">
         <router-view/>
       </main>
       <footer>
         <MyFooter></MyFooter>
       </footer>
-      <div class="fox-trail"></div>
     </div>
   </div>  
 </template>
@@ -32,81 +32,107 @@ export default {
     MyHeader,
     MyFooter,
   },
+  data() {
+    return {
+      // step: Object,
+      steps: [
+        { x : 217, y: 19, r: 18 },
+        { x : 217, y: 19, r: 18 },
+        { x : 200, y: 78, r: 11 },
+        { x : 160, y: 130, r: 18 },
+        { x : 97, y: 161, r: 28 },
+        { x : 65, y: 213, r: 30 },
+        { x : 14, y: 236, r: 30 },
+        { x : 0, y: 287, r: 27 },
+        { x : -30, y: 328, r: 39},        
+      ],
+      genSteps : [],
+    }
+  },
   methods: {
-
     closeSidemenu() {
       document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
       document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
     },
+    processStep()  {
+      setTimeout(() => {
+        const newStep = this.steps.shift()
+        this.genSteps = [...this.genSteps, newStep]
+        if (this.steps.length <= 0) {
+            this.steps = this.genSteps.splice(0,10)
+        }
+        this.processStep();
+      }, 1000)
+    }
   },
   mounted() {
-    window.addEventListener('load', () => {
-          let foxTrail = () => {
-            for (let i = 0; i < 11; i++) {
-              let trail = document.createElement('div');
-              trail.className = "trail"
-              trail.style.right = Math.round(i/2) + 4*i + `9px`
-              trail.style.top = 10 - i + `4px`
-              
-              setTimeout(() => {
-                document.querySelector('.header').append(trail)
-              },1100*(i + 1))
+    this.processStep();
 
-              setTimeout(() => {
-                let trail = document.querySelector('.trail')
-                trail.style.opacity = 0
+    // let foxTrail = () => {
+    //   for (let i = 0; i <= 11; i++) {
+    //     let trail = document.createElement('div');
+    //     trail.className = "trail"
+    //     trail.style.right = Math.round(i/2) + 4*i + `9px`
+    //     trail.style.top = 10 - i + `4px`
+        
+    //     setTimeout(() => {
+    //       document.querySelector('.header').append(trail)
+    //     },1100*(i + 1))
 
-                setTimeout(() => {
-                  trail.parentNode.removeChild(trail)
-                },700)
-                
-              },1300*(i + 4))
-            }
-          };
+    //     setTimeout(() => {
+    //       let trail = document.querySelector('.trail')
+    //       trail.style.opacity = 0
 
-          let foxTrailSideMenu = () => {
-            for (let i = 0; i < 6; i++) {
-              let trail = document.createElement('div');
-              trail.className = "trail--sidemenu"
-              trail.style.left = Math.round(i/2) + 5*i + `7px`
-              trail.style.bottom = 1 + i + `9px`
-              //  trail.style.top = 10 + Math.round(i/2) + 2*i + `4`
+    //       setTimeout(() => {
+    //         trail.parentNode.removeChild(trail)
+    //       },700)
+          
+    //     },1300*(i + 3))
+    //   }
+    // };
 
-              setTimeout(() => {
-                document.querySelector('.sidemenu').append(trail)
-              },1100*(i + 1))
+    // let foxTrailSideMenu = () => {
+    //   for (let i = 0; i <= 4; i++) {
+    //     let trail = document.createElement('div');
+    //     trail.className = "trail--sidemenu"
+    //     trail.style.left = Math.round(i/2) + 5*i + `7px`
+    //     trail.style.bottom = 1 + i + `9px`
+    //     //  trail.style.top = 10 + Math.round(i/2) + 2*i + `4`
 
-              setTimeout(() => {
-                let trail = document.querySelector('.trail--sidemenu')
-                trail.style.opacity = 0
+    //     setTimeout(() => {
+    //       document.querySelector('.sidemenu').append(trail)
+    //     },1100*(i + 1))
 
-                setTimeout(() => {
-                  trail.parentNode.removeChild(trail)
-                },600)
-                
-              },1300*(i + 4))
-            }
-          };
+    //     setTimeout(() => {
+    //       let trail = document.querySelector('.trail--sidemenu')
+    //       trail.style.opacity = 0
 
-        setInterval(() => {
-          foxTrail();
-        },60000)
+    //       setTimeout(() => {
+    //         trail.parentNode.removeChild(trail)
+    //       },600)
+          
+    //     },1300*(i + 2))
+    //   }
+    // };
 
-        setInterval(() => {
-          foxTrailSideMenu();
-        },30000)
-    })
-},
+    // setInterval(() => {
+    //   foxTrail();
+    // },120000)
+
+    // setInterval(() => {
+    //   foxTrailSideMenu();
+    // },60000)
+  },
 }
 </script>
 
 <style>
-.trail {
+/* .trail {
   position: absolute;
   height: 29px; width: 42px;
   background-image: url('~@/assets/fox-trail.svg');
   background-repeat: no-repeat;
-  /* transform: rotate(-20deg); */
+  transform: rotate(15deg);
   transition: 1.5s;
 }
 
@@ -117,7 +143,12 @@ export default {
   background-repeat: no-repeat;
   transform: rotate(-252deg);
   transition: 1.5s;
+} */
+
+.trail {
+  position: absolute;
 }
+
 html,
 body {
   height: 100%;

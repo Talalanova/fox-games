@@ -48,22 +48,9 @@
                     <SliderRange></SliderRange>
                     <input class="sorting__checkbox" type="checkbox" value="discont" id="discont"/>
                     <label for="discont">Только со скидкой</label>
-                    <p class="sorting__label">Наличие</p>
-                    <span class="tags-wrapper">
-                        <input type="text" readonly="readonly" placeholder="..."/>
-                        <button type="button" @click="inStockOpen = !inStockOpen">
-                            <svg width="40" height="28" viewBox="0 0 40 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M35.5884 0C37.7975 0 39.5884 1.79086 39.5884 4V24C39.5884 26.2091 37.7975 28 35.5884 28H0.764851V0L35.5884 0Z" fill="#CB7D49"/>
-                                <path d="M25.7168 10L20.4641 17.5885C20.3845 17.7034 20.2147 17.7034 20.1352 17.5885L14.8824 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                            </svg>
-                        </button>
-                    </span>               
-                    <div class="inStock" v-if="inStockOpen">
-                        <span v-for="inStock in inStocks" v-bind:key="inStock.index">
-                            <input class="sorting__checkbox" type="checkbox" :value="inStock" :id="inStock"/>
-                            <label :for="inStock">{{inStock}}</label>
-                        </span>                        
-                    </div>
+                    <input class="sorting__checkbox" type="checkbox" value="inStock" id="inStock"/>
+                    <label for="inStock">В наличии</label>
+
                     <p class="sorting__label">Количество игроков</p>
                     <PlayerRange></PlayerRange>
                     <span class="players"><p>Любое</p><p>6+</p></span>
@@ -96,7 +83,7 @@ export default {
             tagsOpen: false,
             inStocks: ['В наличии', 'Не важно', 'С доставкой'],
             inStockOpen: false,
-            ages: ['3+', '6+', '12+', '15+', '18+']
+            ages: ['3 - 8', '8 - 14', '14 - 18', '18+']
         }
     },
     components: {
@@ -244,6 +231,7 @@ export default {
 .sorting label {
     position: relative;
     padding-left: 20px;
+    margin-right: 70px;
 }
 
 .sorting label::before {

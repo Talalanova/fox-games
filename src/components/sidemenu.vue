@@ -10,67 +10,20 @@
       <button ref="sidemenuButton" class="sidemenu__button" @click="openCutCatalog"></button>
     </span>
     <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog" id="sidemenuCutCatalog">
-      <vue-collapsible-panel-group accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
+      <vue-collapsible-panel-group v-for="item in tableGames" :key="item" accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
         <vue-collapsible-panel :expanded="false">
           <template #title>
-            Настольные игры
+            {{ item.name }}
           </template>
           <template #content>
             <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link to="/Category" v-for="category in tableGames" v-bind:key="category.index">
+              <router-link :to="'/Category/' + item.slug + '/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index">
                 {{category.name}}
               </router-link>
             </div>
           </template>
         </vue-collapsible-panel>
-        <vue-collapsible-panel :expanded="false">
-          <template #title>
-            Аксессуары
-          </template>
-          <template #content>
-            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
-                {{item.name}}
-              </router-link>
-            </div>
-          </template>
-        </vue-collapsible-panel>
-        <vue-collapsible-panel :expanded="false">
-          <template #title>
-            Книги и журналы
-          </template>
-          <template #content>
-            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
-                {{item.name}}
-              </router-link>
-            </div>
-          </template>
-        </vue-collapsible-panel>
-        <vue-collapsible-panel :expanded="false">
-          <template #title>
-            Мерч и сувениры
-          </template>
-          <template #content>
-            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
-                {{item.name}}
-              </router-link>
-            </div>
-          </template>
-        </vue-collapsible-panel>
-        <vue-collapsible-panel :expanded="false">
-          <template #title>
-            Миниатюрки
-          </template>
-          <template #content>
-            <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link to="/Category" v-for="item in otherCategorys" v-bind:key="item.index">
-                {{item.name}}
-              </router-link>
-            </div>
-          </template>
-        </vue-collapsible-panel>
+
       </vue-collapsible-panel-group>
     </div>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/about">О нас</router-link></span>

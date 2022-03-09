@@ -23,16 +23,16 @@
 </template>
 
 <script>
-import {itemData} from '@/data.js'
+//import {itemData} from '@/data.js'
 
 export default {
     name: 'ItemCard',
     props: {
-        
+        itemData : Object
     },
     data() {
         return {
-            itemData
+            
         }
     },
     methods: {

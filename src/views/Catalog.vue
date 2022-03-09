@@ -6,36 +6,21 @@
       <router-link to="/">Главная</router-link>
       <router-link to="/Catalog">Каталог</router-link>
     </Breadcrumbs>
-    <div class="catalog__section">
-      <CatalogDropdownItem :categorys="tableGames"></CatalogDropdownItem>
-    </div>
-    <div class="catalog__section">
-      <h2>Аксессуары</h2>
-      <hr>
-      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
-    </div>
-    <div class="catalog__section">
-      <h2>Миниатюрки</h2>
-      <hr>
-      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
-    </div>
-    <div class="catalog__section">
-      <h2>Книги и журналы</h2>
-      <hr>
-      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
-    </div>
-    <div class="catalog__section">
-      <h2>Мерч и сувениры</h2>
-      <hr>
-      <CatalogDropdownItem :categorys="otherCategorys"></CatalogDropdownItem>
+    <div v-for="cat in tableGames" :key="cat">
+      <div class="catalog__section">
+        <h2> {{ cat.name }} </h2>
+        <hr>
+        <CatalogDropdownItem :categorys="cat"></CatalogDropdownItem>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+
 import CatalogDropdownItem from '@/components/catalog-dropdown-item.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
-import {tableGames, otherCategorys} from '@/data.js'
+import {tableGames} from '@/data.js'
 
 export default {
     name: 'Catalog',
@@ -46,7 +31,7 @@ export default {
     data() {
       return {
         tableGames,
-        otherCategorys
+        
       }
     }
 

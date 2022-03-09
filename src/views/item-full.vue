@@ -141,16 +141,16 @@ export default {
 			this.selectedPic = index;
 		},
     getStatus(n) {
-      if (n === 0) {
+      if (n === 1) {
         return 'outOfStock'
       }
-      if (n === 1) {
+      if (n === 2) {
         return 'pendingStock'
       }
-      if (n === 2) {
+      if (n === 3) {
         return 'limitedStock'
       }
-      if( n === 3)
+      if( n === 4)
       {
         return 'inStock'
       }

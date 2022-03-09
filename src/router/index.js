@@ -64,13 +64,20 @@ const routes = [
     name: 'Catalog',
     component: () => import('../views/Catalog.vue'),
     props: true
-  },
+  },  
   {
-    path: '/Category',
+    path: '/Category/:category',
     name: 'Category',
     component: () => import('../views/Category.vue'),
-    props: true
+    props: true,
+    children: [
+        {
+            path: '/Category/:category/:subcategory',
+            component: () => import('../views/Category.vue'),
+        }
+    ]
   },
+
   {
     path: '/ItemCard',
     name: 'ItemCard',

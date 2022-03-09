@@ -22,8 +22,8 @@
 import sidemenu from '@/components/sidemenu.vue'
 import MyHeader from '@/components/my-header.vue'
 import MyFooter from '@/components/my-footer.vue'
-
-
+import {tableGames} from '@/data.js'
+//import {router} from '@/router/index.js'
 
 export default {
   name: 'App',
@@ -47,6 +47,10 @@ export default {
         { x : -30, y: 328, r: 39},        
       ],
       genSteps : [],
+      tableGames,
+      categoryTree:[],
+      categorySlug: false
+
     }
   },
   methods: {
@@ -58,16 +62,82 @@ export default {
       setTimeout(() => {
         const newStep = this.steps.shift()
         this.genSteps = [...this.genSteps, newStep]
+        setTimeout(() => {
+          this.genSteps.pop()
+        },5000)
         if (this.steps.length <= 0) {
             this.steps = this.genSteps.splice(0,10)
         }
         this.processStep();
       }, 1000)
-    }
+    },
+    loadCategories() {
+      fetch('https://abaimmigration.com/public/api/categories')
+              .then((response) => {
+                  if(response.ok) {
+                      return response.json();
+                  }
+              
+                  throw new Error('Network response was not ok');
+              })
+              .then((json) => {
+                //console.log(json)
+
+                json.forEach(element => {
+
+
+                  let _children = [];
+                  if (typeof element.childs !== 'undefined') {
+
+                    
+                    element.childs.forEach(_child => {
+
+                      let __children = [];
+                        if (typeof _child.childs !== 'undefined') {
+                          
+                          _child.childs.forEach(__child => {
+                                this.categoryTree[__child.id] =  __child.slug;
+                                __children.push({
+                                  name: __child.name,
+                                  id: __child.id,
+                                  slug: __child.slug,
+                                })
+                            })
+                        }
+
+                        this.categoryTree[_child.id] =  _child.slug;
+                        _children.push({
+                          name: _child.name,
+                          id: _child.id,
+                          slug: _child.slug,
+                          subcategorys: __children,
+                        })
+                    })
+                  }
+
+                  this.categoryTree[element.id] =  element.slug;
+                  this.tableGames.push({
+                      name: element.name,
+                      id: element.id,
+                      icon: require('@/assets/catalog_icon_party.png'),
+                      subcategorys: _children,
+                      slug: element.slug
+                  });
+                });
+                this.$store.commit('SET_TREE', this.categoryTree);
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
+    },
+
+  },
+  updated(){
+
   },
   mounted() {
     this.processStep();
-
+    
     // let foxTrail = () => {
     //   for (let i = 0; i <= 11; i++) {
     //     let trail = document.createElement('div');
@@ -123,6 +193,9 @@ export default {
     //   foxTrailSideMenu();
     // },60000)
   },
+  beforeMount() {
+    this.loadCategories()
+  }
 }
 </script>
 
@@ -296,3 +369,4 @@ footer {
   }
 }
 </style>
+

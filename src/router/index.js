@@ -42,7 +42,7 @@ const routes = [
     props: true
   },
   {
-    path: '/item-full',
+    path: '/item-full/:slug/prd/:id',
     name: 'item-full',
     component: () => import('../views/item-full.vue'),
     props: true

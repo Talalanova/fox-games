@@ -7,9 +7,9 @@
         <button class="cart__choose-button">Выделить все</button>
         <button class="cart__remove-button">Удалить выбранное</button>
       </div>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
-      <CartItem :title="itemData.title" :price="itemData.price" :pic="itemData.thumb" :itemId="itemData.id" :discont="itemData.discont" :inStock="itemData.inStock"></CartItem>
+      <div v-for="item in CART" :key="item">
+        <CartItem :slug="item.slug" :title="item.title" :price="item.price" :pic="item.thumb" :itemId="item.id" :discont="item.discont" :inStock="item.inStock"></CartItem>
+      </div>
       <div class="sum">
         <span>Итог</span>
         <span> 13200₽ </span>
@@ -45,21 +45,25 @@
 
 <script>
 import CartItem from '@/components/cart-item.vue'
-import { itemData } from '@/data.js'
-
+// import { itemData } from '@/data.js'
+import {mapGetters} from 'vuex'
 export default {
   name: 'Cart',
   components: {
-    CartItem,
+     CartItem,
   },
   data() {
     return {
-      itemData,
       delivery: false
     }
   },
+  props: {
+    itemData: Object
+  },
   computed: {
-
+    ...mapGetters([
+      'CART'
+    ])
   }
 }
 </script>

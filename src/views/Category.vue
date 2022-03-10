@@ -17,14 +17,10 @@
         <img src="@/assets/intro.png" width="270" height="200">
       </span>
     </div>
-    <div class="section__content" v-for="product in products" :key="product">
-      <ItemCard :itemData ="product"></ItemCard>  
+    <div class="section__content" v-for="product in products" :key="product" >
+      <ItemCard :itemData ="product" @addToCart="addToCart"></ItemCard>  
     </div>
-    <div class="pagination" v-if="hasPagination">
-      <div v-for="page in this.pagination.pages" :key="page" class="pagination__wrapper">
-        <a type="button" href="javascript:void(0);" @click="loadProducts(page)" :class="[ currentPage === page ? 'pagination--active' : '' ]">{{ page }}</a>
-      </div>
-    </div>
+    <Pagination v-if="paginationLimit" :perPage="paginationLimit" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>
 
@@ -33,13 +29,15 @@
 import ItemCard from '@/components/item-card.vue'
 import SortingBar from '@/components/sorting-bar.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
-
+import Pagination from '@/components/pagination.vue'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: 'Category',
   components: {
     ItemCard,
     SortingBar,
     Breadcrumbs,
+    Pagination
   },
   data() {
     return {
@@ -49,6 +47,8 @@ export default {
       hasPagination: true,
       pagination: [],
       currentPage: 1,
+      paginationTotal: false,
+      paginationLimit: false,
       catalogRendered:false,
       waitForCatTree:false
     }
@@ -56,7 +56,8 @@ export default {
   methods: {
     loadProducts(page = 1) {
       this.currentPage = page
-      this.products = [];
+
+      // this.products = [];
       // eslint-disable-next-line no-unused-vars
       let catId = 0
       let app = this
@@ -116,7 +117,7 @@ export default {
                     "updated_at": "2022-03-08T23:47:40.000000Z" 
                 },
                 { 
-                    "id": 1, 
+                    "id": 2, 
                     "category_id": 1, 
                     "brand": {
                       "id": 3,
@@ -162,18 +163,16 @@ export default {
             "to": 9, 
             "total": 9 
           }
-          this.pagination = {
-            // pages: json.total,
-            pages: 50,
-            current: 1,
-            limit:5
-          }
+
+          this.paginationLimit = 5
+          this.paginationTotal = json.total
 
           json.data.forEach(element => {
             
             let product = {
                   discont: element.discount,
                   id: element.id,
+                  slug: element.slug,
                   inStock: element.status.id,
                   title: element.title,
                   desc: element.description,
@@ -213,13 +212,21 @@ export default {
       //   .catch((error) => {
       //       console.log(error);
       //   });
-   }
+   },
+   updatePage(page) {
+    this.loadProducts(page)
+   },
+    addToCart(data) {
+      this.ADD_TO_CART(data)
+    },
+    ...mapActions([
+      'ADD_TO_CART'
+    ])
   },
   mounted() {
-    console.log("MOUNTED: load products");
     this.loadProducts();
   },
-  watch:{
+  watch:{    
     $route (){
         if (typeof this.$route.params.category !== 'undefined') {
           this.categorySlug = this.$route.params.category
@@ -229,8 +236,14 @@ export default {
         }
        console.log("WATCH: load products");
        this.loadProducts();
-      }
+      },
+      
   },
+  computed: {
+    ...mapGetters([
+        'CART'
+    ]),
+  }
 }
 </script>
 
@@ -255,30 +268,6 @@ export default {
   line-height: 25px;
   word-break: break-word;
   text-align: left;
-}
-
-.pagination {
-  display: flex;
-  flex-direction: row;
-  margin: 40px 0 0 0;
-  justify-content: center;
-}
-
-.pagination a {
-  color: #333333;
-  border: 1px solid #CB7D49;
-  padding: 5px;
-  border-radius: 4px;
-  margin-right: 12px;
-}
-
-.pagination a:hover {
-  background-color: #CB7D49;
-  color: white;
-}
-
-.pagination--active {
-  background-color: aquamarine;
 }
 
 @media (max-width: 1080px) {

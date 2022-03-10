@@ -63,8 +63,8 @@ export default {
         const newStep = this.steps.shift()
         this.genSteps = [...this.genSteps, newStep]
         setTimeout(() => {
-          this.genSteps.pop()
-        },5000)
+          this.genSteps.shift()
+        },3700)
         if (this.steps.length <= 0) {
             this.steps = this.genSteps.splice(0,10)
         }

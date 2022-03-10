@@ -5,7 +5,7 @@
             <label :for="itemId"></label>
             <img :src= pic width="89" height="89" alt="">
         </div>
-       <router-link to="/item-full" class="cart-item__title">{{ title }}</router-link>
+       <router-link :to="'/item-full/' + slug + '/prd/' + itemId" class="cart-item__title">{{ title }}</router-link>
        <span class="counter" v-if="inStock > 2">
            <button @click="minus">-</button>
            <p>{{ counter }}</p>
@@ -43,7 +43,7 @@ export default {
         itemId: Number,
         discont: Number,
         inStock: Number,
-
+        itemData: Object
     },
     computed: {
         discontPrice: function() {

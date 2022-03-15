@@ -4,9 +4,7 @@
     <hr>
     <Breadcrumbs>
       <router-link to="/Catalog">Категории</router-link>
-      <router-link to="/Catalog">Ужасы</router-link>
-      <router-link to="/Catalog">Вселенная Лавкрафта</router-link>
-      <router-link to="/">Особняки безумия</router-link>
+      <router-link to="/">{{ itemData.title }}</router-link>
     </Breadcrumbs>
     <div class="item__data">
       <div class="item__current-pic" v-bind:class="[ getStatus(itemData.inStock) ]" :title="stockStatus[itemData.inStock]">

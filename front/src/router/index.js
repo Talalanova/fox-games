@@ -72,8 +72,8 @@ const routes = [
     props: true,
     children: [
         {
-            path: '/Category/:category/:subcategory',
-            component: () => import('../views/Category.vue'),
+          path: '/Category/:category/:subcategory',
+          component: () => import('../views/Category.vue'),
         }
     ]
   },

@@ -54,14 +54,13 @@ export default {
         searchProducts() {
             this.searched = []
             if (this.search == '') return false
-            fetch('http://api.foxhole.club/api/product/search/?q='+ this.search, {})
+            fetch('http://api.foxhole.club/api/product/search/?q='+ this.search, { })
             .then((response) => {
             if(response.ok) return response.json();
             throw new Error('Network response was not ok');
             })
             .then((json) => {
-                console.log(json)
-
+                
                 json.forEach(element => {
                     this.searched.push({
                         pic: require('@/assets/card_img.png'),
@@ -75,8 +74,6 @@ export default {
             document.querySelector('.main-content').addEventListener('click', () => {
                 this.searched = []
             })
-            console.log('test')
-            console.log(this.search)
         },
         redirectSearch(){
             this.$router.push({name:'Search', params: { search: this.search}});

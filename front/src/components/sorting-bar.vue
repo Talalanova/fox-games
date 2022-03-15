@@ -159,7 +159,7 @@ export default {
     flex-direction: column;
     width: 270px;
     position: absolute;
-    right: 0px;
+    right: 15px;
     top: 71px;
     z-index: 1;
 }

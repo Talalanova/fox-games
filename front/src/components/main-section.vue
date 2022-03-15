@@ -42,11 +42,12 @@ hr {
 }
 
 .section__content {
-    display: flex;
+    display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
     -moz-column-gap: 2%;
-    column-gap: 2%;
-    gap: 65px;
+    column-gap: 40px;
+    row-gap: 40px;
+    /* gap: 56px; */
     flex-wrap: wrap;
     /* display: flex;
     justify-content: space-between; */

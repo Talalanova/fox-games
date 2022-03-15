@@ -45,7 +45,7 @@ export default {
   methods: {
     addFeedback() {
       let formData = new FormData(document.forms.feedback)
-      fetch('http://127.0.0.1:8000/api/feedback/',{
+      fetch('https://api.foxhole.club/api/feedback/',{
         method: 'POST',
         body: formData
       })
@@ -58,6 +58,9 @@ export default {
         } else {
           this.error = true
         }        
+      })
+      .catch(() => {
+        this.error = true
       })
     },
   }

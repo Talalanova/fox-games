@@ -137,14 +137,12 @@ export default {
 
             console.log(filter)
 
-            fetch('http://127.0.0.1:8000/api/product/filter?' + filter, {})
-                .then((response) => {
-                    console.log('есть ответ')
+            fetch('http://api.foxhole.club/api/product/filter?' + filter, {})
+                .then((response) => {                    
                     if(response.ok) {
                         console.log('есть данные')
                         return response.json();
-                    }
-                                   
+                    }                                   
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {

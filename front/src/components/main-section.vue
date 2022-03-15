@@ -46,7 +46,7 @@ hr {
     grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
     -moz-column-gap: 2%;
     column-gap: 2%;
-    gap: 35px;
+    gap: 65px;
     flex-wrap: wrap;
     /* display: flex;
     justify-content: space-between; */

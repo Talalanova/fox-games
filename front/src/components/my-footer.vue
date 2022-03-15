@@ -65,7 +65,7 @@ export default {
     methods: {
         sendEmail() {
             let formData = new FormData(document.forms.newsletter)
-            fetch('http://127.0.0.1:8000/api/email/', {
+            fetch('http://api.foxhole.club/api/email/', {
                 method: 'POST',
                 body: formData
             })
@@ -76,7 +76,10 @@ export default {
                 } else {
                     this.error = true
                 }
-            });
+            })
+            .catch(() => {
+                this.error = true
+            })
         }
     }
 }
@@ -87,7 +90,7 @@ export default {
     /* display: grid;
     grid-template-columns: auto auto auto; */
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     padding: 0 5% 0 6%;
     align-items: center;

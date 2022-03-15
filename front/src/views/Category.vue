@@ -74,7 +74,7 @@ export default {
         return false;
       }
       
-        fetch('http://127.0.0.1:8000/api/categories/' + catId +'?page=' + page)
+        fetch('http://api.foxhole.club/api/categories/' + catId +'?page=' + page)
               .then((response) => {
 
               if(response.ok) return response.json();            

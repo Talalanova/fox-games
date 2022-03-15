@@ -157,7 +157,7 @@ export default {
         created_at: new Date().toLocaleDateString('ru-RU')
       }
       let formData = new FormData(document.forms.comments)
-      fetch('http://127.0.0.1:8000/api/product/' + this.$route.params.id+'/message',{
+      fetch('http://api.foxhole.club/api/product/' + this.$route.params.id+'/message',{
         method: 'POST',
         body: formData
       })
@@ -177,7 +177,7 @@ export default {
     },
     getProductInfo() {
       if (typeof this.$route.params.id !== 'undefined') {
-        fetch('http://127.0.0.1:8000/api/product/' + this.$route.params.id)
+        fetch('http://api.foxhole.club/api/product/' + this.$route.params.id)
           .then((response) => {
             if(response.ok) {
                 return response.json();

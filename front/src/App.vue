@@ -69,7 +69,7 @@ export default {
       }, 1000)
     },
     loadCategories() {
-      fetch('http://127.0.0.1:8000/api/categories')
+      fetch('http://api.foxhole.club/api/categories')
         .then((response) => {
           if(response.ok) {
             return response.json();

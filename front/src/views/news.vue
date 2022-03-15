@@ -41,7 +41,7 @@ export default {
   methods: {
     loadNews(page = 1) {
             this.news = []
-            fetch('http://127.0.0.1:8000/api/article/1/index?page=' + page)
+            fetch('http://api.foxhole.club/api/article/1/index?page=' + page)
               .then((response) => {
                 if(response.ok) {
                   this.newsRendered = true

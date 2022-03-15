@@ -7,7 +7,7 @@
         <MyHeader></MyHeader>
       </header>
       <main class="main">
-        <!-- <img class="trail" v-for="step in genSteps" :key="step.index" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }"> -->
+        <img class="trail" v-for="step in genSteps" :key="step.index" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }">
         <router-view/>
       </main>
       <footer>

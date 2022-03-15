@@ -33,7 +33,7 @@ export default {
     methods: {
         loadNewsItem() {
 
-            fetch('http://127.0.0.1:8000/api/article/' + this.$route.params.id)
+            fetch('http://api.foxhole.club/api/article/' + this.$route.params.id)
 
                 .then((response) => {
                     if(response.ok) {

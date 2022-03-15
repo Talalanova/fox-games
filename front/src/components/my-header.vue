@@ -33,7 +33,6 @@
 
 <script>
 import SocialList from '@/components/social-list.vue'
-// import {searched} from '@/data.js'
 import {mapGetters} from 'vuex'
 
 export default {
@@ -55,7 +54,7 @@ export default {
         searchProducts() {
             this.searched = []
             if (this.search == '') return false
-            fetch('http://127.0.0.1:8000/api/product/search/?q='+ this.search, {})
+            fetch('http://api.foxhole.club/api/product/search/?q='+ this.search, {})
             .then((response) => {
             if(response.ok) return response.json();
             throw new Error('Network response was not ok');

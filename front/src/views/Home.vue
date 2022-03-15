@@ -18,7 +18,7 @@
 import MainSection from '@/components/main-section.vue'
 // import ItemCard from '@/components/item-card.vue'
 // import NewsCard from '@/components/news-card.vue'
-// import Slider from '@/components/Slider.vue'
+import Slider from '@/components/Slider.vue'
 
 export default {
   name: 'Home',
@@ -26,7 +26,7 @@ export default {
     MainSection,
     // ItemCard,
     //NewsCard,
-    //Slider,
+    Slider,
   },
   
 }

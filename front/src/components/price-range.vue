@@ -1,5 +1,5 @@
 <template>
-    <Slider :min="0" :max="15000" />
+    <Slider :min="0" :max="10000" />
 </template>
 
 <script>

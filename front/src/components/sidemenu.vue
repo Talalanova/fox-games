@@ -380,11 +380,11 @@ export default {
   margin-top: 8px;
 }
 
-.vcpg[data-v-63943e43] .vcp__header[data-v-64321428]{
+.vcpg[data-v-63943e43] .vcp__header[data-v-64321428] {
   background-color: var(--bg-color-header);
   height: auto !important;
   min-height: 46px;
-  transition:background-color .3s ease
+  transition: background-color .3s ease;
 }
 
 @media (max-width: 1080px) {

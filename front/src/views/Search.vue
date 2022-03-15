@@ -39,7 +39,7 @@ export default {
     searchProducts() {
       this.searched = []
       
-      fetch('http://127.0.0.1:8000/api/product/search/?q='+ this.title, {})
+      fetch('http://api.foxhole.club/api/product/search/?q='+ this.title, {})
       .then((response) => {
       if(response.ok) return response.json();
       throw new Error('Network response was not ok');
@@ -57,12 +57,9 @@ export default {
                 age : element.age_from + '-' + element.age_to + ' лет',
                 time : element.game_time + ' мин',
                 players : element.players_from + '-' + element.players_to,
-                //cardSize : element.card_size,
-                //producer : element.brand.name,
                 thumb: require('@/assets/card_img.png'),
                 pics: [require('@/assets/gallery_img1.png'),require('@/assets/gallery_img2.png'),require('@/assets/gallery_img3.png'),require('@/assets/gallery_img4.png'),require('@/assets/gallery_img5.png'),],
                 description: element.description, 
-                //rules: element.rules,
               })
           })
       });

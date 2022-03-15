@@ -45,7 +45,7 @@ export default {
   methods: {
     addFeedback() {
       let formData = new FormData(document.forms.feedback)
-      fetch('https://api.foxhole.club/api/feedback/',{
+      fetch('http://api.foxhole.club/api/feedback/',{
         method: 'POST',
         body: formData
       })

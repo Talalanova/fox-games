@@ -38,7 +38,7 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-          console.log(json)
+          
           this.paginationTotal = json.total
 
           json.data.forEach(element => {

@@ -141,7 +141,6 @@ export default {
         if (typeof this.$route.params.subcategory !== 'undefined') {
           this.subcategorySlug = this.$route.params.subcategory
         }
-       console.log("WATCH: load products");
        this.loadProducts();
       },
       

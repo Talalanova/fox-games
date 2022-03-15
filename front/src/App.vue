@@ -83,7 +83,6 @@ export default {
             
             let _children = [];
             if (typeof element.childs !== 'undefined') {
-
               
               element.childs.forEach(_child => {
 
@@ -122,7 +121,7 @@ export default {
           this.$store.commit('SET_TREE', this.categoryTree);
         })
         .catch((error) => {
-            console.log(error);
+          console.log(error);
         });
     },
 

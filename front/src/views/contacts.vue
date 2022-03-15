@@ -45,7 +45,7 @@ export default {
   methods: {
     addFeedback() {
       let formData = new FormData(document.forms.feedback)
-      fetch('http://127.0.0.1:8000/api/feedback1/',{
+      fetch('http://127.0.0.1:8000/api/feedback/',{
         method: 'POST',
         body: formData
       })

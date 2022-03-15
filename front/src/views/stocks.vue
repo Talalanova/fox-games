@@ -31,7 +31,7 @@ export default {
         .then((response) => {
           if(response.ok) {
             this.newsRendered = true
-            return response.json();                  
+            return response.json();
           }
       
           throw new Error('Network response was not ok');

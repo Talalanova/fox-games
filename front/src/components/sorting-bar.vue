@@ -56,10 +56,6 @@
                     <span class="players"><p>Любое</p><p>6+</p></span>
                     <p class="sorting__label">Возраст</p>
                     <div class="ages">
-                        <!-- <span v-for="age in ages" v-bind:key="age" >
-                            <input class="sorting__checkbox" type="checkbox" :value="[age.age_from, age.age_to]" :id="age.age_value"/>
-                            <label :for="age.age_value">{{age.age_value}}</label>
-                        </span> -->
                         <span v-for="age in ages" v-bind:key="age" >
                             <input class="sorting__checkbox" type="checkbox" name="age_from" :value="[age.split(' ')[0], age.split(' ')[2]]" :id="age"/>
                             <label :for="age">{{age}}</label>
@@ -86,29 +82,8 @@ export default {
             tags: ['Фентези', 'Детектив', 'Романтичные', 'Карточные', 'Новое', 'Ужасы', 'На воображение',],
             tagsOpen: false,            
             inStockOpen: false,
-            ages: ['3 - 8','8 - 14','14 - 18','18+'
-                // {
-                //     age_from: 3,
-                //     age_to: 8,
-                //     age_value: '3 - 8'
-                // },
-                // {
-                //     age_from: 8,
-                //     age_to: 14,
-                //     age_value: '8 - 14'
-                // },
-                // {
-                //     age_from: 14,
-                //     age_to: 18,
-                //     age_value: '14 - 18'
-                // },
-                // {
-                //     age_from: 18,
-                //     age_to: 99,
-                //     age_value: '18+'
-                // },
-            ],            
-            priceValue: [ 300, 700 ],
+            ages: ['3 - 8','8 - 14','14 - 18','18+'],            
+            priceValue: [ 300, 2500 ],
             playersAmount: [1, 6]
         }
     },
@@ -119,18 +94,20 @@ export default {
     methods: {
         filterProducts() {
             let formData = new FormData(document.forms.filters)
-            var params = []
+            let params = []
 
-            for(const value of formData.entries()) {
+            for(let value of formData.entries()) {
                 let name = value[0]
                 let _value = value[1]
                 if(typeof params[name] === "undefined") params[name] = [];
                 params[name].push(_value);
             }
 
+            let filter =  `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0] + `&players_to=` + this.playersAmount[1] 
             
             if (params.age_from) {
-                params.age_from.forEach((element,index) => {                
+                
+                params.age_from.forEach((element,index) => {
                     params.age_from[index] = element.split(',')
                 });
 
@@ -144,31 +121,37 @@ export default {
 
                 params.age_from.sort(function(a, b) {
                     return a - b;
-                });                
+                });
+
+                filter = filter.concat(`&age_from=` + params.age_from[0] + `&age_to=` + params.age_from[params.age_from.length - 1])
+            }
+            
+            if (params.tags) {
+                params.tags = params.tags.flat()
+                filter = filter.concat(`&tags=` + params.tags)
             }
 
-            let filter = `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0] + `&players_to=` + this.playersAmount[1] + `&age_from=` + params.age_from[0] + `&age_to=` + params.age_from[params.age_from.length - 1]
-                        
-            //formData.set('price_from', this.priceValue[0])
-            //formData.set('price_to', this.priceValue[1])
-            //formData.set('players_from', this.playersAmount[0])
-            //formData.set('players_to', this.playersAmount[1])
-            //formData.set('age_from', params.age_from[0])
-            //formData.set('age_to', params.age_from[params.age_from.length - 1])
-            
+            if (params.available) {
+                filter = filter.concat(`&available=` + params.available[0])
+            }
 
-            fetch('http://127.0.0.1:8000/api/product/filter?' + filter,{ })
-            .then((response) => {                
-                if (response.ok) {
-                    console.log(response);
-                } else {
-                    console.log('не фурычит')
-                }
-            });
+            console.log(filter)
 
+            fetch('http://127.0.0.1:8000/api/product/filter?' + filter, {})
+                .then((response) => {
+                    console.log('есть ответ')
+                    if(response.ok) {
+                        console.log('есть данные')
+                        return response.json();
+                    }
+                                   
+                    throw new Error('Network response was not ok');
+                })
+                .then((json) => {
+                    console.log(json)
+                })
         }
     }
-
 }
 </script>
 

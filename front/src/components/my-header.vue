@@ -54,7 +54,7 @@ export default {
         searchProducts() {
             this.searched = []
             if (this.search == '') return false
-            fetch('http://api.foxhole.club/api/product/search/?q='+ this.search, { })
+            fetch('http://api.foxhole.club/api/product/search?q='+ this.search, { })
             .then((response) => {
             if(response.ok) return response.json();
             throw new Error('Network response was not ok');

@@ -65,7 +65,7 @@ export default {
     methods: {
         sendEmail() {
             let formData = new FormData(document.forms.newsletter)
-            fetch('http://api.foxhole.club/api/email/', {
+            fetch('http://api.foxhole.club/api/email', {
                 method: 'POST',
                 body: formData
             })

@@ -1,6 +1,6 @@
 <template>
   <div class="catalog-page">
-    <h2>Настольные игры</h2>
+    <h2>Каталог</h2>
     <hr>
     <Breadcrumbs>
       <router-link to="/">Главная</router-link>
@@ -33,6 +33,9 @@ export default {
         tableGames,
         
       }
+    },
+    mounted() {
+      console.log(tableGames)
     }
 
 }

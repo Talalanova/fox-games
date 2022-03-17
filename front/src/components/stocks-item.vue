@@ -1,7 +1,7 @@
 <template>
     <div class="stocks-item">
         <div class="stocks-item__pic">
-            <img :src="require(`@/assets/${img}`)" width="250" height="200" alt="">
+            <img :src="img" width="250" height="200" alt="">
         </div>
         <div class="stocks-item__content">
             <p class="date"> {{ date }}</p>

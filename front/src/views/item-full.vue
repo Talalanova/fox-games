@@ -214,6 +214,12 @@ export default {
             element.messages.forEach((item,index) => {
               element.messages[index].created_at = new Date(item.created_at).toLocaleDateString('ru-RU')
             });
+
+            let _images = []
+
+            element.images.forEach( item => {
+              _images.push(item.path)
+            })
           
             this.itemData = {
               discont: element.discount,
@@ -229,7 +235,7 @@ export default {
               cardSize : element.card_size,
               producer : element.brand.name,
               thumb: require('@/assets/card_img.png'),
-              pics: [require('@/assets/gallery_img1.png'),require('@/assets/gallery_img2.png'),require('@/assets/gallery_img3.png'),require('@/assets/gallery_img4.png'),require('@/assets/gallery_img5.png'),],
+              pics: _images,
               description: element.description, 
               rules: element.rules,
               comments: element.messages

@@ -78,7 +78,7 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-
+          console.log(json)
           json.forEach(element => {
             
             let _children = [];
@@ -105,6 +105,7 @@ export default {
                     id: _child.id,
                     slug: _child.slug,
                     subcategorys: __children,
+                    icon: _child.image
                   })
               })
             }
@@ -112,8 +113,7 @@ export default {
             this.categoryTree[element.id] =  element.slug;
             this.tableGames.push({
                 name: element.name,
-                id: element.id,
-                icon: require('@/assets/catalog_icon_party.png'),
+                id: element.id,                
                 subcategorys: _children,
                 slug: element.slug
             });

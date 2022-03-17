@@ -2,7 +2,7 @@
   <div class="games">    
     <h1>Игротеки</h1>
     <hr>
-      <GamesItem v-for="item in news" :key="item" :date="item.date" :title="item.title" img='card_img.png' :id="item.id" :slug="item.slug">{{item.content}}</GamesItem>
+      <GamesItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img="item.img" :id="item.id" :slug="item.slug">{{item.content}}</GamesItem>
       <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-          
+          console.log(json)
           this.paginationTotal = json.total
 
           json.data.forEach(element => {
@@ -50,6 +50,7 @@ export default {
               date: new Date(element.created_at).toLocaleDateString('ru-RU')
             })
           })
+          
         })
               
     },

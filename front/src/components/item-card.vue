@@ -1,7 +1,7 @@
 <template>
     <div class="item-card" @mouseenter="addClass" @mouseleave="removeClass">
         <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id">        
-            <img class="item-card__pic" src="@/assets/card_img.png" width="178" height="178" alt="Особняки безумия">
+            <img class="item-card__pic" :src= itemData.pics[0] width="178" height="178" alt="Особняки безумия">
             <h3 class="item-card__title">{{ itemData.title}}</h3>
             <p class="item-card__desc">{{ itemData.desc }}</p>
         </router-link>

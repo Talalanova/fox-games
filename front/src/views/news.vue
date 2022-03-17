@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <NewsItem v-for="item in news" :key="item" :date="item.date" :title="item.title" img='card_img.png' :id="item.id" :slug="item.slug">{{item.content}}</NewsItem>
+    <NewsItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img="item.img" :id="item.id" :slug="item.slug">{{item.content}}</NewsItem>
     <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>

@@ -74,51 +74,42 @@ export default {
         return false;
       }
       
-        fetch('http://api.foxhole.club/api/categories/' + catId +'?page=' + page)
-              .then((response) => {
+      fetch('http://api.foxhole.club/api/categories/' + catId +'?page=' + page)
+        .then((response) => {
 
-              if(response.ok) return response.json();            
-              
+          if(response.ok) return response.json();            
+          
+        })
+        .then((json) => {
+          
+          this.paginationTotal = json.total
+          console.log(json.data)
+          json.data.forEach(element => {
+
+            let _images = []
+
+            element.images.forEach( item => {
+              _images.push(item.path)
             })
-              .then((json) => {
-                
-                this.paginationTotal = json.total
-
-                json.data.forEach(element => {
-                  
-                  let product = {
-                    discont: element.discount,
-                    id: element.id,
-                    slug: element.slug,
-                    inStock: element.status.id,
-                    title: element.title,
-                    desc: element.description,
-                    price : element.price,
-                    age : element.age_from + '-' + element.age_to + ' лет',
-                    time : element.game_time + ' мин',
-                    players : element.players_from + '-' + element.players_to,
-                    thumb: require('@/assets/card_img.png'),
-                    pics: [require('@/assets/gallery_img1.png'),require('@/assets/gallery_img2.png'),require('@/assets/gallery_img3.png'),require('@/assets/gallery_img4.png'),require('@/assets/gallery_img5.png'),],
-                    description: element.description,                    
-                  }
-                  this.products.push(product);
-              })         
-          })
-      
-      // fetch('https://abaimmigration.com')
-      //   .then((response) => {
-      //       if(response.ok) {
-      //           return response.json();
-      //       }
-        
-      //       throw new Error('Network response was not ok');
-      //   })
-      //   .then((json) => {
-      //     console.log(json)
-      //   })
-      //   .catch((error) => {
-      //       console.log(error);
-      //   });
+            
+            let product = {
+              discont: element.discount,
+              id: element.id,
+              slug: element.slug,
+              inStock: element.status.id,
+              title: element.title,
+              desc: element.description,
+              price : element.price,
+              age : element.age_from + '-' + element.age_to + ' лет',
+              time : element.game_time + ' мин',
+              players : element.players_from + '-' + element.players_to,                    
+              pics: _images,
+              description: element.description,                    
+            }
+            this.products.push(product);
+            console.log(this.products)               
+          })                
+        })
    },
    updatePage(page) {
     this.loadProducts(page)

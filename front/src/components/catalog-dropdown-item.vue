@@ -30,7 +30,7 @@ export default {
             item.previousSibling.classList.toggle('catalog__button--fill')
             item.parentNode.classList.toggle('catalog__genre--opened')
             if (item.classList.contains('catalog__sublist--opened')) {
-                item.parentNode.style.gridRow = `span ${sublist.childElementCount}`
+                item.parentNode.style.gridRow = `span ${sublist.childElementCount+1}`
             } else {
                item.parentNode.style.gridRow = `span 1` 
             } 

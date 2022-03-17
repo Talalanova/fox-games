@@ -1,7 +1,7 @@
 <template>
     <div v-for="category in categorys.subcategorys" v-bind:key="category.name" :class="[category.icon == null ? 'catalog__genre catalog__genre--noicon' : 'catalog__genre']">
         <img v-bind:src="category.icon" width="50" height="50" v-if="category.icon != null">
-        <router-link :to="'/Category/' + category.slug" class="catalog__link">
+        <router-link :to="'/Category/' +  category.slug" class="catalog__link">
             {{ category.name }}
         </router-link>
         <button class="catalog__button" @click="showId(category.id)" v-if="category.subcategorys.length"></button>

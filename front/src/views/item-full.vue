@@ -10,10 +10,10 @@
       <div class="item__current-pic" v-bind:class="[ getStatus(itemData.inStock) ]" :title="stockStatus[itemData.inStock]">
         <span class="prev" @click="updateImage(selectedPic - 1)" ></span>
 				<span class="next" @click="updateImage(selectedPic + 1)" ></span>
-        <img :src="itemData.pics[selectedPic]" width="563" height="370" alt="">
+        <img :src="itemData.pics[selectedPic]" width="560" height="370" :alt="itemData.title">
       </div>
       <div class="item__thumbs">
-        <img v-for="(item,index) in itemData.pics" :key="item.index" :src="item" @click="updateImage(index)" width="125" height="90" alt="">
+        <img v-for="(item,index) in itemData.pics.slice(0,4)" :key="item.index" :src="item" @click="updateImage(index)" width="125" height="90" alt="">
       </div>
       <div class="item__information">
         <span :class="[itemData.discont > 0 ? 'price price--discont' : 'price']">
@@ -218,7 +218,7 @@ export default {
             let _images = []
 
             element.images.forEach( item => {
-              _images.push(item.path)
+              _images.push('http://api.foxhole.club/files/' + item.path)
             })
           
             this.itemData = {
@@ -397,9 +397,9 @@ export default {
   justify-content: space-between;
 }
 
-.item__thumbs img:first-child {
+/* .item__thumbs img:first-child {
   display: none;
-}
+} */
 
 .prev, .next {
   cursor: pointer;

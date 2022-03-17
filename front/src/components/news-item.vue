@@ -70,6 +70,10 @@ export default {
     line-height: 23px;
 }
 
+.news-item__content .date {
+    margin-top: 0;
+}
+
 @media (max-width: 1080px) { 
     .news-item {
         grid-template-rows: 250px auto;

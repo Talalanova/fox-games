@@ -60,10 +60,17 @@ export default {
             throw new Error('Network response was not ok');
             })
             .then((json) => {
-                
+                console.log(json)
+
+
                 json.forEach(element => {
+
+                    let _images = []
+                        element.images.forEach( item => {
+                        _images.push('http://api.foxhole.club/files/' + item.path)
+                    })
                     this.searched.push({
-                        pic: require('@/assets/card_img.png'),
+                        pic: _images[0],
                         name: element.title,
                         price: element.price,
                         slug: element.slug,

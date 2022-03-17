@@ -8,7 +8,10 @@
     </Breadcrumbs>
     <div v-for="cat in tableGames" :key="cat">
       <div class="catalog__section">
-        <h2> {{ cat.name }} </h2>
+        <router-link class="h1" :to="'/Category/' + cat.slug">
+          {{ cat.name }}
+        </router-link>
+        <!-- <h2> {{ cat.name }} </h2> -->
         <hr>
         <CatalogDropdownItem :categorys="cat"></CatalogDropdownItem>
       </div>

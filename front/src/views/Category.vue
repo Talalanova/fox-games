@@ -46,8 +46,7 @@ export default {
       hasPagination: true,      
       paginationTotal: false,
       catalogRendered: false,
-      waitForCatTree: false,
-      
+      waitForCatTree: false,      
     }
   },
   methods: {
@@ -76,20 +75,17 @@ export default {
       
       fetch('http://api.foxhole.club/api/categories/' + catId +'?page=' + page)
         .then((response) => {
-
-          if(response.ok) return response.json();            
-          
+          if(response.ok) return response.json();
         })
         .then((json) => {
           
           this.paginationTotal = json.total
-          console.log(json.data)
+
           json.data.forEach(element => {
 
             let _images = []
-
             element.images.forEach( item => {
-              _images.push(item.path)
+              _images.push('http://api.foxhole.club/files/' + item.path)
             })
             
             let product = {
@@ -106,26 +102,25 @@ export default {
               pics: _images,
               description: element.description,                    
             }
-            this.products.push(product);
-            console.log(this.products)               
+            this.products.push(product);              
           })                
         })
    },
    updatePage(page) {
     this.loadProducts(page)
    },
-    addToCart(data) {
-      this.ADD_TO_CART(data)
-    },
-    ...mapActions([
-      'ADD_TO_CART'
-    ])
+  addToCart(data) {
+    this.ADD_TO_CART(data)
+  },
+  ...mapActions([
+    'ADD_TO_CART'
+  ])
   },
   mounted() {
     this.loadProducts();
   },
   watch:{    
-    $route (){
+    $route(){
         if (typeof this.$route.params.category !== 'undefined') {
           this.categorySlug = this.$route.params.category
         }

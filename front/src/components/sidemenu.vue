@@ -17,7 +17,8 @@
           </template>
           <template #content>
             <div class="cut-catalog__list" @click="closeCatalogOnMobile">
-              <router-link :to="'/Category/' + item.slug + '/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index">
+              <!-- <router-link :to="'/Category/' + item.slug + '/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index"> -->
+              <router-link :to="'/Category/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index">
                 {{category.name}}
               </router-link>
             </div>

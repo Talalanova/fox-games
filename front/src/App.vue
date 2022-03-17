@@ -90,22 +90,23 @@ export default {
                   if (typeof _child.childs !== 'undefined') {
                     
                     _child.childs.forEach(__child => {
-                          this.categoryTree[__child.id] =  __child.slug;
-                          __children.push({
-                            name: __child.name,
-                            id: __child.id,
-                            slug: __child.slug,
-                          })
+                      this.categoryTree[__child.id] =  __child.slug;
+                      __children.push({
+                        name: __child.name,
+                        id: __child.id,
+                        slug: __child.slug,
                       })
+                    })
                   }
 
                   this.categoryTree[_child.id] =  _child.slug;
+                  
                   _children.push({
                     name: _child.name,
                     id: _child.id,
                     slug: _child.slug,
                     subcategorys: __children,
-                    icon: _child.image
+                    icon: 'http://api.foxhole.club/files/' + _child.image
                   })
               })
             }
@@ -257,7 +258,9 @@ header {
   align-items: end;
 }
 
+.h1,
 h1 {
+  color: #333333;
   font-weight: 300;
   font-size: 36px;
   line-height: 49px;
@@ -266,6 +269,9 @@ h1 {
   width: 100%;
   text-align: left;
   margin: 0;
+}
+.h1:hover {
+  color: #DE8F53;
 }
 
 .main-content {

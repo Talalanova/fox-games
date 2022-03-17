@@ -61,6 +61,10 @@ export default {
     line-height: 23px;
 }
 
+.stocks-item__content .date {
+    margin-top: 0;
+}
+
 @media (max-width: 1080px) { 
     .stocks-item {
         grid-template-rows: 250px auto;

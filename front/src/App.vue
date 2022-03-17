@@ -79,6 +79,7 @@ export default {
         })
         .then((json) => {
           console.log(json)
+
           json.forEach(element => {
             
             let _children = [];
@@ -95,6 +96,7 @@ export default {
                         name: __child.name,
                         id: __child.id,
                         slug: __child.slug,
+                        content: __child.content
                       })
                     })
                   }
@@ -105,6 +107,7 @@ export default {
                     name: _child.name,
                     id: _child.id,
                     slug: _child.slug,
+                    content: _child.content,
                     subcategorys: __children,
                     icon: 'http://api.foxhole.club/files/' + _child.image
                   })
@@ -112,20 +115,23 @@ export default {
             }
 
             this.categoryTree[element.id] =  element.slug;
+
             this.tableGames.push({
-                name: element.name,
-                id: element.id,                
-                subcategorys: _children,
-                slug: element.slug
+              name: element.name,
+              id: element.id,                
+              subcategorys: _children,
+              slug: element.slug,
+              content: element.content,
+              img: 'http://api.foxhole.club/files/' + element.image
             });
           });
           this.$store.commit('SET_TREE', this.categoryTree);
+          console.log(tableGames)
         })
         .catch((error) => {
           console.log(error);
         });
     },
-
   },
   mounted() {
     this.processStep();
@@ -212,6 +218,10 @@ export default {
 
 .trail {
   position: absolute;
+}
+
+html {
+  overflow-y: scroll;
 }
 
 html,

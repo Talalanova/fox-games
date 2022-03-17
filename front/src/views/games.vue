@@ -47,6 +47,7 @@ export default {
               content: element.content,
               id: element.id,
               slug: element.slug,
+              img: element.img,
               date: new Date(element.created_at).toLocaleDateString('ru-RU')
             })
           })

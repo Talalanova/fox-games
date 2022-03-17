@@ -1,19 +1,19 @@
 <template>
   <div class="category">
     <SortingBar></SortingBar>
-    <h1>{{ this.$route.params.category }}</h1>
+    <h1>{{ categoryTitle }}</h1>
     <hr>
     <Breadcrumbs>
       <router-link to="/">Главная</router-link>
       <router-link to="/Catalog">Каталог</router-link>
-      <router-link to="/Catalog">{{ this.$route.params.category }}</router-link>
+      <router-link to="/Catalog">{{ categoryTitle }}</router-link>
     </Breadcrumbs>
     <div class="intro">
       <span class="intro__text">
-        Приехав в Аркхэм и добравшись по грязным переулкам до особняков, вы сразу понимаете, что они покинуты и привычных обитателей внутри точно нет. Дома явно покидали в спешке... Вы также чувствуете напряжённость и ощущение чего-то потустороннего, опасного и необъяснимого. Сыщики без работы не останутся точно.
+        {{ categoryDescription }}
       </span>
       <span class="intro__pic">
-        <img src="@/assets/intro.png" width="270" height="200">
+        <img :src="categoryImg" width="270" height="200">
       </span>
     </div>
     <div class="section__content">
@@ -30,6 +30,7 @@ import SortingBar from '@/components/sorting-bar.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
 import Pagination from '@/components/pagination.vue'
 import {mapActions, mapGetters} from 'vuex'
+import {tableGames} from '@/data.js'
 
 export default {
   name: 'Category',
@@ -46,11 +47,29 @@ export default {
       hasPagination: true,      
       paginationTotal: false,
       catalogRendered: false,
-      waitForCatTree: false,      
+      waitForCatTree: false,
+      tableGames,
+      categoryDescription: '',
+      categoryTitle: '',
+      categoryImg: ''
     }
   },
   methods: {
     loadProducts(page = 1) {
+
+      this.tableGames.forEach(item => {
+        if (item.slug == this.$route.params.category) {
+          this.categoryDescription = item.content
+          this.categoryTitle = item.name
+          this.categoryImg = item.img
+        } else item.subcategorys.forEach(item => {
+          if (item.slug == this.$route.params.category) {
+            this.categoryDescription = item.content
+            this.categoryTitle = item.name
+            this.categoryImg = item.img
+          }
+        })
+      })
       
       this.products = [];
       // eslint-disable-next-line no-unused-vars
@@ -118,6 +137,7 @@ export default {
   },
   mounted() {
     this.loadProducts();
+    console.log(this.tableGames)
   },
   watch:{    
     $route(){

@@ -50,7 +50,7 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-          console.log(json)
+          
           this.paginationTotal = json.total
 
           json.data.forEach(element => {
@@ -59,7 +59,7 @@ export default {
               content: element.content,
               id: element.id,
               slug: element.slug,
-              img: element.img,
+              img: 'http://api.foxhole.club/storage/catalog/article/source/' + element.image,
               date: new Date(element.created_at).toLocaleDateString('ru-RU')
             })
           })

@@ -2,7 +2,7 @@
   <div class="stocks">    
     <h1>Акции</h1>
     <hr>
-    <stocksItem v-for="item in news" :key="item" :date="item.date" :title="item.title" img='card_img.png' :id="item.id" :slug="item.slug">{{item.content}}</stocksItem>
+    <stocksItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img='item.img' :id="item.id" :slug="item.slug">{{item.content}}</stocksItem>
     <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>
@@ -46,6 +46,7 @@ export default {
               content: element.content,
               id: element.id,
               slug: element.slug,
+              img: 'http://api.foxhole.club/storage/catalog/article/source/' + element.image,
               date: new Date(element.created_at).toLocaleDateString('ru-RU')
             })
           })

@@ -138,10 +138,6 @@ export default {
         return 'pendingStock'
       }
       if (n === 3) {
-        return 'limitedStock'
-      }
-      if( n === 4)
-      {
         return 'inStock'
       }
     },
@@ -177,14 +173,14 @@ export default {
       if (typeof this.$route.params.id !== 'undefined') {
         fetch('http://api.foxhole.club/api/product/' + this.$route.params.id)
           .then((response) => {
-            if(response.ok) {
-                return response.json();
-            }
-        
+            if(response.ok) {             
+              return response.json();
+            }        
             throw new Error('Network response was not ok');
           })
-          .then((json) => {
+          .then((json) => {            
             let element = json
+
             this.itemParameters = {
               age : 'Возраст',
               time : 'Время игры',
@@ -196,8 +192,7 @@ export default {
             this.stockStatus = {
               1 : 'Нет в наличии',
               2 : 'Ожидает поставки',
-              3 : 'Ограниченное количество',
-              4 : 'В наличии'
+              3 : 'В наличии',
             }
             
             //Age validation
@@ -220,12 +215,12 @@ export default {
             element.images.forEach( item => {
               _images.push('http://api.foxhole.club/files/' + item.path)
             })
-          
+          console.log(json)
             this.itemData = {
               discont: element.discount,
               id: element.id,
               slug: element.slug,
-              inStock: element.status.id,
+              inStock: element.status,
               title: element.title,
               desc: element.description,
               price : element.price,
@@ -233,14 +228,14 @@ export default {
               time : element.game_time + ' мин',
               players : element.players_from + '-' + element.players_to,
               cardSize : element.card_size,
-              producer : element.brand.name,
-              thumb: require('@/assets/card_img.png'),
+              producer : element.brand.title,
+              //thumb: require('@/assets/card_img.png'),
               pics: _images,
               description: element.description, 
               rules: element.rules,
               comments: element.messages
             }
-
+            console.log(this.itemData)        
             this.productReady = true
           })
             .catch((error) => {

@@ -57,29 +57,32 @@ export default {
   methods: {
     loadProducts(page = 1) {
 
-      this.tableGames.forEach(item => {
-        if (item.slug == this.$route.params.category) {
-          this.categoryDescription = item.content
-          this.categoryTitle = item.name
-          this.categoryImg = item.img
-        } else item.subcategorys.forEach(item => {
-            if (item.slug == this.$route.params.category) {
-              this.categoryDescription = item.content
-              this.categoryTitle = item.name
-              this.categoryImg = item.icon
-            }
-        })
-      })
+      // this.tableGames.forEach(item => {
+      //   if (item.slug == this.$route.params.category) {
+      //     this.categoryDescription = item.content
+      //     this.categoryTitle = item.name
+      //     this.categoryImg = item.img
+      //   } else {            
+      //       item.subcategorys.forEach(item => {
 
-      if (this.$route.params.subcategory) {
-        this.tableGames.subcategorys.subcategorys.forEach(item => {
-          if (item.slug == this.$route.params.subcategory) {
-            this.categoryDescription = item.content
-            this.categoryTitle = item.name
-            this.categoryImg = item.img
-          }
-        }) 
-      }
+      //         if (item.slug == this.$route.params.category) {
+      //           this.categoryDescription = item.content
+      //           this.categoryTitle = item.name
+      //           this.categoryImg = item.icon
+      //         }
+
+      //         if (this.$route.params.subcategory) {
+      //           item.subcategorys.forEach(item => {
+      //             if (item.slug == this.$route.params.subcategory) {
+      //               this.categoryDescription = item.content
+      //               this.categoryTitle = item.name
+      //               this.categoryImg = item.img
+      //             }
+      //           })
+      //         }
+      //       })            
+      //     }
+      // })
 
       this.products = [];
       // eslint-disable-next-line no-unused-vars
@@ -113,11 +116,13 @@ export default {
         })
         .then((json) => {
           
-          this.paginationTotal = json.total
-
+          if(json.total) this.paginationTotal = json.total
+          
+          console.log(json)
           json.data.forEach(element => {
 
             let _images = []
+
             element.images.forEach( item => {
               _images.push('http://api.foxhole.club/files/' + item.path)
             })
@@ -126,7 +131,7 @@ export default {
               discont: element.discount,
               id: element.id,
               slug: element.slug,
-              inStock: element.status.id,
+              inStock: element.status,
               title: element.title,
               desc: element.description,
               price : element.price,
@@ -136,7 +141,8 @@ export default {
               pics: _images,
               description: element.description,                    
             }
-            this.products.push(product);              
+            this.products.push(product);
+            console.log(this.products)            
           })                
         })
    },

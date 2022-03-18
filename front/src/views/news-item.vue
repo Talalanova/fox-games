@@ -12,7 +12,7 @@
             <div>
                 {{ item.content }}                
             </div>            
-              <!-- <img src="@/assets/news-img-large.jpg" width="1150" height="185" alt=""> -->
+              <!-- <img :src="item.img" width="1150" height="185" alt=""> -->
         </div>
     </div>
 </template>
@@ -27,7 +27,8 @@ export default {
     },
     data() {
         return {
-            item : Object
+            item : Object,
+            
         }
     },
     methods: {

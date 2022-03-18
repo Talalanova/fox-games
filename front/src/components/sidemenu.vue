@@ -76,19 +76,13 @@ export default {
         this.$refs.sidemenu.classList.toggle('sidemenu--opened')
       }
     },
-    animationMenu() {
-      console.log(this.activeLink)
-      console.log(event.target)
-    }
   },
   components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
   },
   watch: {
-    activeLink: function() {
-      return this.$refs.sidemenu.querySelector('.router-link-exact-active')
-    } 
+    
   }
 }
 </script>

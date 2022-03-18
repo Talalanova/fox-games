@@ -57,32 +57,32 @@ export default {
   methods: {
     loadProducts(page = 1) {
 
-      // this.tableGames.forEach(item => {
-      //   if (item.slug == this.$route.params.category) {
-      //     this.categoryDescription = item.content
-      //     this.categoryTitle = item.name
-      //     this.categoryImg = item.img
-      //   } else {            
-      //       item.subcategorys.forEach(item => {
+      this.tableGames.forEach(item => {
+        if (item.slug == this.$route.params.category) {
+          this.categoryDescription = item.content
+          this.categoryTitle = item.name
+          this.categoryImg = item.img
+        } else {            
+            item.subcategorys.forEach(item => {
 
-      //         if (item.slug == this.$route.params.category) {
-      //           this.categoryDescription = item.content
-      //           this.categoryTitle = item.name
-      //           this.categoryImg = item.icon
-      //         }
+              if (item.slug == this.$route.params.category) {
+                this.categoryDescription = item.content
+                this.categoryTitle = item.name
+                this.categoryImg = item.icon
+              }
 
-      //         if (this.$route.params.subcategory) {
-      //           item.subcategorys.forEach(item => {
-      //             if (item.slug == this.$route.params.subcategory) {
-      //               this.categoryDescription = item.content
-      //               this.categoryTitle = item.name
-      //               this.categoryImg = item.img
-      //             }
-      //           })
-      //         }
-      //       })            
-      //     }
-      // })
+              if (this.$route.params.subcategory) {
+                item.subcategorys.forEach(item => {
+                  if (item.slug == this.$route.params.subcategory) {
+                    this.categoryDescription = item.content
+                    this.categoryTitle = item.name
+                    this.categoryImg = item.img
+                  }
+                })
+              }
+            })            
+          }
+      })
 
       this.products = [];
       // eslint-disable-next-line no-unused-vars

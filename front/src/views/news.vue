@@ -40,32 +40,30 @@ export default {
   },
   methods: {
     loadNews(page = 1) {
-            this.news = []
-            fetch('http://api.foxhole.club/api/article/1/index?page=' + page)
-              .then((response) => {
-                if(response.ok) {
-                  this.newsRendered = true
-                  return response.json();                  
-                }
-            
-                throw new Error('Network response was not ok');
-              })
-              .then((json) => {
-                console.log(json)
-                this.paginationTotal = json.total
+      this.news = []
+      fetch('http://api.foxhole.club/api/article/1/index?page=' + page)
+        .then((response) => {
+          if(response.ok) {
+            this.newsRendered = true
+            return response.json();                  
+          }            
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+          console.log(json)
+          this.paginationTotal = json.total
 
-                json.data.forEach(element => {
-                  this.news.push({
-                    title: element.title,
-                    content: element.content,
-                    id: element.id,
-                    slug: element.slug,
-                    img: element.img,
-                    date: new Date(element.created_at).toLocaleDateString('ru-RU')
-                  })
-                })
-              })
-              
+          json.data.forEach(element => {
+            this.news.push({
+              title: element.title,
+              content: element.content,
+              id: element.id,
+              slug: element.slug,
+              img: element.img,
+              date: new Date(element.created_at).toLocaleDateString('ru-RU')
+            })
+          })
+        })
     },
     updatePage(page) {
       this.loadNews(page)
@@ -97,8 +95,8 @@ export default {
   animation-iteration-count:infinite;
 }
 @keyframes step {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .loading_wrapper {

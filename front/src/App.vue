@@ -78,7 +78,7 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-          console.log(json)
+        //console.log(json)
 
           json.forEach(element => {
             
@@ -93,10 +93,11 @@ export default {
                     _child.childs.forEach(__child => {
                       this.categoryTree[__child.id] =  __child.slug;
                       __children.push({
-                        name: __child.name,
+                        name: __child.title,
                         id: __child.id,
                         slug: __child.slug,
-                        content: __child.content
+                        content: __child.content,
+                        img: 'http://api.foxhole.club/storage/catalog/category/source/' + __child.image
                       })
                     })
                   }
@@ -104,12 +105,12 @@ export default {
                   this.categoryTree[_child.id] =  _child.slug;
                   
                   _children.push({
-                    name: _child.name,
+                    name: _child.title,
                     id: _child.id,
                     slug: _child.slug,
                     content: _child.content,
                     subcategorys: __children,
-                    icon: 'http://api.foxhole.club/files/' + _child.image
+                    icon: 'http://api.foxhole.club/storage/catalog/category/source/' + _child.image
                   })
               })
             }
@@ -117,16 +118,16 @@ export default {
             this.categoryTree[element.id] =  element.slug;
 
             this.tableGames.push({
-              name: element.name,
+              name: element.title,
               id: element.id,                
               subcategorys: _children,
               slug: element.slug,
               content: element.content,
-              img: 'http://api.foxhole.club/files/' + element.image
+              img: 'http://api.foxhole.club/storage/catalog/category/source/' + element.image 
             });
           });
           this.$store.commit('SET_TREE', this.categoryTree);
-          console.log(tableGames)
+          
         })
         .catch((error) => {
           console.log(error);

@@ -1,6 +1,6 @@
 <template>
     <div class="item-card" @mouseenter="addClass" @mouseleave="removeClass">
-        <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id">        
+        <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id" class="item-card__link-wrapper">        
             <img class="item-card__pic" :src= itemData.pics[0] width="178" height="178" :alt="itemData.title">
             <h3 class="item-card__title">{{ itemData.title}}</h3>
             <p class="item-card__desc">{{ itemData.desc }}</p>
@@ -58,8 +58,15 @@ export default {
     border-radius: 10px;
     position: relative;
     justify-content: space-between;
+    min-height: 358px;
 }
 
+.item-card__link-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    justify-content: space-between;
+}
 .item-card--mouseon {
     transform: scale(1.02)
 }

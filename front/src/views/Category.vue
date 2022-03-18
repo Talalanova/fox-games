@@ -63,24 +63,39 @@ export default {
           this.categoryTitle = item.name
           this.categoryImg = item.img
         } else item.subcategorys.forEach(item => {
-          if (item.slug == this.$route.params.category) {
+            if (item.slug == this.$route.params.category) {
+              this.categoryDescription = item.content
+              this.categoryTitle = item.name
+              this.categoryImg = item.icon
+            }
+        })
+      })
+
+      if (this.$route.params.subcategory) {
+        this.tableGames.subcategorys.subcategorys.forEach(item => {
+          if (item.slug == this.$route.params.subcategory) {
             this.categoryDescription = item.content
             this.categoryTitle = item.name
             this.categoryImg = item.img
           }
-        })
-      })
-      
+        }) 
+      }
+
       this.products = [];
       // eslint-disable-next-line no-unused-vars
       let catId = 0
       let app = this
       if (this.$store.getters.TREE.length) {
+
         let slug = this.$route.params.category
+        let slug2 = this.$route.params.subcategory
+
         this.$store.getters.TREE.forEach((item,index) => {
+          if (item == slug2) catId = index;
           if(item == slug) catId = index;
           return false;
         })
+
       } else {
         let self = this;
         this.waitForCatTree = setInterval(function() {
@@ -137,7 +152,6 @@ export default {
   },
   mounted() {
     this.loadProducts();
-    console.log(this.tableGames)
   },
   watch:{    
     $route(){

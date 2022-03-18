@@ -76,10 +76,20 @@ export default {
         this.$refs.sidemenu.classList.toggle('sidemenu--opened')
       }
     },
-  },components: {
+    animationMenu() {
+      console.log(this.activeLink)
+      console.log(event.target)
+    }
+  },
+  components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
-  } 
+  },
+  watch: {
+    activeLink: function() {
+      return this.$refs.sidemenu.querySelector('.router-link-exact-active')
+    } 
+  }
 }
 </script>
 
@@ -159,6 +169,10 @@ export default {
 .slide-leave-to[data-v-64321428]{
   opacity:.25
 } */
+
+::-webkit-scrollbar { 
+  display: none; 
+}
 
 .sidemenu {
   background: -webkit-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
@@ -257,10 +271,10 @@ export default {
   color: #4B0101;
   background-color: white;
   border-radius: 35px 0 0 35px;
-  transition: animation 1s;
+  /* transition: 1s; */
   cursor: pointer;
   animation-duration: 1s;
-  animation-name: slideUp;
+  /* animation-name: slideUp; */
 }
 
 .sidemenu__item .router-link-exact-active + .sidemenu__button {

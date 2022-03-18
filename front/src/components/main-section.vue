@@ -1,6 +1,9 @@
 <template>
     <section class="section">
-        <h2> {{ title }}</h2>
+        <router-link :to= link>
+            <h2> {{ title }}</h2>
+        </router-link>
+        
         <hr>
         <div class="section__content">
             <slot></slot>
@@ -17,6 +20,7 @@ export default {
   },
   props: {
       title: String,
+      link: String
   }
 }
 </script>

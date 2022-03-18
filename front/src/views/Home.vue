@@ -1,13 +1,13 @@
 <template>
   <div class="home">
     <Slider></Slider>
-    <MainSection title="Новости">
+    <MainSection title="Новости" link="/news">
 
     </MainSection>
-    <MainSection title="Новинки">
+    <MainSection title="Новинки" link="/newsales">
 
     </MainSection>
-    <MainSection title="Топ настольных игр 2020 года">
+    <MainSection title="Топ настольных игр 2020 года" link="/topsales">
 
     </MainSection>
   </div>

@@ -77,3 +77,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.search {
+  padding: 40px 10px;
+}
+</style>

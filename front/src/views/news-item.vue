@@ -9,9 +9,7 @@
         <div class="news-page__content">
             <h3>{{ item.title }}</h3>
             <p class="news-page__date"> {{ item.date }}</p>
-            <div>
-                {{ item.content }}                
-            </div>            
+            <div v-html="item.content"></div>            
               <!-- <img :src="item.img" width="1150" height="185" alt=""> -->
         </div>
     </div>

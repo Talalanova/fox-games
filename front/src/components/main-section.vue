@@ -2,8 +2,7 @@
     <section class="section">
         <router-link :to= link>
             <h2> {{ title }}</h2>
-        </router-link>
-        
+        </router-link>        
         <hr>
         <div class="section__content">
             <slot></slot>
@@ -34,6 +33,10 @@ export default {
    font-weight: 300;
    text-align: left;
    margin: 40px 0 10px;
+}
+
+.section h2:hover {
+    color: #CB7D49;
 }
 
 hr {

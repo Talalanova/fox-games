@@ -9,9 +9,7 @@
         <div class="game-page__content">
             <h3>{{ item.title }}</h3>
             <p class="game-page__date"> {{ item.date }}</p>
-            <div class="game-page__content">
-                {{ item.content }}                
-            </div> 
+            <div class="game-page__content" v-html="item.content"></div> 
             <!-- <img src="@/assets/news-img-large.jpg" width="1150" height="185" alt=""> -->
         </div>
     </div>
@@ -33,7 +31,7 @@ export default {
     methods: {
         loadNewsItem() {
                        
-            fetch('http://127.0.0.1:8000/api/article/' + this.$route.params.id)
+            fetch('http://api.foxhole.club/api/article/' + this.$route.params.id)
 
                 .then((response) => {
                     if(response.ok) {
@@ -44,10 +42,10 @@ export default {
                 })
                 .then((json) => {
                     let element = json
-                    console.log(json)
+                    
                     this.item = {
                         title: element.title,
-                        content: element.content,
+                        content: element.content,                        
                         date: new Date(element.created_at).toLocaleDateString('ru-RU')
                     }
                 })

@@ -2,7 +2,7 @@
   <div class="games">    
     <h1>Игротеки</h1>
     <hr>
-      <GamesItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img="item.img" :id="item.id" :slug="item.slug">{{item.content}}</GamesItem>
+      <GamesItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img="item.img" :id="item.id" :slug="item.slug">{{item.description}}</GamesItem>
       <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>
@@ -47,6 +47,7 @@ export default {
               content: element.content,
               id: element.id,
               slug: element.slug,
+              description: element.short_description,
               img: 'http://api.foxhole.club/storage/catalog/article/source/' + element.image,
               date: new Date(element.created_at).toLocaleDateString('ru-RU')
             })

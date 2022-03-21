@@ -76,8 +76,8 @@
           </div>
         </div>  
     </div>
-    <MainSection title="Рекомендуем вам">
-
+    <MainSection title="Рекомендуем вам" link="/newsales">
+    
     </MainSection>
   </div>
 </template>

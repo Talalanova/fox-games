@@ -30,11 +30,11 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-    <div class="sidemenu__ad">
-      <img :src='sidemenuAd.img' width="110" height="100">
+    <div class="sidemenu__ad" v-for="ad in sales" :key="ad">
+      <img :src= ad.pics[0] width="110" height="100">
       <span>
-        <router-link to="/stocks">
-          {{ sidemenuAd.text }}
+        <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
+          {{ ad.title }}
         </router-link>        
         </span>
     </div>
@@ -53,7 +53,8 @@ export default {
     return {
       otherCategorys, 
       tableGames,
-      sidemenuAd
+      sidemenuAd,
+      sales: []
     }
   },
   methods: {
@@ -76,14 +77,58 @@ export default {
         this.$refs.sidemenu.classList.toggle('sidemenu--opened')
       }
     },
+    getRandomArrayElement(arr) {
+      return arr[Math.floor(Math.random()*arr.length)]
+    },
+    loadSales() {
+      this.sales = []
+
+      fetch('http://api.foxhole.club/api/product/sale')
+        .then((response) => {
+          if(response.ok) {                        
+            return response.json();                 
+          }            
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+
+          json.data.forEach(element => {
+            let _images = []
+
+            element.images.forEach( item => {
+              _images.push('http://api.foxhole.club/files/' + item.path)
+            })
+            
+            let product = {
+              discont: element.discount,
+              id: element.id,
+              slug: element.slug,
+              inStock: element.status,
+              title: element.title,
+              desc: element.description,
+              price : element.price,
+              age : element.age_from + '-' + element.age_to + ' лет',
+              time : element.game_time + ' мин',
+              players : element.players_from + '-' + element.players_to,                    
+              pics: _images,
+              description: element.description,                    
+            }
+            this.sales.push(product);
+            let randomAd = this.getRandomArrayElement(this.sales)
+            this.sales = []
+            this.sales.push(randomAd)
+          })          
+        })
+    },
   },
   components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
   },
-  watch: {
-    
+  mounted() {
+    this.loadSales()
   }
+
 }
 </script>
 

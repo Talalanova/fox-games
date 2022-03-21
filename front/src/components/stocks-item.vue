@@ -6,9 +6,8 @@
         <div class="stocks-item__content">
             <p class="date"> {{ date }}</p>
             <p class="stocks-item__title">{{ title }}</p>
-            <p class="stocks-item__text">
-                <slot></slot>
-            </p>
+            <p class="stocks-item__text"> {{ description }}</p>
+            <p class="stocks-item__text" v-html="content"></p>
         </div>
     </div>
 </template>
@@ -20,6 +19,9 @@ export default {
         title: String,
         img: String,
         date: String,
+        description: String,
+        content: String
+        
     },
     data() {
         return {

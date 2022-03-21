@@ -1,10 +1,10 @@
 <template>
-    <router-link to="/news">
+    <router-link :to="'/news-item/' + itemData.slug + '/id/' + itemData.id">
         <div class="news-card">
-            <img class="news-card__pic" src="@/assets/card_img.png" width="178" height="178" alt="Особняки безумия">
-            <h3 class="news-card__title">Особняки безумия</h3>
-            <p class="news-card__desc">Никто не выйдет</p>
-            <button class="news-card__button" aria-label="Купить">Читать</button>
+            <img class="news-card__pic" :src= itemData.img width="178" height="178" alt="Особняки безумия">
+            <h3 class="news-card__title">{{ itemData.title }}</h3>
+            <p class="news-card__desc">{{ itemData.description }}</p>
+            <button class="news-card__button" aria-label="Читать новость">Читать</button>
         </div>
     </router-link>
 
@@ -12,7 +12,11 @@
 
 <script>
 export default {
-    name: 'NewsCard',
+    name: 'NewsCard',    
+    props: {
+        itemData : Object,
+    }
+    
 }
 </script>
 

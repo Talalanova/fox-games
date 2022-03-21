@@ -22,7 +22,7 @@
                 <router-link to="/catalog">Каталог</router-link>
             </li>
             <li>
-                <router-link to="/games">Турниры</router-link>
+                <router-link to="/games">Игротеки</router-link>
             </li>
             <li>
                 <router-link to="/stocks">Акции</router-link>
@@ -40,10 +40,10 @@
         <SocialList></SocialList>
         <a href="https://delomain.com/" class="footer__copyright">© 2022 Разработано Digital Agency “Delomain”</a>
         <div class="error" v-if="error">
-        <div class="overlay" @click.self="error = !error">
-            <img src="@/assets/fox-error.svg" width="512" height="450">
-            <h1>Что-то пошло не так. Попробуйте перезагрузить страницу или вернуться позже</h1>
-        </div>
+            <div class="overlay" @click.self="error = !error">
+                <img src="@/assets/fox-error.svg" width="512" height="450">
+                <h1>Что-то пошло не так. Попробуйте перезагрузить страницу или вернуться позже</h1>
+            </div>
         </div>
     </div>
 </template>
@@ -154,6 +154,11 @@ form button {
     text-decoration: none;
     width: 100%;
     margin-left: 50%;
+    text-align: right;
+}
+
+.error h1 {
+    color: #fff;
 }
 
 @media (max-width: 1080px) {

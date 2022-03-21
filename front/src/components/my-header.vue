@@ -110,19 +110,10 @@ export default {
 
     margin-left: auto;
     padding: 4px 80px;
-    position: relative;
+    border-radius: 0 0 0 20px;
 }
 
-.header::before {
-    position: absolute;
-    content: "";
-    width: 100px;
-    height: 56px;
-    background-image: url('~@/assets/header_before.svg');
-    left: -42px;
-    bottom: -10px;
-    background-repeat: no-repeat;
-}
+
 
 .header__close-button {
     display: none;

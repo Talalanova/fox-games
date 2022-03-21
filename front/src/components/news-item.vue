@@ -44,7 +44,7 @@ export default {
 }
 
 .news-item__pic img {
-    background-color: #FFE9D4;
+    background-color: #fff;
     border-radius: 10px;
     margin: 0 auto;
 }

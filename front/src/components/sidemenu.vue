@@ -30,14 +30,14 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-    <div class="sidemenu__ad" v-for="ad in sales" :key="ad">
-      <img :src= ad.pics[0] width="110" height="100">
-      <span>
+      <div class="sidemenu__ad" v-for="ad in sales" :key="ad">
         <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
-          {{ ad.title }}
-        </router-link>        
-        </span>
-    </div>
+          <img :src= ad.pics[0] width="110" height="100">
+          <span>
+              {{ ad.title }}
+            </span>
+        </router-link>
+      </div>  
   </div>
 </template>
 

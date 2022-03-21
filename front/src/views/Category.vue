@@ -17,7 +17,7 @@
       </span>
     </div>
     <div class="section__content">
-      <ItemCard :itemData ="product" @addToCart="addToCart" v-for="product in products" :key="product"></ItemCard>  
+      <ItemCard :itemData ="product" v-for="product in products" :key="product"></ItemCard>
     </div>
     <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
@@ -29,7 +29,6 @@ import ItemCard from '@/components/item-card.vue'
 import SortingBar from '@/components/sorting-bar.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
 import Pagination from '@/components/pagination.vue'
-import {mapActions, mapGetters} from 'vuex'
 import {tableGames} from '@/data.js'
 
 export default {
@@ -56,7 +55,6 @@ export default {
   },
   methods: {
     loadProducts(page = 1) {
-
       this.tableGames.forEach(item => {
         if (item.slug == this.$route.params.category) {
           this.categoryDescription = item.content
@@ -117,8 +115,7 @@ export default {
         .then((json) => {
           
           if(json.total) this.paginationTotal = json.total
-          
-          console.log(json)
+
           json.data.forEach(element => {
 
             let _images = []
@@ -141,20 +138,13 @@ export default {
               pics: _images,
               description: element.description,                    
             }
-            this.products.push(product);
-            console.log(this.products)            
+            this.products.push(product);   
           })                
         })
    },
-   updatePage(page) {
-    this.loadProducts(page)
-   },
-  addToCart(data) {
-    this.ADD_TO_CART(data)
-  },
-  ...mapActions([
-    'ADD_TO_CART'
-  ])
+    updatePage(page) {
+      this.loadProducts(page)
+    },
   },
   mounted() {
     this.loadProducts();
@@ -171,11 +161,6 @@ export default {
       },
       
   },
-  computed: {
-    ...mapGetters([
-        'CART'
-    ]),
-  }
 }
 </script>
 

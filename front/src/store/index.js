@@ -11,7 +11,8 @@ export default createStore({
     },
     SET_CART: (state, product) => {
       state.cart.push(product)
-    }
+    },
+
   },
   getters: {
     TREE: state => {
@@ -24,7 +25,8 @@ export default createStore({
   actions: {
     ADD_TO_CART({commit},product) {
       commit('SET_CART', product)
-    }
+    },
+
   },
   modules: {
   }

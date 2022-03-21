@@ -24,6 +24,7 @@ import MyHeader from '@/components/my-header.vue'
 import MyFooter from '@/components/my-footer.vue'
 import {tableGames} from '@/data.js'
 //import {router} from '@/router/index.js'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: 'App',
@@ -50,8 +51,12 @@ export default {
       tableGames,
       categoryTree:[],
       categorySlug: false
-
     }
+  },
+  computed: {
+    ...mapGetters([
+      'CART'
+    ]),
   },
   methods: {
     closeSidemenu() {
@@ -133,10 +138,40 @@ export default {
           console.log(error);
         });
     },
+  ...mapActions([
+    'ADD_TO_CART'
+  ]),
+    getCookie() {
+      if (this.$cookie.get('fox_cart')) {
+        fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart'))
+        .then((response) => {
+          if(response.ok) {
+            return response.json();
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {          
+          json.products.forEach(item => {
+            this.ADD_TO_CART(item)
+          })
+        })
+      } else {
+        fetch('http://api.foxhole.club/api/basket')
+        .then((response) => {
+          if(response.ok) {
+            return response.json();
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {          
+          this.$cookie.set('fox_cart', json.token)
+        })
+      }
+    }
   },
   mounted() {
     this.processStep();
-    
+    this.getCookie()
     // let foxTrail = () => {
     //   for (let i = 0; i <= 11; i++) {
     //     let trail = document.createElement('div');

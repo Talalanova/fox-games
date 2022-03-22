@@ -12,7 +12,9 @@ export default createStore({
     SET_CART: (state, product) => {
       state.cart.push(product)
     },
-
+    RESET_CART: (state) => {
+      state.cart = []
+    }
   },
   getters: {
     TREE: state => {
@@ -26,7 +28,9 @@ export default createStore({
     ADD_TO_CART({commit},product) {
       commit('SET_CART', product)
     },
-
+    RESET_CART({commit}) {
+      commit('RESET_CART')
+    }
   },
   modules: {
   }

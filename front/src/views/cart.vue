@@ -1,18 +1,18 @@
 <template>
-  <div class="cart">    
+  <div class="cart">
     <h1>Корзина</h1>
     <hr>
     <form method="post" action="#">
       <div class="cart__buttons">
         <button class="cart__choose-button">Выделить все</button>
-        <button class="cart__remove-button">Удалить выбранное</button>
+        <button class="cart__remove-button" @click="deleteFromCart()">Удалить выбранное</button>
       </div>
-      <div v-for="item in CART" :key="item">
-        <CartItem :slug="item.slug" :title="item.title" :price="item.price" :pic="item.thumb" :itemId="item.id" :discont="item.discont" :inStock="item.inStock"></CartItem>
+      <div>
+        <CartItem @checkCartItem="checkCartItem" :itemData="item" v-for="item in this.CART" :key="item"></CartItem>
       </div>
       <div class="sum">
         <span>Итог</span>
-        <span> 13200₽ </span>
+        <span>{{ sum + `₽`}}</span>
       </div>
       <div class="cart__contacts-frame">
         <div class="cart__contacts-info">          
@@ -45,16 +45,46 @@
 
 <script>
 import CartItem from '@/components/cart-item.vue'
-// import { itemData } from '@/data.js'
 import {mapGetters} from 'vuex'
+
 export default {
   name: 'Cart',
   components: {
-     CartItem,
+    CartItem,
+    
   },
   data() {
     return {
-      delivery: false
+      delivery: false,
+      cartSum: 0,
+      checkedItems: []
+    }
+  },
+  methods: {
+    deleteFromCart() {
+      console.log(this.checkedItems)
+      // fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/decrease/' + id)
+      //   .then((response) => {
+      //       if(response.ok) {                        
+      //         return response.json();
+      //       }
+      //       throw new Error('Network response was not ok');
+      //   })
+      //   .then((json) => {
+      //       console.log(json)
+      //       this.RESET_CART()
+      //       json.products.forEach(item => {
+      //           this.ADD_TO_CART(item)
+      //       })             
+      //   })
+    },
+    checkCartItem(event,id) {
+      if(event == true) {
+        this.checkedItems.push(id)
+      } else {
+        this.checkedItems = this.checkedItems.filter(item => item[!id])
+      }
+      console.log(this.checkedItems)
     }
   },
   props: {
@@ -63,7 +93,16 @@ export default {
   computed: {
     ...mapGetters([
       'CART'
-    ])
+    ]),
+    sum() {
+      let result = 0;
+      this.CART.forEach(el=> {
+        result += Math.ceil(+el.price*el.pivot.quantity)
+      });
+      return result;
+    },
+  },
+  mounted() {
   }
 }
 </script>

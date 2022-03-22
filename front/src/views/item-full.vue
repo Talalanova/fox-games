@@ -30,7 +30,7 @@
           <span class="value"> {{ itemData[name] }}</span>          
         </span>
         <router-link to="/delivery" class="delivery">Условия заказа</router-link>
-        <button type="button" :disabled="!itemData.inStock || itemData.inStock === 2" class="item__button">
+        <button @click="addToCart(itemData)" type="button" :disabled="!itemData.inStock || itemData.inStock === 2" class="item__button">
           <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3.98247 1.83333L3.85425 1.35H3.3542H2.0575C1.93564 1.35 1.82615 1.30409 1.75134 1.2337C1.67787 1.16458 1.64463 1.07959 1.64463 1C1.64463 0.920406 1.67787 0.835425 1.75134 0.766301C1.82615 0.695913 1.93564 0.65 2.0575 0.65H4.18323C4.18323 0.65 4.18324 0.65 4.18324 0.65C4.28514 0.650006 4.37984 0.682291 4.45243 0.73559C4.52434 0.78839 4.56802 0.856457 4.58606 0.924068C4.58608 0.924126 4.5861 0.924184 4.58611 0.924241L4.91542 2.16655L5.04357 2.65H5.54372L16.9374 2.65C16.9375 2.65 16.9376 2.65 16.9377 2.65C17.015 2.65009 17.0893 2.66885 17.1529 2.70226C17.2164 2.73562 17.2652 2.78126 17.298 2.83118C17.3306 2.88079 17.3472 2.93408 17.3497 2.98609C17.3522 3.03803 17.3407 3.0915 17.3138 3.14211L14.1253 9.14197L14.1252 9.14211C14.0958 9.1976 14.0474 9.24984 13.9807 9.28866C13.9137 9.32763 13.8333 9.34996 13.7488 9.35H6.74901H6.4913L6.30361 9.52659L5.24074 10.5266L4.28552 11.4253C4.12166 10.98 4.19906 10.4636 4.62865 10.0594L5.57753 9.16766L5.86024 8.90197L5.76057 8.52702L4.31719 3.09702L4.31723 3.09701L4.31534 3.09018C4.31412 3.0858 4.31301 3.0814 4.312 3.07699L4.30951 3.06611L4.30665 3.05533L3.98247 1.83333ZM5.68614 12.35C5.07725 12.35 4.62797 12.0475 4.39241 11.65H5.68614H14.812C14.9338 11.65 15.0433 11.6959 15.1181 11.7663C15.1916 11.8354 15.2248 11.9204 15.2248 12C15.2248 12.0796 15.1916 12.1646 15.1181 12.2337C15.0433 12.3041 14.9338 12.35 14.812 12.35H5.68614Z" fill="white" stroke="white" stroke-width="1.3"/>
           <path d="M15.2246 15.4999C15.2246 15.7121 15.1354 15.9243 14.9623 16.0872C14.7878 16.2513 14.5431 16.3499 14.2803 16.3499C14.0175 16.3499 13.7729 16.2513 13.5984 16.0872C13.4253 15.9243 13.336 15.7121 13.336 15.4999C13.336 15.2877 13.4253 15.0756 13.5984 14.9127C13.7729 14.7485 14.0175 14.6499 14.2803 14.6499C14.5431 14.6499 14.7878 14.7485 14.9623 14.9127C15.1354 15.0756 15.2246 15.2877 15.2246 15.4999Z" fill="white" stroke="white" stroke-width="1.3"/>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import { someRandomNames } from '@/data.js'
 import Comment from '@/components/comment.vue'
 // import {itemParameters,itemData,stockStatus} from '@/data.js'
@@ -115,7 +116,7 @@ export default {
   },
   computed: {
     discontPrice: function() {
-        return this.itemData.price - (this.itemData.price*this.itemData.discont/100)
+      return this.itemData.price - (this.itemData.price*this.itemData.discont/100)
     }
   },
     methods: {
@@ -242,7 +243,27 @@ export default {
               console.log(error);
             });
       }
-    }
+    },
+    addToCart(data) {
+      fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/increase/' + data.id)
+        .then((response) => {
+            if(response.ok) {                        
+                return response.json();
+            }
+            throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+            console.log(json)
+            this.RESET_CART()
+            json.products.forEach(item => {
+                this.ADD_TO_CART(item)
+            })             
+        })
+    },
+    ...mapActions([
+      'ADD_TO_CART',
+      'RESET_CART'
+    ])
   },
   mounted() {
     this.getProductInfo()

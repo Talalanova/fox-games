@@ -48,12 +48,17 @@ export default {
                     }
                     throw new Error('Network response was not ok');
                 })
-                .then(() => {
-                    this.ADD_TO_CART(data)
+                .then((json) => {
+                    console.log(json)
+                    this.RESET_CART()
+                    json.products.forEach(item => {
+                        this.ADD_TO_CART(item)
+                    })             
                 })
         },
         ...mapActions([
-            'ADD_TO_CART'
+            'ADD_TO_CART',
+            'RESET_CART'
         ])
     },
 }

@@ -1,66 +1,95 @@
 <template>
-    <div class="cart-item" :class="[inStock <= 2 ? 'cart-item--outofstock' : '']">
+    <div class="cart-item" :class="[itemData.amount == 0 ? 'cart-item--outofstock' : '']">
         <div class="cart-item__pic">
-            <input type="checkbox" :id="itemId" :value="itemId">
-            <label :for="itemId"></label>
-            <img :src= pic width="89" height="89" alt="">
+            <input  @change="emitCheck($event.target.checked,itemData.id)"
+                    type="checkbox" :id="itemData.id" :value="itemData.id">
+            <label :for="itemData.id"></label>
+            <img :src="'http://api.foxhole.club/files/' +  itemData.images[0].path" width="89" height="89" alt="">
         </div>
-       <router-link :to="'/item-full/' + slug + '/prd/' + itemId" class="cart-item__title">{{ title }}</router-link>
-       <span class="counter" v-if="inStock > 2">
-           <button @click="minus">-</button>
-           <p>{{ counter }}</p>
-           <button @click="plus">+</button>
+       <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id" class="cart-item__title">{{ itemData.title }}</router-link>
+       <span class="counter" v-if="itemData.amount > 0">
+           <button @click="deleteFromCart(itemData)">-</button>
+           <p>{{ itemData.pivot.quantity }}</p>
+           <button v-if="itemData.pivot.quantity < itemData.amount" @click="addToCart(itemData)">+</button>
        </span>
-        <span class="item__outofstock" v-if="inStock <= 2">           
+        <span class="item__outofstock" v-if="itemData.amount == 0">           
            <p>Нет в наличии</p>           
        </span>
-       <span class="cart-item__price" :class="[discont > 0 ? 'cart-item__price--discont' : '']">
-            <span class="current-price">
-                {{ price + `₽` }}
+       <span class="cart-item__price" :class="[itemData.discount < 0 ? 'cart-item__price--discont' : '']">
+            <span v-if="itemData.old_price" class="current-price">
+                {{ Math.ceil(itemData.old_price) + `₽` }}
             </span>
-            <span v-if="discont > 0" class="discont">
-                {{`-` + discont + `%` }}
+            <span v-if="itemData.discount < 0" class="discont">
+                {{ itemData.discount + `%` }}
             </span>
-            <span v-if="discont > 0" class="discont-price">
-                {{ discontPrice + `₽`}}
+            <span class="discont-price">
+                {{ Math.ceil(itemData.price) + `₽`}}
             </span>
         </span>
     </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
     name: 'CartItem',
     data() {
         return {
-            counter: 1,
+          
         }
     },
     props: {
-        title: String,
-        price: Number,
-        pic: String,
-        itemId: Number,
-        discont: Number,
-        inStock: Number,
-        itemData: Object
+        itemData: Object,
+        modelValue: { type: String, default: "" },
     },
+    emits: ['checkCartItem'],
     computed: {
         discontPrice: function() {
-            return this.price - (this.price*this.discont/100)
+            return this.itemData.price - (this.itemData.price*this.itemData.discont/100)
         }
     },
     methods: {
-        plus() {
-            this.counter += 1
+        addToCart(data) {            
+            fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/increase/' + data.id)
+                .then((response) => {
+                    if(response.ok) {                        
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok');
+                })
+                .then((json) => {
+                    console.log(json)
+                    this.RESET_CART()
+                    json.products.forEach(item => {
+                        this.ADD_TO_CART(item)
+                    })             
+                })
+                console.log(this.checked)
+                
         },
-        minus() {
-            if (this.counter <= 1) {
-                return
-            } else {
-               this.counter -= 1  
-            }
-
+        deleteFromCart(data) {
+            fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/decrease/' + data.id)
+                .then((response) => {
+                    if(response.ok) {                        
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok');
+                })
+                .then((json) => {
+                    console.log(json)
+                    this.RESET_CART()
+                    json.products.forEach(item => {
+                        this.ADD_TO_CART(item)
+                    })             
+                })
+        },
+        ...mapActions([
+            'ADD_TO_CART',
+            'RESET_CART'
+        ]),
+        emitCheck(event,id) {           
+            this.$emit('checkCartItem',event,id)
         }
     }
 }
@@ -75,7 +104,7 @@ export default {
     border: 1px solid #CB7D49;
     border-radius: 10px;
     overflow: hidden;
-    padding: 8px 30px 8px 45px;
+    padding: 22px 30px 22px 45px;
     margin: 20px 0;
 }
 

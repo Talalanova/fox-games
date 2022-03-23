@@ -1,12 +1,14 @@
 <template>
     <div class="cart-item" :class="[itemData.amount == 0 ? 'cart-item--outofstock' : '']">
         <div class="cart-item__pic">
-            <input  @change="emitCheck($event.target.checked,itemData.id)"
+            <input @change="emitCheck($event.target.checked,itemData.id)"
                     type="checkbox" 
                     :id="itemData.id" 
-                    :value="itemData.id">
+                    :value="itemData.id"
+                    :checked="checked"
+                    :name="itemData.id">
             <label :for="itemData.id"></label>
-            <img :src="'http://api.foxhole.club/files/' +  itemData.images[0].path" width="89" height="89" alt="">
+            <img :src="'http://api.foxhole.club/files/' +  itemData.images[0].path" width="95" height="95" alt="">
         </div>
        <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id" class="cart-item__title">{{ itemData.title }}</router-link>
        <span class="counter" v-if="itemData.amount > 0">
@@ -17,12 +19,12 @@
         <span class="item__outofstock" v-if="itemData.amount == 0">           
            <p>Нет в наличии</p>           
        </span>
-       <span class="cart-item__price" :class="[itemData.discount < 0 ? 'cart-item__price--discont' : '']">
+       <span class="cart-item__price" :class="[itemData.discount > 0 ? 'cart-item__price--discont' : '']">
             <span v-if="itemData.old_price" class="current-price">
                 {{ Math.ceil(itemData.old_price) + `₽` }}
             </span>
-            <span v-if="itemData.discount < 0" class="discont">
-                {{ itemData.discount + `%` }}
+            <span v-if="itemData.discount > 0" class="discont">
+                {{'-' + itemData.discount + `%` }}
             </span>
             <span class="discont-price">
                 {{ Math.ceil(itemData.price) + `₽`}}
@@ -44,6 +46,7 @@ export default {
     props: {
         itemData: Object,
         modelValue: { type: String, default: "" },
+        checked: Boolean
     },
     emits: ['checkCartItem'],
     computed: {

@@ -4,11 +4,11 @@
     <hr>
     <form name="order">
       <div class="cart__buttons">
-        <button class="cart__choose-button">Выделить все</button>
+        <button class="cart__choose-button" @click="selectAll(checkedId = !checkedId)">Выделить все</button>
         <button class="cart__remove-button" @click="deleteFromCart()">Удалить выбранное</button>
       </div>
       <div>
-        <CartItem @checkCartItem="checkCartItem" :itemData="item" v-for="item in this.CART" :key="item"></CartItem>
+        <CartItem @checkCartItem="checkCartItem" :checked="checkedId" :itemData="item" v-for="item in this.CART" :key="item"></CartItem>
       </div>
       <div class="sum">
         <span>Итог</span>
@@ -65,7 +65,8 @@ export default {
       cartSum: 0,
       checkedItems: [],
       buttonText: 'Оформить',
-      error: false
+      error: false,
+      checkedId: false
     }
   },
   methods: {
@@ -90,6 +91,11 @@ export default {
       if(event == true) {
         this.checkedItems.push(id)
       }
+    },
+    selectAll() {
+      this.CART.forEach(item => {
+        this.checkedItems.push(item.id)
+      })
     },
     ...mapActions([
       'ADD_TO_CART',

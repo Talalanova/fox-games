@@ -1,13 +1,13 @@
 <template>
     <div class="cart-item" :class="[itemData.amount == 0 ? 'cart-item--outofstock' : '']">
+        <input @change="emitCheck($event.target.checked,itemData.id)"
+                type="checkbox" 
+                :id="itemData.id" 
+                :value="itemData.id"
+                :checked="checked"
+                :name="itemData.id">
+        <label :for="itemData.id"></label>
         <div class="cart-item__pic">
-            <input @change="emitCheck($event.target.checked,itemData.id)"
-                    type="checkbox" 
-                    :id="itemData.id" 
-                    :value="itemData.id"
-                    :checked="checked"
-                    :name="itemData.id">
-            <label :for="itemData.id"></label>
             <img :src="'http://api.foxhole.club/files/' +  itemData.images[0].path" width="95" height="95" alt="">
         </div>
        <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id" class="cart-item__title">{{ itemData.title }}</router-link>
@@ -78,8 +78,7 @@ export default {
                     }
                     throw new Error('Network response was not ok');
                 })
-                .then((json) => {
-                    console.log(json)
+                .then((json) => {                    
                     this.RESET_CART()
                     json.products.forEach(item => {
                         this.ADD_TO_CART(item)
@@ -101,12 +100,12 @@ export default {
 
 .cart-item {
     display: grid;
-    grid-template-columns: 95px auto 100px auto;
+    grid-template-columns: 23px 95px 40% 100px auto;
     column-gap: 15px;
     border: 1px solid #CB7D49;
     border-radius: 10px;
     overflow: hidden;
-    padding: 22px 30px 22px 45px;
+    padding: 22px 30px 22px 0px;
     margin: 20px 0;
 }
 
@@ -120,6 +119,10 @@ export default {
     line-height: 25px;
     text-align: left;
     margin: auto 0;
+}
+
+.cart-item__title:hover {
+    color:#CB7D49;
 }
 
 .cart-item__price {
@@ -181,6 +184,7 @@ export default {
     max-height: 45px;
     border-radius: 10px;
     font-size: 23px;
+    cursor: pointer;
 }
 
 .cart-item input[type="checkbox"] {
@@ -189,7 +193,7 @@ export default {
 
 .cart-item label {
     position: relative;
-    
+    cursor: pointer;
 }
 
 .cart-item label::before {
@@ -199,8 +203,8 @@ export default {
     height: 21px;
     border-radius: 2px;
     border: 0.5px solid #B6B6B6;
-    left: -86px;
-    bottom: -22px;
+    left: 6px;
+    top: -16px;
 }
 
 .cart-item label::after {
@@ -210,8 +214,8 @@ export default {
     height: 21px;
     background-image: url(/img/icon_checked.fb624254.svg);
     background-repeat: no-repeat;
-    left: -84px;
-    bottom: -20px;
+    left: 8px;
+    top: -16px;
     background-size: 18px 21px;
 }
 

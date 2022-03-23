@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <SortingBar></SortingBar>
+    <SortingBar @renderFilteredProducts="renderFilteredProducts"></SortingBar>
     <h1>{{ categoryTitle }}</h1>
     <hr>
     <Breadcrumbs>
@@ -13,7 +13,7 @@
         {{ categoryDescription }}
       </span>
       <span class="intro__pic">
-        <img :src="categoryImg" width="270" height="200">
+        <img :src="categoryImg" width="" height="">
       </span>
     </div>
     <div class="section__content">
@@ -132,11 +132,12 @@ export default {
               title: element.title,
               desc: element.description,
               price : element.price,
-              age : element.age_from + '-' + element.age_to + ' лет',
-              time : element.game_time + ' мин',
+              age : element.age_from + '-' + element.age_to,
+              time : element.game_time,
               players : element.players_from + '-' + element.players_to,                    
               pics: _images,
-              description: element.description,                    
+              description: element.description,
+              amount: element.amount                
             }
             this.products.push(product);   
           })                
@@ -145,11 +146,39 @@ export default {
     updatePage(page) {
       this.loadProducts(page)
     },
+    renderFilteredProducts(json) {
+      this.products = []
+      json.data.forEach(element => {
+
+        let _images = []
+
+        element.images.forEach( item => {
+          _images.push('http://api.foxhole.club/files/' + item.path)
+        })
+        
+        let product = {
+          discont: element.discount,
+          id: element.id,
+          slug: element.slug,
+          inStock: element.status,
+          title: element.title,
+          desc: element.description,
+          price : element.price,
+          age : element.age_from + '-' + element.age_to + ' лет',
+          time : element.game_time + ' мин',
+          players : element.players_from + '-' + element.players_to,                    
+          pics: _images,
+          description: element.description,
+          amount: element.amount
+        }
+        this.products.push(product);   
+      }) 
+    }
   },
   mounted() {
     this.loadProducts();
   },
-  watch:{    
+  watch:{
     $route(){
         if (typeof this.$route.params.category !== 'undefined') {
           this.categorySlug = this.$route.params.category
@@ -158,8 +187,7 @@ export default {
           this.subcategorySlug = this.$route.params.subcategory
         }
        this.loadProducts();
-      },
-      
+      }, 
   },
 }
 </script>

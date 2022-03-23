@@ -39,21 +39,20 @@
                         </button>
                     </span>               
                     <div class="tags" v-if="tagsOpen">
-                        <span v-for="tag in tags" v-bind:key="tag.index">
-                            <input type="checkbox" :value="tag" :id="tag" name="tags"/>
-                            <label :for="tag">{{tag}}</label>
+                        <span v-for="tag in tags" v-bind:key="tag">
+                            <input type="checkbox" :value="tag.id" :id="tag.id" name="tags"/>
+                            <label :for="tag.id">{{tag.title}}</label>
                         </span>
                     </div>
                     <p class="sorting__label">Цена</p>
                     <SliderRange v-model="priceValue"></SliderRange>
-                    <input class="sorting__checkbox" type="checkbox" value="discont" id="discont"/>
+                    <input class="sorting__checkbox" type="checkbox" value="discont" id="discont" name="discount"/>
                     <label for="discont">Только со скидкой</label>
                     <input class="sorting__checkbox" type="checkbox" value="true" name="available" id="inStock"/>
                     <label for="inStock">В наличии</label>
-
                     <p class="sorting__label">Количество игроков</p>
                     <PlayerRange v-model="playersAmount"></PlayerRange>
-                    <span class="players"><p>Любое</p><p>6+</p></span>
+                    <span class="players"><p>Для одного</p><p>6+</p></span>
                     <p class="sorting__label">Возраст</p>
                     <div class="ages">
                         <span v-for="age in ages" v-bind:key="age" >
@@ -79,14 +78,15 @@ export default {
         return {
             sorting: false,
             filters: false,
-            tags: ['Фентези', 'Детектив', 'Романтичные', 'Карточные', 'Новое', 'Ужасы', 'На воображение',],
+            tags: [],
             tagsOpen: false,            
             inStockOpen: false,
             ages: ['3 - 8','8 - 14','14 - 18','18+'],            
             priceValue: [ 300, 2500 ],
-            playersAmount: [1, 6]
+            playersAmount: [2, 5]
         }
     },
+    emits: ['renderFilteredProducts'],
     components: {
         SliderRange,
         PlayerRange
@@ -95,60 +95,72 @@ export default {
         filterProducts() {
             let formData = new FormData(document.forms.filters)
             let params = []
-
             for(let value of formData.entries()) {
                 let name = value[0]
                 let _value = value[1]
                 if(typeof params[name] === "undefined") params[name] = [];
                 params[name].push(_value);
             }
-
-            let filter =  `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0] + `&players_to=` + this.playersAmount[1] 
-            
-            if (params.age_from) {
-                
+            let filter =  `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0]            
+            if (this.playersAmount[1] > 5) {
+                filter = filter.concat(`&players_to=99`)
+            } else {
+                filter = filter.concat(`&players_to=` + this.playersAmount[1])
+            }
+            if (params.age_from) {                
                 params.age_from.forEach((element,index) => {
                     params.age_from[index] = element.split(',')
                 });
-
-                params.age_from = params.age_from.flat()
-            
+                params.age_from = params.age_from.flat()            
                 params.age_from.forEach((element,index) => {
                     if (element === '18+') element = '18'
                     if (element === '') element = '99'
                     params.age_from[index] = element
                 })
-
                 params.age_from.sort(function(a, b) {
                     return a - b;
                 });
-
                 filter = filter.concat(`&age_from=` + params.age_from[0] + `&age_to=` + params.age_from[params.age_from.length - 1])
-            }
-            
-            if (params.tags) {
+            }          
+            if (params.tags) {                
                 params.tags = params.tags.flat()
-                filter = filter.concat(`&tags=` + params.tags)
+                filter = filter.concat(`&tags=[` + Array.from(params.tags) +']')
             }
-
+            if (params.discount) {
+                filter = filter.concat(`&discount=` + 1)
+            }
             if (params.available) {
-                filter = filter.concat(`&available=` + params.available[0])
+                filter = filter.concat(`&available=` + 1)
             }
-
-            console.log(filter)
-
             fetch('http://api.foxhole.club/api/product/filter?' + filter, {})
                 .then((response) => {                    
-                    if(response.ok) {
-                        console.log('есть данные')
+                    if(response.ok) {                        
                         return response.json();
                     }                                   
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    console.log(json)
+                    this.$emit('renderFilteredProducts',json)
+                })            
+        },
+        loadTags() {
+            fetch('http://api.foxhole.club/api/product/tags')
+                .then((response) => {
+                    if(response.ok) return response.json();
+                })
+                .then((json) => {
+                    json.forEach(item => {
+                        let tag = {
+                            title: item.title,
+                            id: item.id
+                        }
+                        this.tags.push(tag)
+                    })                   
                 })
         }
+    },
+    mounted() {
+        this.loadTags()
     }
 }
 </script>

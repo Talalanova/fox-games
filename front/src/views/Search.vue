@@ -9,8 +9,7 @@
     </Breadcrumbs>
     <div class="section__content">
       <ItemCard v-for="item in searched" :itemData ="item" @addToCart="addToCart" :key="item"></ItemCard>  
-    </div>
-    
+    </div>    
   </div>
 </template>
 
@@ -37,31 +36,37 @@ export default {
   },
   methods: {
     searchProducts() {
-      this.searched = []
-      
+      this.searched = []      
       fetch('http://api.foxhole.club/api/product/search?q='+ this.title, {})
       .then((response) => {
       if(response.ok) return response.json();
       throw new Error('Network response was not ok');
       })
       .then((json) => {         
-          json.forEach(element => {
-              this.searched.push({
-                discont: element.discount,
-                id: element.id,
-                slug: element.slug,
-                inStock: element.status_id,
-                title: element.title,
-                desc: element.description,
-                price : element.price,
-                age : element.age_from + '-' + element.age_to + ' лет',
-                time : element.game_time + ' мин',
-                players : element.players_from + '-' + element.players_to,
-                thumb: require('@/assets/card_img.png'),
-                pics: [require('@/assets/gallery_img1.png'),require('@/assets/gallery_img2.png'),require('@/assets/gallery_img3.png'),require('@/assets/gallery_img4.png'),require('@/assets/gallery_img5.png'),],
-                description: element.description, 
-              })
+        json.forEach(element => {
+          
+          let _images = []
+
+          element.images.forEach( item => {
+            _images.push('http://api.foxhole.club/files/' + item.path)
           })
+
+          this.searched.push({
+            discont: element.discount,
+            id: element.id,
+            slug: element.slug,
+            inStock: element.status_id,
+            title: element.title,
+            desc: element.description,
+            price : element.price,
+            age : element.age_from + '-' + element.age_to,
+            time : element.game_time,
+            players : element.players_from + '-' + element.players_to,            
+            pics: _images,
+            description: element.description,
+            amount: element.amount
+          })
+        })
       });
     },
   },

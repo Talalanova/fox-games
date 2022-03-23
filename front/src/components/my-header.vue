@@ -14,7 +14,7 @@
                     <router-link :to="'/item-full/' + item.slug + '/prd/' + item.id" v-for="item in searched.slice(0,15)" :key="item" class="datalist__row" @click="this.searched = []">
                         <img :src="item.pic" width="50" height="50" alt="">
                         <span>{{item.name}}</span>
-                        <span>{{item.price}}Р</span>                        
+                        <span>{{Math.ceil(item.price)}}₽</span>                        
                     </router-link>                    
                 </div>
             </div>
@@ -111,8 +111,6 @@ export default {
     border-radius: 0 0 0 20px;
 }
 
-
-
 .header__close-button {
     display: none;
 }
@@ -170,6 +168,7 @@ export default {
     column-gap: 10px;
     align-items: center;
     color: #333333;
+    min-height: 35px;
 }
 
 .header__cart {

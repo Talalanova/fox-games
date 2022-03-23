@@ -2,7 +2,9 @@
     <div class="cart-item" :class="[itemData.amount == 0 ? 'cart-item--outofstock' : '']">
         <div class="cart-item__pic">
             <input  @change="emitCheck($event.target.checked,itemData.id)"
-                    type="checkbox" :id="itemData.id" :value="itemData.id">
+                    type="checkbox" 
+                    :id="itemData.id" 
+                    :value="itemData.id">
             <label :for="itemData.id"></label>
             <img :src="'http://api.foxhole.club/files/' +  itemData.images[0].path" width="89" height="89" alt="">
         </div>
@@ -59,14 +61,11 @@ export default {
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    console.log(json)
                     this.RESET_CART()
                     json.products.forEach(item => {
                         this.ADD_TO_CART(item)
                     })             
                 })
-                console.log(this.checked)
-                
         },
         deleteFromCart(data) {
             fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/decrease/' + data.id)

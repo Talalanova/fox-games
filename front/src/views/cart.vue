@@ -2,7 +2,7 @@
   <div class="cart">
     <h1>Корзина</h1>
     <hr>
-    <form method="post" action="#">
+    <form name="order">
       <div class="cart__buttons">
         <button class="cart__choose-button">Выделить все</button>
         <button class="cart__remove-button" @click="deleteFromCart()">Удалить выбранное</button>
@@ -16,11 +16,11 @@
       </div>
       <div class="cart__contacts-frame">
         <div class="cart__contacts-info">          
-          <input type="text" placeholder="*Имя" required/>
-          <input type="tel" placeholder="*Номер" required/>
-          <textarea placeholder="Комментарий"></textarea>
-          <button class="submit" type="submit">Оформить заказ</button>
-          <input class="cart__privacy--input" type="checkbox" id="privacy" value="privacy">
+          <input type="text" placeholder="*Имя" v-model="name" name="name" required/>
+          <input type="tel" placeholder="*Номер" v-model="phone" name="phone" required/>
+          <textarea placeholder="Комментарий" name="comment" v-model="comment"></textarea>
+          <button class="submit" type="submit" @click.prevent="confirmOrder">{{ buttonText }}</button>
+          <input class="cart__privacy--input" type="checkbox" id="privacy" value="privacy" required>
           <label class="cart__privacy" for="privacy">Я подтверждаю свое согласие на обработку персональных данных</label>
           <button type="button" @click="delivery = !delivery" class="cart__delivery-rules">Правила резерва товара</button>
         </div>
@@ -29,6 +29,12 @@
         </div>
       </div>
     </form>
+    <div class="error" v-if="error">
+      <div class="overlay" @click.self="error = !error">
+          <img src="@/assets/fox-error.svg" width="512" height="450">
+          <h1 style="color: white;">Что-то пошло не так. Попробуйте перезагрузить страницу или вернуться позже</h1>
+      </div>
+    </div>
     <div class="overlay" v-if="delivery" @click.self="delivery = !delivery">
       <div class="delivery__info">
         <p>В нашем магазине пока отсутствует возможность заказать любимую игру с доставкой, но вы можете оформить резерв на любую из игр!</p>
@@ -45,7 +51,7 @@
 
 <script>
 import CartItem from '@/components/cart-item.vue'
-import {mapGetters} from 'vuex'
+import {mapActions,mapGetters} from 'vuex'
 
 export default {
   name: 'Cart',
@@ -57,34 +63,58 @@ export default {
     return {
       delivery: false,
       cartSum: 0,
-      checkedItems: []
+      checkedItems: [],
+      buttonText: 'Оформить',
+      error: false
     }
   },
   methods: {
     deleteFromCart() {
-      console.log(this.checkedItems)
-      // fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/decrease/' + id)
-      //   .then((response) => {
-      //       if(response.ok) {                        
-      //         return response.json();
-      //       }
-      //       throw new Error('Network response was not ok');
-      //   })
-      //   .then((json) => {
-      //       console.log(json)
-      //       this.RESET_CART()
-      //       json.products.forEach(item => {
-      //           this.ADD_TO_CART(item)
-      //       })             
-      //   })
+      this.checkedItems.forEach(id => {
+      fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/remove/' + id)
+        .then((response) => {
+          if(response.ok) {                        
+            return response.json();
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+          this.RESET_CART()
+          json.products.forEach(item => {
+            this.ADD_TO_CART(item)
+          })             
+        })
+      })
     },
     checkCartItem(event,id) {
       if(event == true) {
         this.checkedItems.push(id)
-      } else {
-        this.checkedItems = this.checkedItems.filter(item => item[!id])
       }
-      console.log(this.checkedItems)
+    },
+    ...mapActions([
+      'ADD_TO_CART',
+      'RESET_CART'
+    ]),
+    confirmOrder() {
+      let formData = new FormData(document.forms.order)
+      fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/checkout', {
+          method: 'POST',
+          body: formData
+      })
+        .then((response) => {
+          if (response.ok) {
+            this.buttonText = 'Спасибо за заказ!'
+            this.name = ''
+            this.phone = ''
+            this.comment = ''
+            this.RESET_CART()
+          } else {
+            this.error = true
+          }
+        })
+        .catch(() => {
+            this.error = true
+        })
     }
   },
   props: {
@@ -144,6 +174,7 @@ export default {
 
 .cart__buttons {
   text-align: right;
+  padding-bottom: 10px;
 }
 
 .cart__choose-button {

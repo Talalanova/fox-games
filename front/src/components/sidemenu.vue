@@ -36,14 +36,13 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-      <div class="sidemenu__ad" v-for="ad in sales" :key="ad">
+      <div class="sidemenu__ad ad" v-for="ad in sales" :key="ad">
         <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
           <img :src= ad.pics[0] width="110" height="100">
-          <span>
-              {{ ad.title }}
-              {{ ad.price }}
-          </span>
-        </router-link>
+          <span class="ad__title">
+            {{ ad.title }}!
+          </span>         
+        </router-link> 
       </div>
     <img src="@/assets/sidemenu_bottom-green.svg" class="sidemenu__bottom-greeen" width="274" height="30">
     <img src="@/assets/sidemenu_bottom-green-front.png" class="sidemenu__bottom-greeen-front" width="274" height="30">
@@ -468,6 +467,12 @@ export default {
   position: relative;
 }
 
+.ad__title {
+  font-family: "Nunito";
+  font-size: 17px;
+  font-weight: bold;  
+}
+
 .sidemenu__ad::before {
   content: "";
   background-image: url('~@/assets/sidemenu-add-mark.png');
@@ -510,13 +515,6 @@ export default {
   max-width: 170px;
   display: inline-block;
   margin-top: 5px;
-}
-
-.vcpg[data-v-63943e43] .vcp__header[data-v-64321428] {
-  background-color: var(--bg-color-header);
-  height: auto !important;
-  min-height: 46px;
-  transition: background-color .3s ease;
 }
 
 @media (max-width: 1080px) {

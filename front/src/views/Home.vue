@@ -134,7 +134,7 @@ export default {
             this.newgoods.push(product);
           })          
         })
-    }
+    },
   },
   mounted() {
     this.loadNews()

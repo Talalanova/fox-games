@@ -1,7 +1,7 @@
 <template>
   <carousel :autoplay="5000" :items-to-show="1">
     <slide v-for="slide in slides" :key="slide">
-      <img v-bind:src="slide" width="1180" height="215"> 
+      <img :src="slide.img" width="1180" height="215"> 
     </slide>
     <template #addons>
       <navigation />
@@ -25,29 +25,12 @@ export default {
   },
   data() {
       return {
-        slides: []   
+        
       }
   },
-  methods: {
-    loadSlider() {
-      fetch('http://api.foxhole.club/api/slider')
-        .then((response) => {
-          if(response.ok) {                        
-            return response.json();                 
-          }            
-          throw new Error('Network response was not ok');
-        })
-        .then((json) => {
-          json.forEach(item => {
-            this.slides.push('http://api.foxhole.club/storage/catalog/slider/source/' + item.path)
-          })
-        })
-    }
-  },
-  mounted() {
-    this.loadSlider()
+  props: {
+    slides: Array
   }
-
 };
 </script>
 

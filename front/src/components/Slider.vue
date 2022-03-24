@@ -1,7 +1,7 @@
 <template>
-  <carousel :autoplay="3000" :items-to-show="1">
+  <carousel :autoplay="5000" :items-to-show="1">
     <slide v-for="slide in slides" :key="slide">
-      <img v-bind:src="slide.img" width="1140" height="215"> 
+      <img v-bind:src="slide.img" width="1180" height="215"> 
     </slide>
     <template #addons>
       <navigation />
@@ -28,7 +28,8 @@ export default {
         slides: [
             {img: require("@/assets/carousel-item1.jpg")},
             {img: require("@/assets/carousel-item2.jpg")},
-            {img: require("@/assets/carousel-item3.jpg")}, 
+            {img: require("@/assets/carousel-item3.jpg")},
+            {img: require("@/assets/carousel-item4.jpg")}, 
         ]   
       }
   }

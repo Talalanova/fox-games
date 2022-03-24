@@ -14,8 +14,8 @@
             {{ Math.ceil(itemData.price)+'₽' }}
         </button>
         <div class="item-card__mark">
-            <span class="players">{{ itemData.players }}</span>
             <span class="age">{{ itemData.age }}</span>            
+            <span class="players">{{ itemData.players }}</span>            
             <span class="time">{{ itemData.time }}</span>
         </div>
     </div>
@@ -49,11 +49,14 @@ export default {
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    console.log(json)
-                    this.RESET_CART()
-                    json.products.forEach(item => {
-                        this.ADD_TO_CART(item)
-                    })             
+                    if (json.message == "amount_error") {
+                        alert('Это максимальное количество товара на складе!')
+                    } else {
+                        this.RESET_CART()
+                        json.products.forEach(item => {
+                            this.ADD_TO_CART(item)
+                        })                            
+                    }          
                 })
         },
         ...mapActions([
@@ -95,8 +98,8 @@ export default {
     text-align: left;
     position: absolute;
     top: 6px;
-    font-size: 12px;
-    left: -10px;
+    font-size: 10px;
+    left: -7px;
     display: none;
 }
 
@@ -120,8 +123,8 @@ export default {
     background-repeat: no-repeat;
     /* background-position: -8px, 0;     */
     position: relative;
-    padding: 4px 5px 4px 18px;
-    background-size: 73px, 30px;   
+    padding: 2px 0px 7px 16px;
+    /* background-size: 73px, 30px;    */
 }
 
 .age::before {
@@ -132,9 +135,9 @@ export default {
 .players {
     background-image: url('~@/assets/mark.svg');
     background-repeat: no-repeat;
-    background-size: 65px, 18px;
+    /* background-size: 51px, 18px; */
     position: relative;
-    padding: 6px 5px 7px 21px;
+    padding: 3px 0px 7px 19px;
 }
 
 .players::before {
@@ -144,9 +147,9 @@ export default {
 .time {
     background-image: url('~@/assets/mark-time.svg');
     background-repeat: no-repeat;
-    background-size: 98px, 29px;
+    /* background-size: 98px, 29px; */
     position: relative;
-    padding: 7px 5px 4px 18px;
+    padding: 3px 10px 5px 18px;
 }
 
 .time::before {

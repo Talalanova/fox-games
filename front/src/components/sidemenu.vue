@@ -1,5 +1,11 @@
 <template>
   <div ref="sidemenu" class="sidemenu">
+    <div class="sidemenu__leafs">
+      <img src="@/assets/3.svg" class="leaf_3" width="120" height="60">
+      <img src="@/assets/4.svg" class="leaf_4" width="90" height="70">
+      <img src="@/assets/2.svg" class="leaf_2" width="120" height="70">
+      <img src="@/assets/1.svg" class="leaf_1" width="95" height="75">
+    </div>
     <div class="sidemenu__logo">
       <a href="/">
         <img src="@/assets/logo.svg">
@@ -35,9 +41,12 @@
           <img :src= ad.pics[0] width="110" height="100">
           <span>
               {{ ad.title }}
-            </span>
+              {{ ad.price }}
+          </span>
         </router-link>
-      </div>  
+      </div>
+    <img src="@/assets/sidemenu_bottom-green.svg" class="sidemenu__bottom-greeen" width="274" height="30">
+    <img src="@/assets/sidemenu_bottom-green-front.png" class="sidemenu__bottom-greeen-front" width="274" height="30">
   </div>
 </template>
 
@@ -134,81 +143,6 @@ export default {
 
 <style scoped>
 
-/* .vcpg[data-v-63943e43]{
-  border:1px solid var(--border-color);
-  border-radius:4px;
-  width:100%
-}
-.vcpg[data-v-63943e43] .vcp *{
-  box-sizing:border-box
-}
-.vcpg[data-v-63943e43] .vcp__header[data-v-64321428]{
-  background-color:var(--bg-color-header);
-  height:auto;
-  min-height: 46px;
-  transition:background-color .3s ease
-}
-.vcpg[data-v-63943e43] .vcp__header:hover{
-  background-color:var(--bg-color-header-hover)
-}
-.vcpg[data-v-63943e43] .vcp__header:active{
-  background-color:var(--bg-color-header-active)
-}
-.vcpg[data-v-63943e43] .vcp:not(:first-of-type) .vcp__header{
-  border-top:1px solid var(--border-color)
-}
-.vcpg[data-v-63943e43] .vcp__header-title{
-  font-weight:500
-}
-.vcpg[data-v-63943e43] .vcp__body{
-  border-top:1px solid var(--border-color);
-  background-color:var(--bg-color-body)
-}
-.vcp__header[data-v-64321428]{
-  display:flex;
-  padding:12px;
-  pointer-events:none;
-  justify-content: space-between;
-}
-.vcp--expandable .vcp__header[data-v-64321428]{
-  pointer-events:auto;
-  cursor:pointer
-}
-.vcp__header-title[data-v-64321428]{
-  display:flex;
-  align-items:center;
-  flex:1
-}
-.vcp__header-icon[data-v-64321428]{
-  display:flex;
-  align-items:center;
-  transition:transform .3s cubic-bezier(.5,.25,0,1)
-}
-.vcp--expanded .vcp__header-icon[data-v-64321428]{
-  transform-origin:center;
-  transform:rotate(180deg)
-}
-.vcp__header-icon>span[data-v-64321428]{
-  display:flex;
-  height:24px;
-  width:24px
-}
-.vcp__header-icon[data-v-64321428] svg{
-  height:100%;
-  width:100%
-}
-.vcp__body[data-v-64321428]{
-  overflow:hidden;
-  transition:all .3s cubic-bezier(.5,.25,0,1)
-}
-.vcp__body-content[data-v-64321428]{
-  padding:12px
-}
-.slide-enter-from[data-v-64321428],
-.slide-leave-to[data-v-64321428]{
-  opacity:.25
-} */
-
 ::-webkit-scrollbar { 
   display: none; 
 }
@@ -240,17 +174,134 @@ export default {
   bottom: 0;
   left: 0;
 }
+.sidemenu__leafs img {
+  position: absolute;
+  top: 0;
+  max-height: 70px;
+}
+
+.sidemenu__leafs .leaf_3 {
+  left: 0;
+  top: -5px;
+  animation: 4s infinite forwardBackLeaf3;
+}
+
+@keyframes forwardBackLeaf3 {
+  0% {
+    transform: rotate(-3deg);
+    transform-origin: top left;
+  }
+  50% {
+    transform: rotate(3deg);
+    transform-origin: top left;
+  }
+  100% {
+    transform: rotate(-3deg);
+    transform-origin: top left;
+  }
+}
+
+.sidemenu__leafs .leaf_4 {
+  top: -2px;
+  left: 45px;
+  animation: 7s infinite forwardBackLeaf4;
+}
+
+@keyframes forwardBackLeaf4 {
+  0% {
+    transform: rotate(-3deg);
+    transform-origin: top right;
+  }
+  50% {
+    transform: rotate(3deg);
+    transform-origin: top right;
+  }
+  100% {
+    transform: rotate(-3deg);
+    transform-origin: top right;
+  }
+}
+
+.sidemenu__leafs .leaf_2 {
+  left: 92px;
+  top: -5px;
+  animation: 6s infinite forwardBackLeaf2;
+}
+
+@keyframes forwardBackLeaf2 {
+  0% {
+    transform: rotate(-4deg);
+    transform-origin: top right;
+  }
+  50% {
+    transform: rotate(2deg);
+    transform-origin: top right;
+  }
+  100% {
+    transform: rotate(-4deg);
+    transform-origin: top right;
+  }
+}
+
+.sidemenu__leafs .leaf_1 {
+  left: 195px;
+  top: -4px;
+  animation: 5s infinite forwardBackLeaf1;
+}
+
+@keyframes forwardBackLeaf1 {
+  0% {
+    transform: rotate(-2deg);
+    transform-origin: top left;
+  }
+  50% {
+    transform: rotate(2deg);
+    transform-origin: top left;
+  }
+  100% {
+    transform: rotate(-2deg);
+    transform-origin: top left;
+  }
+}
+
+.sidemenu__bottom-greeen {
+  position: absolute;
+  bottom: -5px;
+  left: 3px;
+  animation: 3s infinite forwardBackLeafBottom;
+}
+
+@keyframes forwardBackLeafBottom {
+  0% {
+    transform: translate(-2px,0);
+    /* transform-origin: top left; */
+  }
+  50% {
+    transform: translate(2px,0);
+    /* transform-origin: top left; */
+  }
+  100% {
+    transform: translate(-2px,0);
+    /* transform-origin: top left; */
+  }
+}
+
+.sidemenu__bottom-greeen-front {
+  z-index: 10;
+  position: absolute;
+  bottom: 5px;
+}
 
 .sidemenu::before {
   position: absolute;
-  top: 0;
-  width: 274px;
-  height: 75px;
+  top: -10px;
+  width: 290px;
+  left: -3px;
+  height: 90px;
   content: "";
   background-image: url('~@/assets/sidemenu_leafs.svg');
   background-repeat: no-repeat;
-  left: 0;
-  z-index: 10;
+  z-index: 0;
 }
 
 .sidemenu__logo {
@@ -410,10 +461,38 @@ export default {
   margin: auto auto 0;
   background-image: url('~@/assets/sidemenu-add.png');
   background-repeat: no-repeat;
-  min-height: 210px;
-  min-width: 190px;
+  min-height: 190px;
+  min-width: 172px;
   word-break: break-word;
   z-index: 10;
+  position: relative;
+}
+
+.sidemenu__ad::before {
+  content: "";
+  background-image: url('~@/assets/sidemenu-add-mark.png');
+  background-repeat: no-repeat;
+  height: 63px;
+  width: 43px;
+  top: -45px;
+  left: -25px;
+  position: absolute;
+  animation: 4s infinite forwardBack;
+}
+
+@keyframes forwardBack {
+  0% {
+    transform: rotate(-10deg);
+    transform-origin: bottom right;
+  }
+  50% {
+    transform: rotate(30deg);
+    transform-origin: bottom right;
+  }
+  100% {
+    transform: rotate(-10deg);
+    transform-origin: bottom right;
+  }
 }
 
 .sidemenu__ad a {
@@ -424,14 +503,13 @@ export default {
 }
 
 .sidemenu__ad  img {
-  margin: 0 auto;
-  margin-top: 55px;
+  margin: 20px auto;
 }
 
 .sidemenu__ad span {
-  max-width: 110px;
+  max-width: 170px;
   display: inline-block;
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 .vcpg[data-v-63943e43] .vcp__header[data-v-64321428] {

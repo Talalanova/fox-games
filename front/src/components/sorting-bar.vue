@@ -1,11 +1,11 @@
 <template>
     <div class="sorting-bar sorting">
         <div class="sorting__tabs">
-            <span class="sorting__tab" @click="sorting = !sorting" :class="[sorting === true ? 'sorting__tab--active' : '']">
+            <!-- <span class="sorting__tab" @click="sorting = !sorting" :class="[sorting === true ? 'sorting__tab--active' : '']">
                 <svg width="16" height="10" viewBox="0 0 14 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M5.71494 7.33333C5.71494 7.70152 6.01342 8 6.38161 8H13.1775C13.5457 8 13.8441 7.70152 13.8441 7.33333C13.8441 6.96514 13.5457 6.66666 13.1775 6.66666H6.38161C6.01342 6.66666 5.71494 6.96514 5.71494 7.33333ZM2.75905 4C2.75905 4.36819 3.05752 4.66667 3.42571 4.66667H13.1776C13.5458 4.66667 13.8443 4.36819 13.8443 4C13.8443 3.63181 13.5458 3.33334 13.1777 3.33334H3.42571C3.05752 3.33334 2.75905 3.63181 2.75905 4ZM1.20866 0C0.840469 0 0.541992 0.298477 0.541992 0.666667C0.541992 1.03486 0.840469 1.33333 1.20866 1.33333H13.1777C13.5458 1.33333 13.8443 1.03486 13.8443 0.666667C13.8443 0.298477 13.5458 0 13.1777 0H1.20866Z" fill="#4B0101"/>
                 </svg>Сортировка
-            </span>
+            </span> -->
             <span class="sorting__tab" @click="filters = !filters" :class="[filters === true ? 'sorting__tab--active' : '']">
                 <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_474_1064)">
@@ -19,15 +19,14 @@
                 </svg>Фильтр
             </span>
         </div>
-        <div class="sorting__content" v-if="sorting || filters">
+        <div class="sorting__content" v-if="filters">
             <form method="post" name="filters">
-                <div v-if="sorting">
-                    <button type="submit" class="sorting__button--string">Популярное</button>
-                    <button type="submit" class="sorting__button--string">Новинки</button>
-                    <button type="submit" class="sorting__button--string">Дороже</button>
-                    <button type="submit" class="sorting__button--string">Дешевле</button>
-                </div>
-                <div v-if="filters">                
+                <div v-if="filters">
+                    <p class="sorting__label">Сортировка по цене</p>
+                    <select name="priceSorting" v-model="priceSorting" class="sorting__price">                        
+                        <option value="asc">Сначала дешевые</option>
+                        <option selected value="desc">Сначала дорогие</option>                        
+                    </select>              
                     <p class="sorting__label">Теги</p> 
                     <span class="tags-wrapper">
                         <input type="text" readonly="readonly" placeholder="Выберите тег"/>
@@ -101,7 +100,10 @@ export default {
                 if(typeof params[name] === "undefined") params[name] = [];
                 params[name].push(_value);
             }
-            let filter =  `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0]            
+            let filter =  `price_from=` + this.priceValue[0] + `&price_to=` + this.priceValue[1] + `&players_from=` + this.playersAmount[0]
+            if (params.priceSorting) {
+                filter = filter.concat(`&sort=` + params.priceSorting)
+            }
             if (this.playersAmount[1] > 5) {
                 filter = filter.concat(`&players_to=99`)
             } else {
@@ -131,7 +133,7 @@ export default {
             }
             if (params.available) {
                 filter = filter.concat(`&available=` + 1)
-            }
+            }            
             fetch('http://api.foxhole.club/api/product/filter?' + filter, {})
                 .then((response) => {                    
                     if(response.ok) {                        
@@ -178,7 +180,8 @@ export default {
 
 .sorting__tabs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    text-align: right;
 }
 
 .sorting__tab {
@@ -190,11 +193,11 @@ export default {
     margin: auto 5px;
 }
 
-.sorting__tab--active {
+/* .sorting__tab--active {
     border: 1px solid #CB7D49;
     border-radius: 5px 5px 0 0;
     border-bottom: none;
-}
+} */
 
 .sorting__content {
     width: fit-content;
@@ -202,6 +205,15 @@ export default {
     border: 1px solid #CB7D49;
     border-radius:  0 0 5px 5px;
     padding: 10px;
+    margin-top: 1px;
+}
+
+.sorting__price {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #CB7D49;
+    border-radius:  5px;
+    padding: 4px 0;
 }
 
 .sorting__content form {

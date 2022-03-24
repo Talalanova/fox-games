@@ -64,10 +64,14 @@ export default {
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    this.RESET_CART()
-                    json.products.forEach(item => {
-                        this.ADD_TO_CART(item)
-                    })             
+                    if (json.message == "amount_error") {
+                        alert('Это максимальное количество товара на складе!')
+                    } else {
+                        this.RESET_CART()
+                        json.products.forEach(item => {
+                            this.ADD_TO_CART(item)
+                        })                            
+                    }
                 })
         },
         deleteFromCart(data) {
@@ -262,11 +266,13 @@ input[type="checkbox"]:checked + label::before {
     }
 
     .cart-item label::before {
-        left: -65px;
+        left: -113px;
+        top: 0;
     }
 
     .cart-item label::after {
-        left: -63px;
+        left: -111px;
+        top: 2px;
     }
 }
 

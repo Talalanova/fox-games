@@ -13,7 +13,7 @@
         {{ categoryDescription }}
       </span>
       <span class="intro__pic">
-        <img :src="categoryImg" width="" height="">
+        <img :src="categoryImg" width="270" height="">
       </span>
     </div>
     <div class="section__content">
@@ -201,11 +201,13 @@ export default {
 .intro {
   display: grid;
   grid-template-columns: auto 270px;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   column-gap: 30px;
   padding: 30px 0;
 }
 
 .intro__text {
+  grid-row: span 3;
   border: 1px solid #CB7D49;
   border-radius: 15px;
   padding: 15px;
@@ -213,6 +215,10 @@ export default {
   line-height: 25px;
   word-break: break-word;
   text-align: left;
+}
+
+.intro__pic {
+  grid-row: span 4;
 }
 
 @media (max-width: 1080px) {

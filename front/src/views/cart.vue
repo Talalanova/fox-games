@@ -114,6 +114,7 @@ export default {
             this.phone = ''
             this.comment = ''
             this.RESET_CART()
+            this.$cookie.remove('fox_cart')
           } else {
             this.error = true
           }

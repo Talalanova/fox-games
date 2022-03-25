@@ -7,7 +7,7 @@
         <MyHeader></MyHeader>
       </header>
       <main class="main">
-        <img class="trail" v-for="step in genSteps" :key="step.index" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }">
+        <img class="trail" v-for="step in genSteps" :key="step" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }">
         <router-view/>
       </main>
       <footer>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import sidemenu from '@/components/sidemenu.vue'
 import MyHeader from '@/components/my-header.vue'
 import MyFooter from '@/components/my-footer.vue'
@@ -37,7 +37,6 @@ export default {
     return {
       step: Object,
       steps: [
-        { x : 217, y: 19, r: 18 },
         { x : 217, y: 19, r: 18 },
         { x : 200, y: 78, r: 11 },
         { x : 160, y: 130, r: 18 },
@@ -63,14 +62,22 @@ export default {
       document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
       document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
     },
-    processStep()  {
+    processStep() {
       setTimeout(() => {
         const newStep = this.steps.shift()
         this.genSteps = [...this.genSteps, newStep]
-        if (this.steps.length <= 0) {
-          this.steps = this.genSteps.splice(0,10)
+        if (this.genSteps.length >= 5) {
+          this.genSteps.shift()
         }
-        this.processStep();
+        this.processStep()
+        if (this.steps.length <= 0) {
+          
+          this.genSteps.shift()
+          this.genSteps.shift()
+          this.genSteps.shift()
+          this.genSteps.shift()
+          clearTimeout(this.processStep)
+        }
       }, 1000)
     },
     loadCategories() {
@@ -83,10 +90,8 @@ export default {
           throw new Error('Network response was not ok');
         })
         .then((json) => {
-        //console.log(json)
 
-          json.forEach(element => {
-            
+          json.forEach(element => {            
             let _children = [];
             if (typeof element.childs !== 'undefined') {
               
@@ -96,40 +101,73 @@ export default {
                   if (typeof _child.childs !== 'undefined') {
                     
                     _child.childs.forEach(__child => {
+
                       this.categoryTree[__child.id] =  __child.slug;
-                      __children.push({
-                        name: __child.title,
-                        id: __child.id,
-                        slug: __child.slug,
-                        content: __child.content,
-                        img: 'http://api.foxhole.club/storage/catalog/category/source/' + __child.image
-                      })
+
+                      if (__child.image != null) {
+                        __children.push({
+                          name: __child.title,
+                          id: __child.id,
+                          slug: __child.slug,
+                          content: __child.content,
+                          img: 'http://api.foxhole.club/storage/catalog/category/source/' + __child.image
+                        })
+                      } else {
+                        __children.push({
+                          name: __child.title,
+                          id: __child.id,
+                          slug: __child.slug,
+                          content: __child.content,
+                          img: null
+                        })                        
+                      }
                     })
                   }
 
-                  this.categoryTree[_child.id] =  _child.slug;
-                  
-                  _children.push({
-                    name: _child.title,
-                    id: _child.id,
-                    slug: _child.slug,
-                    content: _child.content,
-                    subcategorys: __children,
-                    icon: 'http://api.foxhole.club/storage/catalog/category/source/' + _child.image
-                  })
+                  this.categoryTree[_child.id] =  _child.slug;                  
+                   if(_child.image != null) {
+                    _children.push({
+                      name: _child.title,
+                      id: _child.id,
+                      slug: _child.slug,
+                      content: _child.content,
+                      subcategorys: __children,
+                      icon: 'http://api.foxhole.club/storage/catalog/category/source/' + _child.image
+                    })
+                   } else {
+                    _children.push({
+                      name: _child.title,
+                      id: _child.id,
+                      slug: _child.slug,
+                      content: _child.content,
+                      subcategorys: __children,
+                      icon: null
+                    })                     
+                   }
               })
             }
 
             this.categoryTree[element.id] =  element.slug;
 
-            this.tableGames.push({
-              name: element.title,
-              id: element.id,                
-              subcategorys: _children,
-              slug: element.slug,
-              content: element.content,
-              img: 'http://api.foxhole.club/storage/catalog/category/source/' + element.image 
-            });
+            if (element.image != null) {
+              this.tableGames.push({
+                name: element.title,
+                id: element.id,                
+                subcategorys: _children,
+                slug: element.slug,
+                content: element.content,
+                img: 'http://api.foxhole.club/storage/catalog/category/source/' + element.image 
+              });              
+            } else {
+              this.tableGames.push({
+                name: element.title,
+                id: element.id,                
+                subcategorys: _children,
+                slug: element.slug,
+                content: element.content,
+                img: null
+              });               
+            }
           });
           this.$store.commit('SET_TREE', this.categoryTree);
           
@@ -150,7 +188,7 @@ export default {
           }
           throw new Error('Network response was not ok');
         })
-        .then((json) => {          
+        .then((json) => {
           json.products.forEach(item => {
             this.ADD_TO_CART(item)
           })

@@ -8,7 +8,7 @@
     </div>
     <div class="sidemenu__logo">
       <a href="/">
-        <img src="@/assets/logo.svg">
+        <img src="@/assets/Logo.png">
       </a>
     </div>
     <span class="sidemenu__item sidemenu__item--catalog">

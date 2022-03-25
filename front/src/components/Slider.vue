@@ -1,13 +1,21 @@
 <template>
   <carousel :autoplay="5000" :items-to-show="1">
-    <slide v-for="slide in slides" :key="slide">
+    <!-- <slide v-for="(slide,index) in slides" :key="index">
       <img :src="slide.img" width="1180" height="215"> 
+    </slide> -->
+    <slide v-for="(slide,index) in carousel" :key="index">
+      <img src="" width="1180" height="215"> 
     </slide>
     <template #addons>
       <navigation />
       <pagination />
     </template>
   </carousel>
+  <div>
+    <span v-for="(slide,index) in slides" :key="index">
+      <img :src="slide.img" width="1180" height="215"> 
+    </span>
+  </div>
 </template>
 
 <script>
@@ -24,12 +32,32 @@ export default {
     Navigation,
   },
   data() {
-      return {
-        
-      }
+    return {
+      slides: [],
+      carousel: [1,2,3]    
+    }
   },
-  props: {
-    slides: Array
+  methods: {
+    loadSlider() {
+      fetch('http://api.foxhole.club/api/slider')
+        .then((response) => {
+          if(response.ok) {                        
+            return response.json();                 
+          }            
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+          json.forEach(item => {
+            let slideItem = {
+              img: 'http://api.foxhole.club/storage/catalog/slider/source/' + item.path
+            }
+            this.slides.push(slideItem)
+          })
+        })
+    }
+  },
+  mounted() {
+    this.loadSlider()
   }
 };
 </script>

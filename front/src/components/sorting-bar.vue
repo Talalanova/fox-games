@@ -135,10 +135,10 @@ export default {
                 filter = filter.concat(`&available=` + 1)
             }            
             fetch('http://api.foxhole.club/api/product/filter?' + filter, {})
-                .then((response) => {                    
-                    if(response.ok) {                        
+                .then((response) => {
+                    if(response.ok) {
                         return response.json();
-                    }                                   
+                    }
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {

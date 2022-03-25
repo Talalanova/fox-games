@@ -24,10 +24,10 @@
           <span v-if="itemData.discont > 0" class="discont-price">
             {{ Math.ceil(discontPrice)+'₽'}}
           </span>
-        </span>
+        </span>        
         <span v-for="(value,name) in itemParameters" v-bind:key="value.index" class="row">
-          <span class="parameters">{{ value }}</span>
-          <span class="value"> {{ itemData[name] }}</span>          
+          <span v-if="itemData[name] !== null" class="parameters">{{ value }}</span>
+          <span v-if="itemData[name] !== null" class="value"> {{ itemData[name] }}</span>          
         </span>
         <router-link to="/delivery" class="delivery">Условия заказа</router-link>
         <button @click="addToCart(itemData)" type="button" :disabled="itemData.amount == 0" class="item__button">
@@ -45,7 +45,7 @@
           <a v-if="itemData.description" v-on:click="activetab='1'" v-bind:class="[ activetab === '1' ? 'active' : '' ]">Описание</a>
           <a v-if="itemData.rules" v-on:click="activetab='2'" v-bind:class="[ activetab === '2' ? 'active' : '' ]">Правила</a>
           <a v-on:click="activetab='3'" v-bind:class="[ activetab === '3' ? 'active' : '' ]">Игры серии</a>
-          <a v-on:click="activetab='4'" v-bind:class="[ activetab === '4' ? 'active' : '' ]">Аксессуары</a>
+          <a v-if="accessorys.length" v-on:click="activetab='4'" v-bind:class="[ activetab === '4' ? 'active' : '' ]">Аксессуары</a>
           <a v-if="itemData.comments" v-on:click="activetab='5'" v-bind:class="[ activetab === '5' ? 'active' : '' ]">Отзывы и вопросы({{itemData.comments.length}})</a>
         </div>
         <div class="content">
@@ -61,7 +61,7 @@
 
           </div>
           <div v-if="activetab ==='4'" class="tabcontent section__content">
-
+            <ItemCard v-for="item in accessorys" :key="item" :itemData="item"></ItemCard>
           </div>
           <div v-if="activetab ==='5'" class="tabcontent">
             <div>
@@ -76,8 +76,8 @@
           </div>
         </div>  
     </div>
-    <MainSection title="Рекомендуем вам" link="/newsales">
-    
+    <MainSection title="Рекомендуем вам" link="/newsales" class="item__recommended">
+      <ItemCard v-for="item in recommended" :key="item" :itemData="item"></ItemCard>
     </MainSection>
   </div>
 </template>
@@ -88,7 +88,7 @@ import { someRandomNames } from '@/data.js'
 import Comment from '@/components/comment.vue'
 // import {itemParameters,itemData,stockStatus} from '@/data.js'
 import MainSection from '@/components/main-section.vue'
-// import ItemCard from '@/components/item-card.vue'
+ import ItemCard from '@/components/item-card.vue'
 import Breadcrumbs from '@/components/breadcrumbs.vue'
 
 export default {
@@ -105,12 +105,15 @@ export default {
       commentName: null,
       price: Number,
       discont: Number,
-      productReady: false
+      productReady: false,
+      tags : [],
+      recommended: [],
+      accessorys: []
     }
   },
   components: {
     MainSection,
-    // ItemCard,
+    ItemCard,
     Comment,
     Breadcrumbs
   },
@@ -177,7 +180,7 @@ export default {
           })
           .then((json) => {            
             let element = json
-
+            
             this.itemParameters = {
               age : 'Возраст',
               time : 'Время игры',
@@ -191,7 +194,6 @@ export default {
               2 : 'Ожидает поставки',
               3 : 'В наличии',
             }
-            
             //Age validation
             let age = '';
             if(typeof element.age_from !== "undefined"){
@@ -203,6 +205,15 @@ export default {
               }
             }
 
+            if (element.age_from == null) age = null
+            let time =''
+            if (element.game_time == null) time = null
+            let players = ''
+            if (element.players_from == null) {
+              players = null
+            } else {
+              players = element.players_from + '-' + element.players_to
+            }
             element.messages.forEach((item,index) => {
               element.messages[index].created_at = new Date(item.created_at).toLocaleDateString('ru-RU')
             });
@@ -213,6 +224,82 @@ export default {
               _images.push('http://api.foxhole.club/files/' + item.path)
             })
 
+            element.tags.forEach(tag => {
+              this.tags.push(tag.id)
+            })
+
+            this.accessorys = []
+            this.recommended = []
+            fetch('http://api.foxhole.club/api/product/filter?tags=[' + this.tags +']')
+              .then((response) => {
+                if(response.ok) {
+                  return response.json();
+                }                                   
+                throw new Error('Network response was not ok');
+              })
+              .then((json) => {
+                json.data.forEach(element => {
+
+                  let _images = []
+
+                  element.images.forEach( item => {
+                    _images.push('http://api.foxhole.club/files/' + item.path)
+                  })
+                  
+                  let product = {
+                    discont: element.discount,
+                    id: element.id,
+                    slug: element.slug,
+                    inStock: element.status,
+                    title: element.title,
+                    desc: element.description,
+                    price : element.price,
+                    age : element.age_from + '-' + element.age_to,
+                    time : element.game_time,
+                    players : element.players_from + '-' + element.players_to,                    
+                    pics: _images,
+                    description: element.description,
+                    amount: element.amount                
+                  }
+                  this.recommended.push(product);   
+                })                 
+              })
+
+            fetch('http://api.foxhole.club/api/product/filter?tags=[' + this.tags +']&is_accessory=1')
+              .then((response) => {
+                if(response.ok) {
+                  return response.json();
+                }                                   
+                throw new Error('Network response was not ok');
+              })
+              .then((json) => {
+                json.data.forEach(element => {
+
+                  let _images = []
+
+                  element.images.forEach( item => {
+                    _images.push('http://api.foxhole.club/files/' + item.path)
+                  })
+                  
+                  let product = {
+                    discont: element.discount,
+                    id: element.id,
+                    slug: element.slug,
+                    inStock: element.status,
+                    title: element.title,
+                    desc: element.description,
+                    price : element.price,
+                    age : element.age_from + '-' + element.age_to,
+                    time : element.game_time,
+                    players : element.players_from + '-' + element.players_to,                    
+                    pics: _images,
+                    description: element.description,
+                    amount: element.amount                
+                  }
+                  this.accessorys.push(product);   
+                })                 
+              })
+            
             this.itemData = {
               discont: element.discount,
               id: element.id,
@@ -222,8 +309,8 @@ export default {
               desc: element.description,
               price : element.price,
               age : age,
-              time : element.game_time + ' мин',
-              players : element.players_from + '-' + element.players_to,
+              time : time,
+              players : players,
               cardSize : element.card_size,
               producer : element.brand.title,
               amount: element.amount,
@@ -231,7 +318,8 @@ export default {
               description: element.description, 
               rules: element.rules,
               comments: element.messages
-            }            
+            }
+            
             this.productReady = true
           })
             .catch((error) => {
@@ -247,11 +335,15 @@ export default {
             }
             throw new Error('Network response was not ok');
         })
-        .then((json) => {            
-            this.RESET_CART()
-            json.products.forEach(item => {
+        .then((json) => {   
+          if (json.message == "amount_error") {
+              alert('Это максимальное количество товара на складе!')
+          } else {
+              this.RESET_CART()
+              json.products.forEach(item => {
                 this.ADD_TO_CART(item)
-            })             
+              })
+          }          
         })
     },
     ...mapActions([
@@ -259,13 +351,13 @@ export default {
       'RESET_CART'
     ])
   },
-  mounted() {
+  created() {
     this.getProductInfo()
   },
   watch:{    
     $route(){
       this.getProductInfo()
-      }, 
+    }, 
   },
 }
 </script>
@@ -355,7 +447,7 @@ export default {
 
 .row {
   margin: 8px 0;
-  border-bottom: 1px solid #CB7D49;
+  /* border-bottom: 1px solid #CB7D49; */
   display: flex;
   justify-content: space-between;
 }
@@ -625,6 +717,10 @@ export default {
 
 .tabcontent__button--right {
   right: 20px;
+}
+
+.item__recommended  {
+  overflow-x: scroll;
 }
 
 @media (max-width: 1440px) { 

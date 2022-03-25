@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Slider :slides="carousel"></Slider>
+    <Slider></Slider>
     <MainSection title="Новости" link="/news">
       <NewsCard v-for="item in news.slice(0,4)" :key="item" :itemData="item"></NewsCard>
     </MainSection>
@@ -33,7 +33,6 @@ export default {
       newsales: [],
       newgoods: [],
       perPage: 4,
-      carousel: []
     }    
   },
   methods: {
@@ -135,30 +134,12 @@ export default {
           })          
         })
     },
-    loadSlider() {
-      fetch('http://api.foxhole.club/api/slider')
-        .then((response) => {
-          if(response.ok) {                        
-            return response.json();                 
-          }            
-          throw new Error('Network response was not ok');
-        })
-        .then((json) => {
-          json.forEach(item => {
-            let slideItem = {
-              img: 'http://api.foxhole.club/storage/catalog/slider/source/' + item.path
-            }
-            this.carousel.push(slideItem)
-          })
-        })
-    }
   },
   mounted() {
-    this.loadSlider()
     this.loadNews()
     this.loadNewsales()
     this.loadNewGoods()
-  }
+  },
   
 }
 </script>

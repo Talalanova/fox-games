@@ -12,8 +12,8 @@
       <span class="intro__text">
         {{ categoryDescription }}
       </span>
-      <span class="intro__pic">
-        <img :src="categoryImg" width="270" height="">
+      <span class="intro__pic" v-if="categoryImg != null">
+        <img  :src="categoryImg" width="270" height="">
       </span>
     </div>
     <div class="section__content">
@@ -134,10 +134,10 @@ export default {
               price : element.price,
               age : element.age_from + '-' + element.age_to,
               time : element.game_time,
-              players : element.players_from + '-' + element.players_to,                    
+              players : element.players_from + '-' + element.players_to,
               pics: _images,
               description: element.description,
-              amount: element.amount                
+              amount: element.amount
             }
             this.products.push(product);   
           })                

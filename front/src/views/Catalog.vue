@@ -11,7 +11,6 @@
         <router-link class="h1" :to="'/Category/' + cat.slug">
           {{ cat.name }}
         </router-link>
-        <!-- <h2> {{ cat.name }} </h2> -->
         <hr>
         <CatalogDropdownItem :categorys="cat"></CatalogDropdownItem>
       </div>
@@ -37,10 +36,6 @@ export default {
         
       }
     },
-    mounted() {
-
-    }
-
 }
 </script>
 
@@ -53,7 +48,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   margin-bottom: 40px;
-
 }
 
 .catalog-page h2 {

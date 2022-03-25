@@ -70,7 +70,7 @@ export default {
                         this.RESET_CART()
                         json.products.forEach(item => {
                             this.ADD_TO_CART(item)
-                        })                            
+                        })
                     }
                 })
         },

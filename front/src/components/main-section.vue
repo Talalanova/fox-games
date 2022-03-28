@@ -54,10 +54,35 @@ hr {
     -moz-column-gap: 2%;
     column-gap: 40px;
     row-gap: 40px;
+    padding: 20px 0;
+    overflow-x: scroll;
     /* gap: 56px; */
     flex-wrap: wrap;
     /* display: flex;
     justify-content: space-between; */
+}
+
+.section--flex .section__content,
+.section__content--flex {
+    overflow-x: scroll;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    padding: 20px 10px;
+}
+
+.section__content::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: #fff;
+}
+
+.section__content::-webkit-scrollbar-thumb {
+    background-color: #CB7D49;
+    width: 5px;
+    border-radius: 10px;
+    height: 5px;
+    cursor: pointer;
 }
 
 @media (max-width: 1080px) {

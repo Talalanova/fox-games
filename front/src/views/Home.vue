@@ -90,7 +90,8 @@ export default {
               time : element.game_time,
               players : element.players_from + '-' + element.players_to,                    
               pics: _images,
-              description: element.description,                    
+              description: element.description,
+              short_description: element.short_description,                  
             }
             this.newsales.push(product);
           })          
@@ -128,7 +129,8 @@ export default {
               time : element.game_time,
               players : element.players_from + '-' + element.players_to,                    
               pics: _images,
-              description: element.description,                    
+              description: element.description,
+              short_description: element.short_description,                  
             }
             this.newgoods.push(product);
           })          

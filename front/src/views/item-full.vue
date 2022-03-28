@@ -25,7 +25,7 @@
             {{ Math.ceil(discontPrice)+'₽'}}
           </span>
         </span>        
-        <span v-for="(value,name) in itemParameters" v-bind:key="value.index" class="row">
+        <span v-for="(value,name) in itemParameters" v-bind:key="value.index" :class="[ itemData[name] == null ? 'row' : 'row row--underline' ]">
           <span v-if="itemData[name] !== null" class="parameters">{{ value }}</span>
           <span v-if="itemData[name] !== null" class="value"> {{ itemData[name] }}</span>          
         </span>
@@ -44,23 +44,21 @@
         <div class="tabs">
           <a v-if="itemData.description" v-on:click="activetab='1'" v-bind:class="[ activetab === '1' ? 'active' : '' ]">Описание</a>
           <a v-if="itemData.rules" v-on:click="activetab='2'" v-bind:class="[ activetab === '2' ? 'active' : '' ]">Правила</a>
-          <a v-on:click="activetab='3'" v-bind:class="[ activetab === '3' ? 'active' : '' ]">Игры серии</a>
+          <a v-if="collection.length" v-on:click="activetab='3'" v-bind:class="[ activetab === '3' ? 'active' : '' ]">Игры серии</a>
           <a v-if="accessorys.length" v-on:click="activetab='4'" v-bind:class="[ activetab === '4' ? 'active' : '' ]">Аксессуары</a>
           <a v-if="itemData.comments" v-on:click="activetab='5'" v-bind:class="[ activetab === '5' ? 'active' : '' ]">Отзывы и вопросы({{itemData.comments.length}})</a>
         </div>
         <div class="content">
-          <div v-if="activetab ==='1'" class="tabcontent text-hidden" ref="tabContent">
-            {{itemData.description}}
-            <button type="button" class="tabcontent__button--inverted tabcontent__button--right" @click="showMore">Продолжение...</button>
+          <div v-if="activetab ==='1'" class="tabcontent text-hidden" ref="tabContent" v-html="itemData.description">            
+            
           </div>
-          <div v-if="activetab ==='2'" class="tabcontent text-hidden" ref="tabContent">
-            {{itemData.rules}}
-            <button type="button" class="tabcontent__button--inverted tabcontent__button--right" @click="showMore">Продолжение...</button>
+          <div v-if="activetab ==='2'" class="tabcontent text-hidden" ref="tabContent" v-html="itemData.rules">
+            
           </div>
-          <div v-if="activetab ==='3'" class="tabcontent section__content">
-
+          <div v-if="activetab ==='3'" class="tabcontent section__content section__content--flex">
+            <ItemCard v-for="item in collection" :key="item" :itemData="item"></ItemCard>
           </div>
-          <div v-if="activetab ==='4'" class="tabcontent section__content">
+          <div v-if="activetab ==='4'" class="tabcontent section__content section__content--flex">
             <ItemCard v-for="item in accessorys" :key="item" :itemData="item"></ItemCard>
           </div>
           <div v-if="activetab ==='5'" class="tabcontent">
@@ -76,7 +74,7 @@
           </div>
         </div>  
     </div>
-    <MainSection title="Рекомендуем вам" link="/newsales" class="item__recommended">
+    <MainSection title="Рекомендуем вам" link="/newsales" class="item__recommended section--flex">
       <ItemCard v-for="item in recommended" :key="item" :itemData="item"></ItemCard>
     </MainSection>
   </div>
@@ -108,7 +106,9 @@ export default {
       productReady: false,
       tags : [],
       recommended: [],
-      accessorys: []
+      accessorys: [],
+      collection: [],
+      collection_id: Number
     }
   },
   components: {
@@ -223,13 +223,56 @@ export default {
             element.images.forEach( item => {
               _images.push('http://api.foxhole.club/files/' + item.path)
             })
-
+            //Получение списка тегов товара
             element.tags.forEach(tag => {
               this.tags.push(tag.id)
             })
 
+          //Получение id серии продукта и вывод вкладки "Игры серии"
+            this.collection_id = element.group_id
+            if (this.collection_id == 0) {
+              this.collection_id = null
+            } else {
+              fetch('http://api.foxhole.club/api/product/filter?group_id=' + this.collection_id )
+                .then((response) => {
+                  if(response.ok) {
+                    return response.json();
+                  }                                   
+                  throw new Error('Network response was not ok');
+                })
+                .then((json) => {
+                  json.data.forEach(element => {
+
+                    let _images = []
+
+                    element.images.forEach( item => {
+                      _images.push('http://api.foxhole.club/files/' + item.path)
+                    })
+                    
+                    let product = {
+                      discont: element.discount,
+                      id: element.id,
+                      slug: element.slug,
+                      inStock: element.status,
+                      title: element.title,
+                      desc: element.description,
+                      price : element.price,
+                      age : element.age_from + '-' + element.age_to,
+                      time : element.game_time,
+                      players : element.players_from + '-' + element.players_to,                    
+                      pics: _images,
+                      description: element.description,
+                      amount: element.amount,
+                      short_description: element.short_description,               
+                    }
+                    this.collection.push(product);   
+                  })                 
+                })
+            }
             this.accessorys = []
             this.recommended = []
+            this.collection = []
+            //Получение тегов продукта и вывод раздела "Рекоммендуем"
             fetch('http://api.foxhole.club/api/product/filter?tags=[' + this.tags +']')
               .then((response) => {
                 if(response.ok) {
@@ -259,12 +302,14 @@ export default {
                     players : element.players_from + '-' + element.players_to,                    
                     pics: _images,
                     description: element.description,
-                    amount: element.amount                
+                    amount: element.amount,
+                    short_description: element.short_description,           
                   }
                   this.recommended.push(product);   
                 })                 
               })
 
+            //Получение вывод вкладки "Аксессуары" по тегам 
             fetch('http://api.foxhole.club/api/product/filter?tags=[' + this.tags +']&is_accessory=1')
               .then((response) => {
                 if(response.ok) {
@@ -436,6 +481,7 @@ export default {
   font-size: 22px;
   line-height: 25px;
   text-align: left;
+  margin: 8px 0;
 }
 
 .value {
@@ -443,15 +489,17 @@ export default {
   line-height: 25px;
   font-weight: 400;
   text-align: right;
+  margin: 8px 0;
 }
 
-.row {
-  margin: 8px 0;
-  /* border-bottom: 1px solid #CB7D49; */
+.row {  
   display: flex;
   justify-content: space-between;
 }
 
+.row--underline {
+  border-bottom: 1px solid #CB7D49;
+}
 .item__information button {
   font-size: 24px;
   line-height: 25px;
@@ -491,7 +539,7 @@ export default {
   padding: 7px;
   border: 1px solid #B6B6B6;
   border-radius: 5px;
-  margin-top: 15px;
+  margin-top: auto;
 }
 
 .delivery:hover {
@@ -719,9 +767,6 @@ export default {
   right: 20px;
 }
 
-.item__recommended  {
-  overflow-x: scroll;
-}
 
 @media (max-width: 1440px) { 
   .item__data {

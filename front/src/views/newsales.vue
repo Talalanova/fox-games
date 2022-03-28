@@ -8,9 +8,9 @@
       <router-link to="/newsales">Новинки</router-link>
     </Breadcrumbs>
     <div class="section__content">
-      <ItemCard v-for="item in sales" :itemData ="item" @addToCart="addToCart" :key="item"></ItemCard>  
+      <ItemCard v-for="item in newsales" :itemData ="item" @addToCart="addToCart" :key="item"></ItemCard>  
     </div>
-    
+    <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
   </div>
 </template>
 
@@ -18,6 +18,7 @@
 import Breadcrumbs from '@/components/breadcrumbs.vue'
 import SortingBar from '@/components/sorting-bar.vue'
 import ItemCard from '@/components/item-card.vue'
+import Pagination from '@/components/pagination.vue'
 
 export default {
   name: 'Newsales',
@@ -25,55 +26,62 @@ export default {
     SortingBar,
     Breadcrumbs,
     ItemCard,
+    Pagination
   },
   data() {
     return {      
-      sales: [],
+      newsales: [],
       paginationLimit: false,
-      catalogRendered:false,
+      perPage: 15,
       paginationTotal: false,
     }
   },
-//   methods: {
-//     searchProducts() {
-//       this.searched = []
-      
-//       fetch('http://api.foxhole.club/api/product/search?q='+ this.title, {})
-//       .then((response) => {
-//       if(response.ok) return response.json();
-//       throw new Error('Network response was not ok');
-//       })
-//       .then((json) => {         
-//           json.forEach(element => {
-//               this.searched.push({
-//                 discont: element.discount,
-//                 id: element.id,
-//                 slug: element.slug,
-//                 inStock: element.status_id,
-//                 title: element.title,
-//                 desc: element.description,
-//                 price : element.price,
-//                 age : element.age_from + '-' + element.age_to + ' лет',
-//                 time : element.game_time + ' мин',
-//                 players : element.players_from + '-' + element.players_to,
-//                 thumb: require('@/assets/card_img.png'),
-//                 pics: [require('@/assets/gallery_img1.png'),require('@/assets/gallery_img2.png'),require('@/assets/gallery_img3.png'),require('@/assets/gallery_img4.png'),require('@/assets/gallery_img5.png'),],
-//                 description: element.description, 
-//               })
-//           })
-//       });
-//     },
-//   },
-//   mounted() {
-//     this.title = this.$route.params.search
-//     this.searchProducts()
-//   },
-//   watch: {    
-//     $route (){
-//       this.title = this.$route.params.search
-//       this.searchProducts()
-//     },      
-//   },
+  methods: {
+  loadNewsales(page = 1) {
+    this.newsales = []
+
+    fetch('http://api.foxhole.club/api/product/new?page=' + page)
+      .then((response) => {
+        if(response.ok) {                        
+          return response.json();                 
+        }            
+        throw new Error('Network response was not ok');
+      })
+      .then((json) => {
+        this.paginationTotal = json.total
+        json.data.forEach(element => {
+          let _images = []
+
+          element.images.forEach( item => {
+            _images.push('http://api.foxhole.club/files/' + item.path)
+          })
+          
+          let product = {
+            discont: element.discount,
+            id: element.id,
+            slug: element.slug,
+            inStock: element.status,
+            title: element.title,
+            desc: element.description,
+            price : element.price,
+            age : element.age_from + '-' + element.age_to,
+            time : element.game_time,
+            players : element.players_from + '-' + element.players_to,                    
+            pics: _images,
+            description: element.description,
+            short_description: element.short_description,                  
+          }
+          this.newsales.push(product);
+        })          
+      })
+  },
+  updatePage(page) {
+    this.loadNewsales(page)
+  },
+  },
+  mounted() {
+    this.loadNewsales()
+  }
 }
 </script>
 

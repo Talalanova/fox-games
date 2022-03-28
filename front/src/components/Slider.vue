@@ -1,40 +1,32 @@
 <template>
-  <carousel :autoplay="5000" :items-to-show="1">
-    <!-- <slide v-for="(slide,index) in slides" :key="index">
-      <img :src="slide.img" width="1180" height="215"> 
-    </slide> -->
-    <slide v-for="(slide,index) in carousel" :key="index">
-      <img src="" width="1180" height="215"> 
-    </slide>
-    <template #addons>
-      <navigation />
-      <pagination />
-    </template>
-  </carousel>
-  <div>
-    <span v-for="(slide,index) in slides" :key="index">
-      <img :src="slide.img" width="1180" height="215"> 
-    </span>
-  </div>
+<vueper-slides style="border-radius:20px;overflow:hidden;" fixed-height="215px"   
+  autoplay
+  :pause-on-hover="pauseOnHover"
+  @autoplay-pause="internalAutoPlaying = false"
+  @autoplay-resume="internalAutoPlaying = true" fade :touchable="true">
+  <vueper-slide
+    v-for="(slide, i) in slidesArr"
+    :key="i"
+    :image="slide.img"
+  />
+</vueper-slides>
 </template>
 
 <script>
-
-import '/node_modules/vue3-carousel/dist/carousel.css';
-import { Carousel, Slide, Pagination, Navigation } from '/node_modules/vue3-carousel';
-
+import  {  VueperSlides ,  VueperSlide  }  from  'vueperslides' 
+import  'vueperslides/dist/vueperslides.css' 
 export default {
   name: 'Slider',
   components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation,
+    VueperSlides,
+    VueperSlide
   },
   data() {
     return {
-      slides: [],
-      carousel: [1,2,3]    
+      slidesArr: [],
+      pauseOnHover: true,
+      autoPlaying: true,
+      internalAutoPlaying: true,
     }
   },
   methods: {
@@ -51,10 +43,10 @@ export default {
             let slideItem = {
               img: 'http://api.foxhole.club/storage/catalog/slider/source/' + item.path
             }
-            this.slides.push(slideItem)
+            this.slidesArr.push(slideItem)
           })
         })
-    }
+    },
   },
   mounted() {
     this.loadSlider()
@@ -63,35 +55,8 @@ export default {
 </script>
 
 <style>
-
-.carousel__prev, .carousel__next {
-  display: none;
+.vueperslides__parallax-wrapper {
+  padding-bottom: 18.33%;
 }
 
-.carousel img {
-  border-radius: 20px;
-}
-
-.carousel {
-  position: relative;
-}
-
-.carousel__pagination {
-  position: absolute;
-  margin: 0;
-  bottom: 10px;
-  left: 50%;
-  transform: translate(-50%,0);
-}
-
-.carousel__pagination-button {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background-color: aliceblue;
-}
-.carousel__pagination-button--active {
-  width: 14px;
-  height: 14px;
-}
 </style>

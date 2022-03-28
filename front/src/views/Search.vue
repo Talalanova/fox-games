@@ -63,8 +63,8 @@ export default {
             time : element.game_time,
             players : element.players_from + '-' + element.players_to,            
             pics: _images,
-            description: element.description,
-            amount: element.amount
+            short_description: element.short_description,   
+            amount: element.amountб
           })
         })
       });
@@ -92,7 +92,8 @@ export default {
           players : element.players_from + '-' + element.players_to,                    
           pics: _images,
           description: element.description,
-          amount: element.amount
+          amount: element.amount,
+          short_description: element.short_description,
         }
         this.searched.push(product);   
       }) 

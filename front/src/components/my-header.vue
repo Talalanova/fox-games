@@ -9,7 +9,7 @@
         </button>
         <span class="header__search-bar">
             <div class="form">
-                <input type="text" v-model="search" id="" placeholder="Поиск..." @keyup.enter="redirectSearch" @keyup="searchProducts" >
+                <input type="text" v-model="search" id="" placeholder="Поиск..." @keyup.enter="redirectSearch" @keyup="searchProducts">
                 <div class="header__datalist datalist" v-if="searched.length">
                     <router-link :to="'/item-full/' + item.slug + '/prd/' + item.id" v-for="item in searched.slice(0,15)" :key="item" class="datalist__row" @click="this.searched = []">
                         <img :src="item.pic" width="50" height="50" alt="">

@@ -9,8 +9,7 @@
         <div class="news-page__content">
             <h3>{{ item.title }}</h3>
             <p class="news-page__date"> {{ item.date }}</p>
-            <div v-html="item.content"></div>            
-              <!-- <img :src="item.img" width="1150" height="185" alt=""> -->
+            <div v-html="item.content"></div>        
         </div>
     </div>
 </template>
@@ -42,8 +41,7 @@ export default {
                     throw new Error('Network response was not ok');
                 })
                 .then((json) => {
-                    let element = json
-                    console.log(json)
+                    let element = json                    
                     this.item = {
                         title: element.title,
                         content: element.content,

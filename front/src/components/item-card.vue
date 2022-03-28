@@ -3,7 +3,7 @@
         <router-link :to="'/item-full/' + itemData.slug + '/prd/' + itemData.id" class="item-card__link-wrapper">        
             <img class="item-card__pic" :src= itemData.pics[0] width="220" height="178" :alt="itemData.title">
             <h3 class="item-card__title">{{ itemData.title}}</h3>
-            <p class="item-card__desc">{{ itemData.desc }}</p>
+            <p class="item-card__desc">{{ itemData.short_description }}</p>
         </router-link>
         <button class="item-card__button" aria-label="Купить" @click="addToCart(itemData)" :disabled="itemData.amount == 0">
             <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@
             </svg>
             {{ Math.ceil(itemData.price)+'₽' }}
         </button>
-        <div class="item-card__mark">
+        <div v-if="itemData.age !== null && itemData.players !== null && itemData.time !== null" class="item-card__mark">
             <span class="age">{{ itemData.age }}</span>            
             <span class="players">{{ itemData.players }}</span>            
             <span class="time">{{ itemData.time }}</span>
@@ -79,6 +79,7 @@ export default {
     position: relative;
     justify-content: space-between;
     min-height: 334px;
+    min-width: 220px;
 }
 
 .item-card__link-wrapper {

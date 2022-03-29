@@ -180,6 +180,17 @@ export default {
   top: 0;
   bottom: 0;
   height: 100%;
+  /* animation: 0.5s slideToRight */
+}
+
+@keyframes slideToRight {
+  from {
+  transform: translate(-100%,0);
+  }
+
+  to {
+    transform: translate(0,0);
+  }
 }
 
 .sidemenu::after {
@@ -293,15 +304,12 @@ export default {
 @keyframes forwardBackLeafBottom {
   0% {
     transform: translate(-2px,0);
-    /* transform-origin: top left; */
   }
   50% {
     transform: translate(2px,0);
-    /* transform-origin: top left; */
   }
   100% {
     transform: translate(-2px,0);
-    /* transform-origin: top left; */
   }
 }
 
@@ -324,7 +332,7 @@ export default {
 }
 
 .sidemenu__logo {
-  margin: 40px 0;
+  margin: 12% 0 0;
   max-width: 320px;
 }
 
@@ -542,11 +550,11 @@ export default {
 @media (max-width: 1080px) {
 
   .sidemenu {
-    z-index: 3;
-    /* height: 100%; */
+    z-index: 101;
     display: none;
     border-radius: 0;
     overflow: auto;
+    animation: 0.5s slideToRight
   }
 
   .sidemenu--opened {

@@ -271,7 +271,7 @@ header {
   align-items: end;
   position: sticky;
   top: 0px;
-  z-index: 1;
+  z-index: 99;
 }
 
 .h1,
@@ -325,7 +325,7 @@ footer {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5); 
-  z-index: 2; 
+  z-index: 100; 
   cursor: pointer; 
   overflow: auto;
 }
@@ -339,7 +339,7 @@ footer {
   right: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.904); 
-  z-index: 2; 
+  z-index: 100; 
   cursor: pointer;
   display: none;
 }

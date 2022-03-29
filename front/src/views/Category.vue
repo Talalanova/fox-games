@@ -232,7 +232,7 @@ export default {
   }
 
   .intro img {
-    width: 200px;
+    width: 150px;
   }
 
   .intro__text {

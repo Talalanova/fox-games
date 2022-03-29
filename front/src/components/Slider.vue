@@ -1,6 +1,6 @@
 <template>
-<vueper-slides :slide-ratio="1 / 2" fixed-height="215px" :touchable="true" style="border-radius:20px;overflow:hidden;">
-  <vueper-slide v-for="(slide, i) in slidesArr" :key="i" :image="slide.img" />
+<vueper-slides  :touchable="true" :slide-ratio="1 / 2" fixed-height="215px" style="border-radius:20px;overflow:hidden;">
+  <vueper-slide :touchable="true" v-for="(slide, i) in slidesArr" :key="i" :image="slide.img" />
 </vueper-slides>
 </template>
 

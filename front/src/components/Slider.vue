@@ -1,20 +1,13 @@
 <template>
-<vueper-slides style="border-radius:20px;overflow:hidden;" fixed-height="215px"   
-  autoplay
-  :pause-on-hover="pauseOnHover"
-  @autoplay-pause="internalAutoPlaying = false"
-  @autoplay-resume="internalAutoPlaying = true" fade :touchable="true">
-  <vueper-slide
-    v-for="(slide, i) in slidesArr"
-    :key="i"
-    :image="slide.img"
-  />
+<vueper-slides :slide-ratio="1 / 2" fixed-height="215px" :touchable="true" style="border-radius:20px;overflow:hidden;">
+  <vueper-slide v-for="(slide, i) in slidesArr" :key="i" :image="slide.img" />
 </vueper-slides>
 </template>
 
 <script>
 import  {  VueperSlides ,  VueperSlide  }  from  'vueperslides' 
-import  'vueperslides/dist/vueperslides.css' 
+import  'vueperslides/dist/vueperslides.css'
+
 export default {
   name: 'Slider',
   components: {
@@ -24,9 +17,6 @@ export default {
   data() {
     return {
       slidesArr: [],
-      pauseOnHover: true,
-      autoPlaying: true,
-      internalAutoPlaying: true,
     }
   },
   methods: {

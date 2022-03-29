@@ -134,7 +134,7 @@ export default {
     font-size: 24px;
     line-height: 25px;
     text-align: right;
-    margin: auto;
+    margin: auto 0;
     font-weight: 600;
 }
 
@@ -243,6 +243,7 @@ input[type="checkbox"]:checked + label::before {
     .cart-item__title {
         font-size: 18px;
         line-height: 19px;
+        text-align: right;
     }
 
     .counter {

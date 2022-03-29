@@ -80,6 +80,7 @@ export default {
     justify-content: space-between;
     min-height: 334px;
     min-width: 220px;
+    margin: auto 0;
 }
 
 .item-card__link-wrapper {

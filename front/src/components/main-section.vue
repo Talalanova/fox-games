@@ -54,7 +54,7 @@ hr {
     -moz-column-gap: 2%;
     column-gap: 40px;
     row-gap: 40px;
-    padding: 20px 0;
+    padding: 20px 10px;
     overflow-x: scroll;
     /* gap: 56px; */
     flex-wrap: wrap;

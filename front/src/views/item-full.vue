@@ -207,7 +207,11 @@ export default {
 
             if (element.age_from == null) age = null
             let time =''
-            if (element.game_time == null) time = null
+            if (element.game_time == null) {
+              time = null
+            } else {
+              time = element.game_time + 'мин'
+            }
             let players = ''
             if (element.players_from == null) {
               players = null
@@ -233,7 +237,7 @@ export default {
             if (this.collection_id == 0) {
               this.collection_id = null
             } else {
-              fetch('http://api.foxhole.club/api/product/filter?group_id=' + this.collection_id )
+              fetch('http://api.foxhole.club/api/product/filter?is_accessory=0&group_id=' + this.collection_id )
                 .then((response) => {
                   if(response.ok) {
                     return response.json();
@@ -272,7 +276,7 @@ export default {
             this.accessorys = []
             this.recommended = []
             this.collection = []
-            //Получение тегов продукта и вывод раздела "Рекоммендуем"
+            //Получение тегов продукта и вывод раздела "Рекомендуем"
             fetch('http://api.foxhole.club/api/product/filter?tags=[' + this.tags +']')
               .then((response) => {
                 if(response.ok) {
@@ -637,7 +641,7 @@ export default {
   font-weight: 200;
   text-align: left;
   position: relative;
-  min-height: 300px;
+  min-height: 380px;
 }
 
 .tabcontent form{

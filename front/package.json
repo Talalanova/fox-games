@@ -10,7 +10,7 @@
   "dependencies": {
     "@dafcoe/vue-collapsible-panel": "^0.2.0",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
-    "@vueform/slider": "^2.0.8",
+    "@vueform/slider": "^2.0.9",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",

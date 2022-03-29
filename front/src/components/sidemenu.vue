@@ -2,7 +2,7 @@
   <div ref="sidemenu" class="sidemenu">
     <div class="sidemenu__leafs">
       <img src="@/assets/3.svg" class="leaf_3" width="120" height="60">
-      <img src="@/assets/4.svg" class="leaf_4" width="90" height="70">
+      <img src="@/assets/4.svg" class="leaf_4" width="120" height="70">
       <img src="@/assets/2.svg" class="leaf_2" width="120" height="70">
       <img src="@/assets/1.svg" class="leaf_1" width="95" height="75">
     </div>
@@ -36,9 +36,11 @@
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
     <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
+    <span v-if="stocks" class="sidemenu__item"><router-link class="sidemenu__link" to="/stocks">Акции</router-link></span>
+    <!-- <span class="sidemenu__item"><router-link class="sidemenu__link" to="/404">Комикс</router-link></span> -->
       <div class="sidemenu__ad ad" v-for="ad in sales" :key="ad">
         <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
-          <img :src= ad.pics[0] width="110" height="100">
+          <img :src= ad.pics[0] width="150" height="100">
           <span class="ad__title">
             {{ ad.title }}!
           </span>         
@@ -62,7 +64,8 @@ export default {
       otherCategorys, 
       tableGames,
       sidemenuAd,
-      sales: []
+      sales: [],
+      stocks: false
     }
   },
   methods: {
@@ -128,6 +131,22 @@ export default {
           })          
         })
     },
+    loadStocks() {
+      fetch('http://api.foxhole.club/api/article/2/index?page=1')
+        .then((response) => {
+          if(response.ok) {
+            this.newsRendered = true
+            return response.json();
+          }
+      
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+          if (json.data.length !== 0) {
+            this.stocks = true
+          }
+        })
+    }
   },
   components: {
     VueCollapsiblePanelGroup,
@@ -135,6 +154,7 @@ export default {
   },
   mounted() {
     this.loadSales()
+    this.loadStocks()
   }
 
 }
@@ -176,26 +196,26 @@ export default {
 .sidemenu__leafs img {
   position: absolute;
   top: 0;
-  max-height: 70px;
+  max-height: 75px;
 }
 
 .sidemenu__leafs .leaf_3 {
-  left: 0;
-  top: -5px;
-  animation: 4s infinite forwardBackLeaf3;
+  left: -7px;
+  top: -15px;
+  animation: 5s infinite forwardBackLeaf3;
 }
 
 @keyframes forwardBackLeaf3 {
   0% {
-    transform: rotate(-3deg);
+    transform: rotate(-2deg);
     transform-origin: top left;
   }
   50% {
-    transform: rotate(3deg);
+    transform: rotate(5deg);
     transform-origin: top left;
   }
   100% {
-    transform: rotate(-3deg);
+    transform: rotate(-2deg);
     transform-origin: top left;
   }
 }
@@ -223,7 +243,7 @@ export default {
 
 .sidemenu__leafs .leaf_2 {
   left: 92px;
-  top: -5px;
+  top: -14px;
   animation: 6s infinite forwardBackLeaf2;
 }
 
@@ -243,8 +263,8 @@ export default {
 }
 
 .sidemenu__leafs .leaf_1 {
-  left: 195px;
-  top: -4px;
+  left: 190px;
+  top: -13px;
   animation: 5s infinite forwardBackLeaf1;
 }
 
@@ -458,19 +478,21 @@ export default {
 
 .sidemenu__ad {
   margin: auto auto 0;
-  background-image: url('~@/assets/sidemenu-add.png');
+  margin-bottom: 30px;
   background-repeat: no-repeat;
+  background-color: rgba(207,128,75,0.8);
+  border-radius: 10px;
   min-height: 190px;
   min-width: 172px;
   word-break: break-word;
-  z-index: 10;
+  z-index: 11;
   position: relative;
+  font-weight: 100;
 }
 
 .ad__title {
   font-family: "Nunito";
   font-size: 17px;
-  font-weight: bold;  
 }
 
 .sidemenu__ad::before {
@@ -482,7 +504,7 @@ export default {
   top: -45px;
   left: -25px;
   position: absolute;
-  animation: 4s infinite forwardBack;
+  animation: 7s infinite forwardBack;
 }
 
 @keyframes forwardBack {
@@ -504,11 +526,11 @@ export default {
   color: white;
   font-size: 14px;
   line-height: 19px;
-  font-weight: 600;
+  font-weight: 100;
 }
 
 .sidemenu__ad  img {
-  margin: 20px auto;
+  margin: 10px auto;
 }
 
 .sidemenu__ad span {
@@ -544,6 +566,24 @@ export default {
 
   .sidemenu::after {
     background-image: none;
+  }
+
+  .sidemenu__ad,
+  .sidemenu__bottom-greeen,
+  .sidemenu__bottom-greeen-front,
+  .leaf_3,
+  .leaf_2,
+  .leaf_1,
+  .leaf_4 {
+    display: none;
+  }
+
+  .sidemenu::before {
+    background-image: url('~@/assets/mobile-top-green.png');
+    width: 240px;
+    background-size: 257px 43px;
+    left: 0;
+    top: 0;
   }
 }
 

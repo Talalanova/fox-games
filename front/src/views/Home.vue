@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Slider></Slider>
+    <Slider :touchable="true"></Slider>
     <MainSection title="Новости" link="/news">
       <NewsCard v-for="item in news.slice(0,4)" :key="item" :itemData="item"></NewsCard>
     </MainSection>

@@ -199,6 +199,7 @@ export default {
         position: static;
         padding: 10px;
         width: 100%;
+        border-radius: 0;
     }
 
     .header::before  {

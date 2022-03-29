@@ -269,6 +269,9 @@ img {
 header {
   display: flex;
   align-items: end;
+  position: sticky;
+  top: 0px;
+  z-index: 1;
 }
 
 .h1,

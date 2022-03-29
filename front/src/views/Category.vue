@@ -9,7 +9,7 @@
       <router-link to="/Catalog">{{ categoryTitle }}</router-link>
     </Breadcrumbs>
     <div class="intro">
-      <span class="intro__text">
+      <span class="intro__text" v-if="categoryDescription">
         {{ categoryDescription }}
       </span>
       <span class="intro__pic" v-if="categoryImg != null">
@@ -113,7 +113,7 @@ export default {
           if(response.ok) return response.json();
         })
         .then((json) => {
-          
+          console.log(json)
           if(json.total) this.paginationTotal = json.total
 
           json.data.forEach(element => {
@@ -221,6 +221,7 @@ export default {
 
 .intro__pic {
   grid-row: span 4;
+  margin-left: auto;
 }
 
 @media (max-width: 1080px) {
@@ -228,6 +229,10 @@ export default {
     grid-template-rows: auto auto;
     grid-template-columns: auto;
     padding: 20px 0;
+  }
+
+  .intro img {
+    width: 200px;
   }
 
   .intro__text {

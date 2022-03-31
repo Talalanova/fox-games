@@ -1,7 +1,7 @@
 <template>
   <div class="catalog-page">
     <h2>Каталог</h2>
-    <hr>
+    <hr />
     <Breadcrumbs>
       <router-link to="/">Главная</router-link>
       <router-link to="/Catalog">Каталог</router-link>
@@ -11,7 +11,7 @@
         <router-link class="h1" :to="'/Category/' + cat.slug">
           {{ cat.name }}
         </router-link>
-        <hr>
+        <hr />
         <CatalogDropdownItem :categorys="cat"></CatalogDropdownItem>
       </div>
     </div>
@@ -19,24 +19,22 @@
 </template>
 
 <script>
-
-import CatalogDropdownItem from '@/components/catalog-dropdown-item.vue'
-import Breadcrumbs from '@/components/breadcrumbs.vue'
-import {tableGames} from '@/data.js'
+import CatalogDropdownItem from "@/components/catalog-dropdown-item.vue";
+import Breadcrumbs from "@/components/breadcrumbs.vue";
+import { tableGames } from "@/data.js";
 
 export default {
-    name: 'Catalog',
-    components: {
-      CatalogDropdownItem,
-      Breadcrumbs,
-    },
-    data() {
-      return {
-        tableGames,
-        
-      }
-    },
-}
+  name: "Catalog",
+  components: {
+    CatalogDropdownItem,
+    Breadcrumbs,
+  },
+  data() {
+    return {
+      tableGames,
+    };
+  },
+};
 </script>
 
 <style>

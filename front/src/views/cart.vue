@@ -1,48 +1,116 @@
 <template>
   <div class="cart">
     <h1>Корзина</h1>
-    <hr>
+    <hr />
     <form name="order">
       <div class="cart__buttons">
-        <button class="cart__choose-button" @click="selectAll(checkedId = !checkedId)">Выделить все</button>
-        <button class="cart__remove-button" @click="deleteFromCart()">Удалить выбранное</button>
+        <button
+          class="cart__choose-button"
+          @click.prevent="selectAll((checkedId = !checkedId))"
+        >
+          Выделить все
+        </button>
+        <button class="cart__remove-button" @click.prevent="deleteFromCart()">
+          Удалить выбранное
+        </button>
       </div>
       <div>
-        <CartItem @checkCartItem="checkCartItem" :checked="checkedId" :itemData="item" v-for="item in this.CART" :key="item"></CartItem>
+        <CartItem
+          @checkCartItem="checkCartItem"
+          :checked="checkedId"
+          :itemData="item"
+          v-for="item in this.CART"
+          :key="item"
+        ></CartItem>
       </div>
       <div class="sum">
         <span>Итог</span>
-        <span>{{ sum + `₽`}}</span>
+        <span>{{ sum + `₽` }}</span>
       </div>
-      <div class="cart__contacts-frame">
-        <div class="cart__contacts-info">          
-          <input type="text" placeholder="*Имя" v-model="name" name="name" required/>
-          <input type="tel" placeholder="*Номер" v-model="phone" name="phone" required/>
-          <textarea placeholder="Комментарий" name="comment" v-model="comment"></textarea>
-          <button class="submit" type="submit" @click.prevent="confirmOrder">{{ buttonText }}</button>
-          <input class="cart__privacy--input" type="checkbox" id="privacy" value="privacy" required>
-          <label class="cart__privacy" for="privacy">Я подтверждаю свое согласие на обработку персональных данных</label>
-          <button type="button" @click="delivery = !delivery" class="cart__delivery-rules">Правила резерва товара</button>
+      <span class="cart__validity-message" v-if="validity">Обязательны к заполнению: имя и номер телефона</span>
+      <div class="cart__contacts-frame">        
+        <div class="cart__contacts-info">
+          <input
+            type="text"
+            placeholder="*Имя"
+            v-model="name"
+            name="name"
+            required
+          />
+          <input
+            type="tel"
+            placeholder="*Номер телефона"
+            v-model="phone"
+            name="phone"
+            required
+            @blur="checkValidity"
+          />
+          <textarea
+            placeholder="Комментарий"
+            name="comment"
+            v-model="comment"
+          ></textarea>
+          <button class="submit" type="submit" @click.prevent="confirmOrder">
+            {{ buttonText }}
+          </button>
+          <input
+            class="cart__privacy--input"
+            type="checkbox"
+            id="privacy"
+            value="privacy"
+            required
+          />
+          <label class="cart__privacy" for="privacy"
+            >Я подтверждаю свое согласие на обработку персональных данных</label
+          >
+          <button
+            type="button"
+            @click="delivery = !delivery"
+            class="cart__delivery-rules"
+          >
+            Правила резерва товара
+          </button>
         </div>
         <div class="cart__contacts-map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru" width="100%" height="456" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1731.4932560840555!2d131.90289118261148!3d43.12525428257137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5fb391828dd66b61%3A0xd974554b32a68d90!2z0JvQuNGB0YzRjyDQndC-0YDQsA!5e0!3m2!1sru!2sru!4v1645080909644!5m2!1sru!2sru"
+            width="100%"
+            height="456"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
     </form>
     <div class="error" v-if="error">
       <div class="overlay" @click.self="error = !error">
-          <img src="@/assets/fox-error.svg" width="512" height="450">
-          <h1 style="color: white;">Что-то пошло не так. Попробуйте перезагрузить страницу или вернуться позже</h1>
+        <img src="@/assets/fox-error.svg" width="512" height="450" />
+        <h1 style="color: white">
+          Что-то пошло не так.<br> Проверьте все ли поля заполнены корректно или попробуйте перезагрузить страницу.
+        </h1>
       </div>
     </div>
     <div class="overlay" v-if="delivery" @click.self="delivery = !delivery">
       <div class="delivery__info">
-        <p>В нашем магазине пока отсутствует возможность заказать любимую игру с доставкой, но вы можете оформить резерв на любую из игр!</p>
-        <ul> 
+        <p>
+          В нашем магазине пока отсутствует возможность заказать любимую игру с
+          доставкой, но вы можете оформить резерв на любую из игр!
+        </p>
+        <ul>
           <li>Бронь на товар осуществляется без предоплаты</li>
-          <li>После получения вашей заявки, наш сотрудник свяжется с вами для уточнения деталей, не забудьте оставить свой телефон!</li>
-          <li>Бронь сохраняется в течение 48 часов, после оформления заказа через сайт</li>
-          <li>Если заказ не оплачен и не забран из магазина в течение 48 часов, бронь автоматически отменяется</li>
+          <li>
+            После получения вашей заявки, наш сотрудник свяжется с вами для
+            уточнения деталей, не забудьте оставить свой телефон!
+          </li>
+          <li>
+            Бронь сохраняется в течение 48 часов, после оформления заказа через
+            сайт
+          </li>
+          <li>
+            Если заказ не оплачен и не забран из магазина в течение 48 часов,
+            бронь автоматически отменяется
+          </li>
         </ul>
       </div>
     </div>
@@ -50,102 +118,119 @@
 </template>
 
 <script>
-import CartItem from '@/components/cart-item.vue'
-import {mapActions,mapGetters} from 'vuex'
+import CartItem from "@/components/cart-item.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'Cart',
+  name: "Cart",
   components: {
     CartItem,
-    
   },
   data() {
     return {
       delivery: false,
       cartSum: 0,
       checkedItems: [],
-      buttonText: 'Оформить',
+      buttonText: "Оформить",
       error: false,
-      checkedId: false
-    }
+      checkedId: false,
+      validity: false,
+      name: '',
+      phone: '',
+      comment: ''
+    };
   },
   methods: {
     deleteFromCart() {
-      this.checkedItems.forEach(id => {
-      fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/remove/' + id)
-        .then((response) => {
-          if(response.ok) {                        
-            return response.json();
-          }
-          throw new Error('Network response was not ok');
-        })
-        .then((json) => {
-          this.RESET_CART()
-          json.products.forEach(item => {
-            this.ADD_TO_CART(item)
-          })             
-        })
-      })
+      this.checkedItems.forEach((id) => {
+        fetch(
+          "http://api.foxhole.club/api/basket/" +
+            this.$cookie.get("fox_cart") +
+            "/remove/" +
+            id
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Network response was not ok");
+          })
+          .then((json) => {
+            this.RESET_CART();
+            json.products.forEach((item) => {
+              this.ADD_TO_CART(item);
+            });
+          });
+      });
     },
-    checkCartItem(event,id) {
-      if(event == true) {
-        this.checkedItems.push(id)
+    checkCartItem(event, id) {
+      if (event == true) {
+        this.checkedItems.push(id);
       }
     },
     selectAll() {
-      this.CART.forEach(item => {
-        this.checkedItems.push(item.id)
-      })
+      if (this.checkedItems.length >= this.CART.length) {
+        this.checkedItems = []
+      } else {
+        this.CART.forEach((item) => {
+          this.checkedItems.push(item.id);
+        });
+      }
     },
-    ...mapActions([
-      'ADD_TO_CART',
-      'RESET_CART'
-    ]),
+    ...mapActions(["ADD_TO_CART", "RESET_CART"]),
     confirmOrder() {
-      let formData = new FormData(document.forms.order)
-      fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart') + '/checkout', {
-          method: 'POST',
-          body: formData
-      })
+      let formData = new FormData(document.forms.order);
+      fetch(
+        "http://api.foxhole.club/api/basket/" +
+          this.$cookie.get("fox_cart") +
+          "/checkout",
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
         .then((response) => {
           if (response.ok) {
-            this.buttonText = 'Спасибо за заказ!'
-            this.name = ''
-            this.phone = ''
-            this.comment = ''
-            this.RESET_CART()
-            this.$cookie.remove('fox_cart')
+            this.buttonText = "Спасибо за заказ!";
+            this.name = "";
+            this.phone = "";
+            this.comment = "";
+            this.RESET_CART();
+            this.$cookie.remove("fox_cart");
           } else {
-            this.error = true
+            this.error = true;
           }
         })
         .catch(() => {
-            this.error = true
-        })
+          this.error = true;
+        });
+    },
+    checkValidity(){
+      if (this.phone == '' || this.name == '') {
+        this.validity = true
+      }
     }
   },
   props: {
-    itemData: Object
+    itemData: Object,
   },
   computed: {
-    ...mapGetters([
-      'CART'
-    ]),
+    ...mapGetters(["CART"]),
     sum() {
       let result = 0;
-      this.CART.forEach(el=> {
-        result += Math.ceil(+el.price*el.pivot.quantity)
+      this.CART.forEach((el) => {
+        result += Math.ceil(+el.price * el.pivot.quantity);
       });
       return result;
     },
   },
-  mounted() {
-  }
-}
+  mounted() {},
+};
 </script>
 
 <style scoped>
-
+/* input:invalid:not(:placeholder-shown) {border-color: red;}
+input:valid:not(:placeholder-shown) {border-color: green;} */
 
 .delivery__info {
   position: absolute;
@@ -156,9 +241,10 @@ export default {
   font-size: 24px;
   text-align: left;
   padding: 15px 30px;
-  border: 1px solid #004A22;
+  border: 1px solid #004a22;
   border-radius: 20px;
-  background-image: url('~@/assets/delivery-green.png'), url('~@/assets/delivery-green2.png');
+  background-image: url("~@/assets/delivery-green.png"),
+    url("~@/assets/delivery-green2.png");
   background-repeat: no-repeat;
   background-position: left top, bottom right;
   animation: 0.7s slideDown;
@@ -187,7 +273,7 @@ export default {
 .cart__choose-button {
   font-size: 13px;
   line-height: 14px;
-  color: #4F4F4F;
+  color: #4f4f4f;
   border: none;
   background-color: white;
   position: relative;
@@ -198,7 +284,7 @@ export default {
 .cart__choose-button::before {
   position: absolute;
   content: "—";
-  background-color: #CB7D49;
+  background-color: #cb7d49;
   color: white;
   border-radius: 5px;
   width: 16px;
@@ -211,7 +297,7 @@ export default {
 .cart__remove-button {
   font-size: 13px;
   line-height: 14px;
-  color: #CB7D49;
+  color: #cb7d49;
   border: none;
   background-color: white;
   cursor: pointer;
@@ -224,8 +310,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-top: 1px solid #CB7D49;
-  border-bottom: 1px solid #CB7D49;
+  border-top: 1px solid #cb7d49;
   padding: 20px 0;
 }
 
@@ -237,11 +322,11 @@ export default {
 .cart__contacts-frame {
   display: grid;
   grid-template-columns: auto auto;
-  border: 1px solid #CB7D49;
+  border: 1px solid #cb7d49;
   border-radius: 0 0 40px 40px;
-  border-top: none;
+  /* border-top: none; */
   overflow: hidden;
-  background-image: url('~@/assets/sidemenu_green.svg');
+  background-image: url("~@/assets/sidemenu_green.svg");
   background-repeat: no-repeat;
   background-position: bottom left;
   background-size: 142px 30px;
@@ -255,13 +340,14 @@ export default {
   font-size: 24px;
   line-height: 25px;
   text-align: left;
-  color: #4B0101;
+  color: #4b0101;
   position: relative;
 }
 
 .cart__contacts-info input,
 .cart__contacts-info textarea {
-  border: 1px solid #CB7D49;
+  font-family: "Nunito";
+  border: 1px solid #cb7d49;
   border-radius: 10px;
   padding: 8px 10px;
   margin: 10px 0;
@@ -271,8 +357,8 @@ export default {
 
 .cart__contacts-info .submit {
   padding: 4px 20px;
-  background-color: #CB7D49;
-  border: 1px solid #CB7D49;
+  background-color: #cb7d49;
+  border: 1px solid #cb7d49;
   color: white;
   font-family: "Nunito", "Arial", sans-serif;
   font-size: 21px;
@@ -282,23 +368,23 @@ export default {
   margin-left: auto;
   transition: 0.7s;
   position: absolute;
-  top: 228px;
+  top: 242px;
   right: 66px;
 }
 
-/* @-moz-document url-prefix() {
-  .cart__contacts-info .submit { top: 244px;}
-} */
+@-moz-document url-prefix() {
+  .cart__contacts-info .submit { top: 257px;}
+}
 
 .cart__contacts-info .submit:hover {
-  color: #4B0101;
-  border: 1px solid #CB7D49;
+  color: #4b0101;
+  border: 1px solid #cb7d49;
   background-color: white;
 }
 
 .cart__delivery-rules {
   cursor: pointer;
-  border: 1px solid #CB7D49;
+  border: 1px solid #cb7d49;
   padding: 10px 20px;
   color: #333333;
   background-color: white;
@@ -309,8 +395,8 @@ export default {
 }
 
 .cart__delivery-rules:hover {
-  background-color: #CB7D49;
-  border: 1px solid #CB7D49;
+  background-color: #cb7d49;
+  border: 1px solid #cb7d49;
   color: white;
 }
 
@@ -327,7 +413,7 @@ export default {
   width: 12px;
   height: 12px;
   border-radius: 2px;
-  border: 0.5px solid #B6B6B6;
+  border: 0.5px solid #b6b6b6;
   left: 2px;
   bottom: 5px;
 }
@@ -337,19 +423,24 @@ export default {
   position: absolute;
   width: 10px;
   height: 10px;
-  background-image: url('~@/assets/icon_checked.svg');
+  background-image: url("~@/assets/icon_checked.svg");
   background-repeat: no-repeat;
   left: 3px;
   bottom: 6px;
 }
 
 input[type="checkbox"]:checked + .cart__privacy::before {
-  background-color: #CB7D49;
-  border-color: #CB7D49;
+  background-color: #cb7d49;
+  border-color: #cb7d49;
 }
 
 .cart__privacy--input {
   display: none;
+}
+
+.cart__validity-message {
+  padding: 10px 0;
+  display: block;
 }
 
 @media (max-width: 568px) {
@@ -366,7 +457,7 @@ input[type="checkbox"]:checked + .cart__privacy::before {
     width: 175px;
     height: 47px;
     bottom: 0;
-    background-image: url('~@/assets/sidemenu_green.svg');
+    background-image: url("~@/assets/sidemenu_green.svg");
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 146px 33px;

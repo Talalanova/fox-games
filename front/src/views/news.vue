@@ -1,103 +1,123 @@
 <template>
-  <div class="news">    
+  <div class="news">
     <h1>Новости</h1>
-    <hr>    
+    <hr />
     <div v-if="!newsRendered" class="loading_div">
       <div class="loading_wrapper">
         <div class="loading_step step1">
-          <img src="@/assets/fox-trail.svg">
+          <img src="@/assets/fox-trail.svg" />
         </div>
         <div class="loading_step step2">
-          <img src="@/assets/fox-trail.svg">
+          <img src="@/assets/fox-trail.svg" />
         </div>
         <div class="loading_step step3">
-          <img src="@/assets/fox-trail.svg">
+          <img src="@/assets/fox-trail.svg" />
         </div>
       </div>
     </div>
-    <NewsItem v-for="item in news" :key="item" :date="item.date" :title="item.title" :img="item.img" :id="item.id" :slug="item.slug">{{item.description}}</NewsItem>
-    <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
+    <NewsItem
+      v-for="item in news"
+      :key="item"
+      :date="item.date"
+      :title="item.title"
+      :img="item.img"
+      :id="item.id"
+      :slug="item.slug"
+      >{{ item.description }}</NewsItem
+    >
+    <Pagination
+      v-if="paginationTotal > perPage"
+      :perPage="15"
+      :page="1"
+      :totalGoods="paginationTotal"
+      @updatePage="updatePage"
+    ></Pagination>
   </div>
 </template>
 
 <script>
-import NewsItem from '@/components/news-item.vue'
-import Pagination from '@/components/pagination.vue'
+import NewsItem from "@/components/news-item.vue";
+import Pagination from "@/components/pagination.vue";
 
 export default {
-  name: 'News',
+  name: "News",
   components: {
     NewsItem,
-    Pagination
+    Pagination,
   },
   data() {
     return {
       news: [],
       paginationTotal: false,
       perPage: 15,
-      newsRendered: false
-    }
+      newsRendered: false,
+    };
   },
   methods: {
     loadNews(page = 1) {
-      this.news = []
-      fetch('http://api.foxhole.club/api/article/1/index?page=' + page)
+      this.news = [];
+      fetch("http://api.foxhole.club/api/article/1/index?page=" + page)
         .then((response) => {
-          if(response.ok) {
-            this.newsRendered = true
+          if (response.ok) {
+            this.newsRendered = true;
             return response.json();
-          }            
-          throw new Error('Network response was not ok');
+          }
+          throw new Error("Network response was not ok");
         })
         .then((json) => {
-          
-          this.paginationTotal = json.total
+          this.paginationTotal = json.total;
 
-          json.data.forEach(element => {
+          json.data.forEach((element) => {
             this.news.push({
               title: element.title,
               content: element.content,
               id: element.id,
               slug: element.slug,
               description: element.short_description,
-              img: 'http://api.foxhole.club/storage/catalog/article/source/' + element.image,
-              date: new Date(element.created_at).toLocaleDateString('ru-RU')
-            })
-          })
-        })
+              img:
+                "http://api.foxhole.club/storage/catalog/article/source/" +
+                element.image,
+              date: new Date(element.created_at).toLocaleDateString("ru-RU"),
+            });
+          });
+        });
     },
     updatePage(page) {
-      this.loadNews(page)
+      this.loadNews(page);
     },
   },
   mounted() {
-    this.loadNews()
-  }
-}
+    this.loadNews();
+  },
+};
 </script>
 
 <style>
-.loading_step.step1{
-  animation-name:step;
-  animation-duration:5s;
-  animation-delay:0;
-  animation-iteration-count:infinite;
+.loading_step.step1 {
+  animation-name: step;
+  animation-duration: 5s;
+  animation-delay: 0;
+  animation-iteration-count: infinite;
 }
-.loading_step.step2{
-  animation-name:step;
-  animation-duration:3s;
-  animation-delay:1s;
-  animation-iteration-count:infinite;
+.loading_step.step2 {
+  animation-name: step;
+  animation-duration: 3s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
 }
-.loading_step.step3{
-  animation-name:step;
-  animation-duration:2s;
-  animation-delay:2s;
-  animation-iteration-count:infinite;
+.loading_step.step3 {
+  animation-name: step;
+  animation-duration: 2s;
+  animation-delay: 2s;
+  animation-iteration-count: infinite;
 }
 @keyframes step {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .loading_wrapper {
@@ -126,14 +146,14 @@ export default {
 
 .pagination a {
   color: #333333;
-  border: 1px solid #CB7D49;
+  border: 1px solid #cb7d49;
   padding: 5px;
   border-radius: 4px;
   margin-right: 12px;
 }
 
 .pagination a:hover {
-  background-color: #CB7D49;
+  background-color: #cb7d49;
   color: white;
 }
 </style>

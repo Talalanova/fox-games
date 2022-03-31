@@ -1,22 +1,41 @@
 <template>
   <div ref="sidemenu" class="sidemenu">
     <div class="sidemenu__leafs">
-      <img src="@/assets/3.svg" class="leaf_3" width="120" height="60">
-      <img src="@/assets/4.svg" class="leaf_4" width="120" height="70">
-      <img src="@/assets/2.svg" class="leaf_2" width="120" height="70">
-      <img src="@/assets/1.svg" class="leaf_1" width="95" height="75">
+      <img src="@/assets/3.svg" class="leaf_3" width="120" height="60" />
+      <img src="@/assets/4.svg" class="leaf_4" width="120" height="70" />
+      <img src="@/assets/2.svg" class="leaf_2" width="120" height="70" />
+      <img src="@/assets/1.svg" class="leaf_1" width="95" height="75" />
     </div>
     <div class="sidemenu__logo">
       <a href="/">
-        <img src="@/assets/Logo.png">
+        <img src="@/assets/Logo.png" />
       </a>
     </div>
     <span class="sidemenu__item sidemenu__item--catalog">
       <router-link class="sidemenu__link" to="/Catalog">Каталог</router-link>
-      <button ref="sidemenuButton" class="sidemenu__button" @click="openCutCatalog"></button>
+      <button
+        ref="sidemenuButton"
+        class="sidemenu__button"
+        @click="openCutCatalog"
+      ></button>
     </span>
-    <div ref="cutCatalog" class="sidemenu__cut-catalog cut-catalog" id="sidemenuCutCatalog">
-      <vue-collapsible-panel-group v-for="item in tableGames" :key="item" accordion style="--bg-color-header:#fff;--bg-color-header-hover: #DE8F53;--bg-color-header-active: #DE8F53;--bg-color-body: #FFE5CD;--border-color:#FFE5CD">
+    <div
+      ref="cutCatalog"
+      class="sidemenu__cut-catalog cut-catalog"
+      id="sidemenuCutCatalog"
+    >
+      <vue-collapsible-panel-group
+        v-for="item in tableGames"
+        :key="item"
+        accordion
+        style="
+          --bg-color-header: #fff;
+          --bg-color-header-hover: #de8f53;
+          --bg-color-header-active: #de8f53;
+          --bg-color-body: #ffe5cd;
+          --border-color: #ffe5cd;
+        "
+      >
         <vue-collapsible-panel :expanded="false">
           <template #title>
             {{ item.name }}
@@ -24,92 +43,134 @@
           <template #content>
             <div class="cut-catalog__list" @click="closeCatalogOnMobile">
               <!-- <router-link :to="'/Category/' + item.slug + '/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index"> -->
-              <router-link :to="'/Category/' + category.slug" v-for="category in item.subcategorys" v-bind:key="category.index">
-                {{category.name}}
+              <router-link
+                :to="'/Category/' + category.slug"
+                v-for="category in item.subcategorys"
+                v-bind:key="category.index"
+              >
+                {{ category.name }}
               </router-link>
             </div>
           </template>
         </vue-collapsible-panel>
       </vue-collapsible-panel-group>
     </div>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/about">О нас</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/news">Новости</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/games">Игротеки</router-link></span>
-    <span class="sidemenu__item"><router-link class="sidemenu__link" to="/contacts">Контакты</router-link></span>
-    <span v-if="stocks" class="sidemenu__item"><router-link class="sidemenu__link" to="/stocks">Акции</router-link></span>
+    <span class="sidemenu__item"
+      ><router-link class="sidemenu__link" to="/about">О нас</router-link></span
+    >
+    <span class="sidemenu__item"
+      ><router-link class="sidemenu__link" to="/news"
+        >Новости</router-link
+      ></span
+    >
+    <span class="sidemenu__item"
+      ><router-link class="sidemenu__link" to="/games"
+        >Игротеки</router-link
+      ></span
+    >
+    <span class="sidemenu__item"
+      ><router-link class="sidemenu__link" to="/contacts"
+        >Контакты</router-link
+      ></span
+    >
+    <span v-if="stocks" class="sidemenu__item"
+      ><router-link class="sidemenu__link" to="/stocks"
+        >Акции</router-link
+      ></span
+    >
     <!-- <span class="sidemenu__item"><router-link class="sidemenu__link" to="/404">Комикс</router-link></span> -->
-      <div class="sidemenu__ad ad" v-for="ad in sales" :key="ad">
-        <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
-          <img :src= ad.pics[0] width="150" height="100">
-          <span class="ad__title">
-            {{ ad.title }}!
-          </span>         
-        </router-link> 
-      </div>
-    <img src="@/assets/sidemenu_bottom-green.svg" class="sidemenu__bottom-greeen" width="274" height="30">
-    <img src="@/assets/sidemenu_bottom-green-front.png" class="sidemenu__bottom-greeen-front" width="274" height="30">
+    <div class="sidemenu__ad ad" v-for="ad in sales" :key="ad">
+      <router-link :to="'/item-full/' + ad.slug + '/prd/' + ad.id">
+        <img :src="ad.pics[0]" width="150" height="100" />
+        <span class="ad__title"> {{ ad.title }}! </span>
+      </router-link>
+    </div>
+    <img
+      src="@/assets/sidemenu_bottom-green.svg"
+      class="sidemenu__bottom-greeen"
+      width="274"
+      height="30"
+    />
+    <img
+      src="@/assets/sidemenu_bottom-green-front.png"
+      class="sidemenu__bottom-greeen-front"
+      width="274"
+      height="30"
+    />
   </div>
 </template>
 
 <script>
-import { otherCategorys, tableGames, sidemenuAd } from '@/data.js'
-import  { VueCollapsiblePanelGroup, VueCollapsiblePanel } from '@dafcoe/vue-collapsible-panel'
+import { otherCategorys, tableGames, sidemenuAd } from "@/data.js";
+import {
+  VueCollapsiblePanelGroup,
+  VueCollapsiblePanel,
+} from "@dafcoe/vue-collapsible-panel";
 
-import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'
+import "@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css";
 
 export default {
-  name: 'sidemenu',
+  name: "sidemenu",
   data() {
     return {
-      otherCategorys, 
+      otherCategorys,
       tableGames,
       sidemenuAd,
       sales: [],
-      stocks: false
-    }
+      stocks: false,
+    };
   },
   methods: {
     openCutCatalog() {
-      document.querySelector('.main').classList.toggle('index')
-      this.$refs.cutCatalog.classList.toggle('sidemenu__cut-catalog--opened');
-      this.$refs.sidemenuButton.classList.toggle('sidemenu__button--clicked');
-      document.querySelector('.main-content').addEventListener('click', () => {
-        if (this.$refs.cutCatalog.classList.contains('sidemenu__cut-catalog--opened')) {
-          this.$refs.cutCatalog.classList.toggle('sidemenu__cut-catalog--opened');
-          document.querySelector('.main').classList.toggle('index')
-          this.$refs.sidemenuButton.classList.toggle('sidemenu__button--clicked');
+      document.querySelector(".main").classList.toggle("index");
+      this.$refs.cutCatalog.classList.toggle("sidemenu__cut-catalog--opened");
+      this.$refs.sidemenuButton.classList.toggle("sidemenu__button--clicked");
+      document.querySelector(".main-content").addEventListener("click", () => {
+        if (
+          this.$refs.cutCatalog.classList.contains(
+            "sidemenu__cut-catalog--opened"
+          )
+        ) {
+          this.$refs.cutCatalog.classList.toggle(
+            "sidemenu__cut-catalog--opened"
+          );
+          document.querySelector(".main").classList.toggle("index");
+          this.$refs.sidemenuButton.classList.toggle(
+            "sidemenu__button--clicked"
+          );
         }
-      })
+      });
     },
     closeCatalogOnMobile() {
       if (window.innerWidth <= 1080) {
-        this.openCutCatalog()
-        document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
-        this.$refs.sidemenu.classList.toggle('sidemenu--opened')
+        this.openCutCatalog();
+        document
+          .querySelector(".overlay--white")
+          .classList.toggle("overlay--white--show");
+        this.$refs.sidemenu.classList.toggle("sidemenu--opened");
       }
     },
     getRandomArrayElement(arr) {
-      return arr[Math.floor(Math.random()*arr.length)]
+      return arr[Math.floor(Math.random() * arr.length)];
     },
     loadSales() {
-      this.sales = []
+      this.sales = [];
 
-      fetch('http://api.foxhole.club/api/product/sale')
+      fetch("http://api.foxhole.club/api/product/sale")
         .then((response) => {
-          if(response.ok) {                        
-            return response.json();                 
-          }            
-          throw new Error('Network response was not ok');
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Network response was not ok");
         })
         .then((json) => {
+          json.data.forEach((element) => {
+            let _images = [];
 
-          json.data.forEach(element => {
-            let _images = []
+            element.images.forEach((item) => {
+              _images.push("http://api.foxhole.club/files/" + item.path);
+            });
 
-            element.images.forEach( item => {
-              _images.push('http://api.foxhole.club/files/' + item.path)
-            })
-            
             let product = {
               discont: element.discount,
               id: element.id,
@@ -117,64 +178,70 @@ export default {
               inStock: element.status,
               title: element.title,
               desc: element.description,
-              price : element.price,
-              age : element.age_from + '-' + element.age_to + ' лет',
-              time : element.game_time + ' мин',
-              players : element.players_from + '-' + element.players_to,                    
+              price: element.price,
+              age: element.age_from + "-" + element.age_to + " лет",
+              time: element.game_time + " мин",
+              players: element.players_from + "-" + element.players_to,
               pics: _images,
-              description: element.description,                    
-            }
+              description: element.description,
+            };
             this.sales.push(product);
-            let randomAd = this.getRandomArrayElement(this.sales)
-            this.sales = []
-            this.sales.push(randomAd)
-          })          
-        })
+            let randomAd = this.getRandomArrayElement(this.sales);
+            this.sales = [];
+            this.sales.push(randomAd);
+          });
+        });
     },
     loadStocks() {
-      fetch('http://api.foxhole.club/api/article/2/index?page=1')
+      fetch("http://api.foxhole.club/api/article/2/index?page=1")
         .then((response) => {
-          if(response.ok) {
-            this.newsRendered = true
+          if (response.ok) {
+            this.newsRendered = true;
             return response.json();
           }
-      
-          throw new Error('Network response was not ok');
+
+          throw new Error("Network response was not ok");
         })
         .then((json) => {
           if (json.data.length !== 0) {
-            this.stocks = true
+            this.stocks = true;
           }
-        })
-    }
+        });
+    },
   },
   components: {
     VueCollapsiblePanelGroup,
     VueCollapsiblePanel,
   },
   mounted() {
-    this.loadSales()
-    this.loadStocks()
-  }
-
-}
+    this.loadSales();
+    this.loadStocks();
+  },
+};
 </script>
 
 <style scoped>
-
-::-webkit-scrollbar { 
-  display: none; 
+::-webkit-scrollbar {
+  display: none;
 }
 
 .sidemenu {
-  background: -webkit-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
-  background: -moz-linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
+  background: -webkit-linear-gradient(
+    180deg,
+    rgb(255, 175, 102) 1%,
+    rgb(75, 1, 1) 95%
+  );
+  background: -moz-linear-gradient(
+    180deg,
+    rgb(255, 175, 102) 1%,
+    rgb(75, 1, 1) 95%
+  );
   background: linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
   display: flex;
   flex-direction: column;
   border-radius: 0 40px 30px 0;
   /* padding: 40px 0 0; */
-  width: 240px; 
+  width: 240px;
   position: fixed;
   max-width: 240px;
   top: 0;
@@ -185,11 +252,11 @@ export default {
 
 @keyframes slideToRight {
   from {
-  transform: translate(-100%,0);
+    transform: translate(-100%, 0);
   }
 
   to {
-    transform: translate(0,0);
+    transform: translate(0, 0);
   }
 }
 
@@ -199,7 +266,7 @@ export default {
   width: 240px;
   height: 47px;
   content: "";
-  background-image: url('~@/assets/sidemenu_bottom-green.svg');
+  background-image: url("~@/assets/sidemenu_bottom-green.svg");
   background-repeat: no-repeat;
   bottom: 0;
   left: 0;
@@ -303,13 +370,13 @@ export default {
 
 @keyframes forwardBackLeafBottom {
   0% {
-    transform: translate(-2px,0);
+    transform: translate(-2px, 0);
   }
   50% {
-    transform: translate(2px,0);
+    transform: translate(2px, 0);
   }
   100% {
-    transform: translate(-2px,0);
+    transform: translate(-2px, 0);
   }
 }
 
@@ -326,7 +393,7 @@ export default {
   left: -3px;
   height: 90px;
   content: "";
-  background-image: url('~@/assets/sidemenu_leafs.svg');
+  background-image: url("~@/assets/sidemenu_leafs.svg");
   background-repeat: no-repeat;
   z-index: 0;
 }
@@ -343,7 +410,7 @@ export default {
 .sidemenu__button {
   width: 28px;
   height: 28px;
-  background-image: url('~@/assets/catalog_icon_arrow.svg');
+  background-image: url("~@/assets/catalog_icon_arrow.svg");
   background-repeat: no-repeat;
   transition: 0.5s;
   border: none;
@@ -356,7 +423,7 @@ export default {
 }
 
 .sidemenu__button:hover {
-  background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
+  background-image: url("~@/assets/catalog_icon_arrow-fill.svg");
 }
 
 .sidemenu__button--clicked {
@@ -385,7 +452,7 @@ export default {
 .sidemenu__item .router-link-exact-active {
   position: relative;
   z-index: 2;
-  color: #4B0101;
+  color: #4b0101;
   background-color: white;
   border-radius: 35px 0 0 35px;
   /* transition: 1s; */
@@ -395,7 +462,7 @@ export default {
 }
 
 .sidemenu__item .router-link-exact-active + .sidemenu__button {
-  background-image: url('~@/assets/catalog_icon_arrow-fill.svg');
+  background-image: url("~@/assets/catalog_icon_arrow-fill.svg");
 }
 
 .sidemenu__item .router-link-exact-active::after {
@@ -405,7 +472,7 @@ export default {
   height: 140px;
   right: -1px;
   bottom: -39px;
-  background-image: url('~@/assets/sidemenu_background.svg');
+  background-image: url("~@/assets/sidemenu_background.svg");
   z-index: -1;
   background-repeat: no-repeat;
 }
@@ -421,35 +488,35 @@ export default {
   height: 21px;
   left: 6px;
   bottom: -1px;
-  background-image: url('~@/assets/sidemenu_green.svg');
+  background-image: url("~@/assets/sidemenu_green.svg");
   z-index: -1;
   background-repeat: no-repeat;
 }
 
 @keyframes slideUp {
   from {
-  transform: translate(0,50px);
+    transform: translate(0, 50px);
   }
 
   to {
-    transform: translate(0,0);
+    transform: translate(0, 0);
   }
 }
 
 @keyframes slideDown {
   from {
-  transform: translate(0,-50px);
+    transform: translate(0, -50px);
   }
 
   to {
-    transform: translate(0,0);
+    transform: translate(0, 0);
   }
 }
 
 .sidemenu__cut-catalog {
   background-color: white;
   border-radius: 20px;
-  border: 1px solid #CB7D49;
+  border: 1px solid #cb7d49;
   padding: 25px 0;
   position: absolute;
   left: 105%;
@@ -470,7 +537,7 @@ export default {
   height: auto !important;
 }
 
-.cut-catalog__list  {
+.cut-catalog__list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -478,17 +545,17 @@ export default {
 }
 
 .cut-catalog__list a {
-  color: #4B0101;
+  color: #4b0101;
 }
 .cut-catalog__list a:hover {
-  color: #6A1F12;
+  color: #6a1f12;
 }
 
 .sidemenu__ad {
   margin: auto auto 0;
   margin-bottom: 30px;
   background-repeat: no-repeat;
-  background-color: rgba(207,128,75,0.8);
+  background-color: rgba(207, 128, 75, 0.8);
   border-radius: 10px;
   min-height: 190px;
   min-width: 172px;
@@ -505,7 +572,7 @@ export default {
 
 .sidemenu__ad::before {
   content: "";
-  background-image: url('~@/assets/sidemenu-add-mark.png');
+  background-image: url("~@/assets/sidemenu-add-mark.png");
   background-repeat: no-repeat;
   height: 63px;
   width: 43px;
@@ -537,7 +604,7 @@ export default {
   font-weight: 100;
 }
 
-.sidemenu__ad  img {
+.sidemenu__ad img {
   margin: 10px auto;
 }
 
@@ -548,13 +615,12 @@ export default {
 }
 
 @media (max-width: 1080px) {
-
   .sidemenu {
     z-index: 101;
     display: none;
     border-radius: 0;
     overflow: auto;
-    animation: 0.5s slideToRight
+    animation: 0.5s slideToRight;
   }
 
   .sidemenu--opened {
@@ -587,12 +653,11 @@ export default {
   }
 
   .sidemenu::before {
-    background-image: url('~@/assets/mobile-top-green.png');
+    background-image: url("~@/assets/mobile-top-green.png");
     width: 240px;
     background-size: 257px 43px;
     left: 0;
     top: 0;
   }
 }
-
 </style>

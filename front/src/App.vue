@@ -7,27 +7,38 @@
         <MyHeader></MyHeader>
       </header>
       <main class="main">
-        <img class="trail" v-for="step in genSteps" :key="step" src="@/assets/fox-trail.svg" width="40" height="22px" :style="{ top: step.x + 'px' , right: step.y + 'px', transform: 'rotate(' + step.r + 'deg)' }">
-        <router-view/>
+        <img
+          class="trail"
+          v-for="step in genSteps"
+          :key="step"
+          src="@/assets/fox-trail.svg"
+          width="40"
+          height="22px"
+          :style="{
+            top: step.x + 'px',
+            right: step.y + 'px',
+            transform: 'rotate(' + step.r + 'deg)',
+          }"
+        />
+        <router-view />
       </main>
       <footer>
         <MyFooter></MyFooter>
       </footer>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
+import sidemenu from "@/components/sidemenu.vue";
+import MyHeader from "@/components/my-header.vue";
+import MyFooter from "@/components/my-footer.vue";
+import { tableGames } from "@/data.js";
 
-import sidemenu from '@/components/sidemenu.vue'
-import MyHeader from '@/components/my-header.vue'
-import MyFooter from '@/components/my-footer.vue'
-import {tableGames} from '@/data.js'
-//import {router} from '@/router/index.js'
-import {mapActions, mapGetters} from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     sidemenu,
     MyHeader,
@@ -37,188 +48,191 @@ export default {
     return {
       step: Object,
       steps: [
-        { x : 217, y: 19, r: 18 },
-        { x : 200, y: 78, r: 11 },
-        { x : 160, y: 130, r: 18 },
-        { x : 97, y: 161, r: 28 },
-        { x : 65, y: 213, r: 30 },
-        { x : 14, y: 236, r: 30 },
-        { x : 0, y: 287, r: 27 },
-        { x : -30, y: 328, r: 39},        
+        { x: 217, y: 19, r: 18 },
+        { x: 200, y: 78, r: 11 },
+        { x: 160, y: 130, r: 18 },
+        { x: 97, y: 161, r: 28 },
+        { x: 65, y: 213, r: 30 },
+        { x: 14, y: 236, r: 30 },
+        { x: 0, y: 287, r: 27 },
+        { x: -30, y: 328, r: 39 },
       ],
-      genSteps : [],
+      genSteps: [],
       tableGames,
-      categoryTree:[],
-      categorySlug: false
-    }
+      categoryTree: [],
+      categorySlug: false,
+    };
   },
   computed: {
-    ...mapGetters([
-      'CART'
-    ]),
+    ...mapGetters(["CART"]),
   },
   methods: {
     closeSidemenu() {
-      document.querySelector('.sidemenu').classList.toggle('sidemenu--opened')
-      document.querySelector('.overlay--white').classList.toggle('overlay--white--show')
+      document.querySelector(".sidemenu").classList.toggle("sidemenu--opened");
+      document
+        .querySelector(".overlay--white")
+        .classList.toggle("overlay--white--show");
     },
     processStep() {
       setTimeout(() => {
-        const newStep = this.steps.shift()
-        this.genSteps = [...this.genSteps, newStep]
+        const newStep = this.steps.shift();
+        this.genSteps = [...this.genSteps, newStep];
         if (this.genSteps.length >= 5) {
-          this.genSteps.shift()
+          this.genSteps.shift();
         }
-        this.processStep()
+        this.processStep();
         if (this.steps.length <= 0) {
-          
-          this.genSteps.shift()
-          this.genSteps.shift()
-          this.genSteps.shift()
-          this.genSteps.shift()
-          clearTimeout(this.processStep)
+          this.genSteps.shift();
+          this.genSteps.shift();
+          this.genSteps.shift();
+          this.genSteps.shift();
+          clearTimeout(this.processStep);
         }
-      }, 1000)
+      }, 1000);
     },
     loadCategories() {
-      fetch('http://api.foxhole.club/api/categories')
+      fetch("http://api.foxhole.club/api/categories")
         .then((response) => {
-          if(response.ok) {
+          if (response.ok) {
             return response.json();
           }
-        
-          throw new Error('Network response was not ok');
+
+          throw new Error("Network response was not ok");
         })
         .then((json) => {
-
-          json.forEach(element => {            
+          json.forEach((element) => {
             let _children = [];
-            if (typeof element.childs !== 'undefined') {
-              
-              element.childs.forEach(_child => {
-
+            if (typeof element.childs !== "undefined") {
+              element.childs.forEach((_child) => {
                 let __children = [];
-                  if (typeof _child.childs !== 'undefined') {
-                    
-                    _child.childs.forEach(__child => {
+                if (typeof _child.childs !== "undefined") {
+                  _child.childs.forEach((__child) => {
+                    this.categoryTree[__child.id] = __child.slug;
 
-                      this.categoryTree[__child.id] =  __child.slug;
+                    if (__child.image != null) {
+                      __children.push({
+                        name: __child.title,
+                        id: __child.id,
+                        slug: __child.slug,
+                        content: __child.content,
+                        img:
+                          "http://api.foxhole.club/storage/catalog/category/source/" +
+                          __child.image,
+                      });
+                    } else {
+                      __children.push({
+                        name: __child.title,
+                        id: __child.id,
+                        slug: __child.slug,
+                        content: __child.content,
+                        img: null,
+                      });
+                    }
+                  });
+                }
 
-                      if (__child.image != null) {
-                        __children.push({
-                          name: __child.title,
-                          id: __child.id,
-                          slug: __child.slug,
-                          content: __child.content,
-                          img: 'http://api.foxhole.club/storage/catalog/category/source/' + __child.image
-                        })
-                      } else {
-                        __children.push({
-                          name: __child.title,
-                          id: __child.id,
-                          slug: __child.slug,
-                          content: __child.content,
-                          img: null
-                        })                        
-                      }
-                    })
-                  }
-
-                  this.categoryTree[_child.id] =  _child.slug;                  
-                   if(_child.image != null) {
-                    _children.push({
-                      name: _child.title,
-                      id: _child.id,
-                      slug: _child.slug,
-                      content: _child.content,
-                      subcategorys: __children,
-                      icon: 'http://api.foxhole.club/storage/catalog/category/source/' + _child.image
-                    })
-                   } else {
-                    _children.push({
-                      name: _child.title,
-                      id: _child.id,
-                      slug: _child.slug,
-                      content: _child.content,
-                      subcategorys: __children,
-                      icon: null
-                    })                     
-                   }
-              })
+                this.categoryTree[_child.id] = _child.slug;
+                if (_child.image != null) {
+                  _children.push({
+                    name: _child.title,
+                    id: _child.id,
+                    slug: _child.slug,
+                    content: _child.content,
+                    subcategorys: __children,
+                    icon:
+                      "http://api.foxhole.club/storage/catalog/category/source/" +
+                      _child.image,
+                  });
+                } else {
+                  _children.push({
+                    name: _child.title,
+                    id: _child.id,
+                    slug: _child.slug,
+                    content: _child.content,
+                    subcategorys: __children,
+                    icon: null,
+                  });
+                }
+              });
             }
 
-            this.categoryTree[element.id] =  element.slug;
+            this.categoryTree[element.id] = element.slug;
 
             if (element.image != null) {
               this.tableGames.push({
                 name: element.title,
-                id: element.id,                
+                id: element.id,
                 subcategorys: _children,
                 slug: element.slug,
                 content: element.content,
-                img: 'http://api.foxhole.club/storage/catalog/category/source/' + element.image 
-              });              
+                img:
+                  "http://api.foxhole.club/storage/catalog/category/source/" +
+                  element.image,
+              });
             } else {
               this.tableGames.push({
                 name: element.title,
-                id: element.id,                
+                id: element.id,
                 subcategorys: _children,
                 slug: element.slug,
                 content: element.content,
-                img: null
-              });               
+                img: null,
+              });
             }
           });
-          this.$store.commit('SET_TREE', this.categoryTree);
-          
+          this.$store.commit("SET_TREE", this.categoryTree);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-  ...mapActions([
-    'ADD_TO_CART'
-  ]),
+    ...mapActions(["ADD_TO_CART"]),
     getCookie() {
-      if (this.$cookie.get('fox_cart')) {
-        fetch('http://api.foxhole.club/api/basket/' + this.$cookie.get('fox_cart'))
-        .then((response) => {
-          if(response.ok) {
-            return response.json();
-          }
-          throw new Error('Network response was not ok');
-        })
-        .then((json) => {
-          json.products.forEach(item => {
-            this.ADD_TO_CART(item)
+      if (this.$cookie.get("fox_cart")) {
+        fetch(
+          "http://api.foxhole.club/api/basket/" + this.$cookie.get("fox_cart")
+        )
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Network response was not ok");
           })
-        })
+          .then((json) => {
+            json.products.forEach((item) => {
+              this.ADD_TO_CART(item);
+            });
+          });
       } else {
-        fetch('http://api.foxhole.club/api/basket')
-        .then((response) => {
-          if(response.ok) {
-            return response.json();
-          }
-          throw new Error('Network response was not ok');
-        })
-        .then((json) => {          
-          this.$cookie.set('fox_cart', json.token)
-        })
+        fetch("http://api.foxhole.club/api/basket")
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("Network response was not ok");
+          })
+          .then((json) => {
+            this.$cookie.set("fox_cart", json.token);
+          });
       }
-    }
+    },
   },
   mounted() {
     this.processStep();
-    this.getCookie()
+    this.getCookie();
   },
   beforeMount() {
-    this.loadCategories()
+    this.loadCategories();
+  },
+  watch:{
+    $route() {
+      window.scrollTo(0,0)
+    }
   }
-}
+};
 </script>
 
 <style>
-
 .trail {
   position: absolute;
 }
@@ -287,7 +301,7 @@ h1 {
   margin: 0;
 }
 .h1:hover {
-  color: #DE8F53;
+  color: #de8f53;
 }
 
 .main-content {
@@ -300,6 +314,7 @@ h1 {
 main {
   flex: 1 0 auto;
   position: relative;
+  padding: 40px 0; 
 }
 
 .index {
@@ -317,29 +332,29 @@ footer {
 }
 
 .overlay {
-  position: fixed; 
-  width: 100%; 
-  height: 100%; 
+  position: fixed;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5); 
-  z-index: 100; 
-  cursor: pointer; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  cursor: pointer;
   overflow: auto;
 }
 
 .overlay--white {
-  position: fixed; 
-  width: 100%; 
-  height: 100%; 
+  position: fixed;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.904); 
-  z-index: 100; 
+  background-color: rgba(255, 255, 255, 0.904);
+  z-index: 100;
   cursor: pointer;
   display: none;
 }
@@ -367,11 +382,11 @@ footer {
   color: white;
 }
 
-.error img{
+.error img {
   margin: auto auto;
 }
 
-.error h1{
+.error h1 {
   text-align: center;
 }
 

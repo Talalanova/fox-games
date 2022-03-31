@@ -2,128 +2,133 @@
   <div class="category">
     <SortingBar @renderFilteredProducts="renderFilteredProducts"></SortingBar>
     <h1>{{ categoryTitle }}</h1>
-    <hr>
+    <hr />
     <Breadcrumbs>
       <router-link to="/">Главная</router-link>
       <router-link to="/Catalog">Каталог</router-link>
       <router-link to="/Catalog">{{ categoryTitle }}</router-link>
     </Breadcrumbs>
     <div class="intro">
-      <span class="intro__text" v-if="categoryDescription">
-        {{ categoryDescription }}
+      <span>
+        <span v-if="categoryDescription" class="intro__text">{{
+          categoryDescription
+        }}</span>
       </span>
       <span class="intro__pic" v-if="categoryImg != null">
-        <img  :src="categoryImg" width="270" height="">
+        <img :src="categoryImg" width="250" height="" />
       </span>
     </div>
     <div class="section__content">
-      <ItemCard :itemData ="product" v-for="product in products" :key="product"></ItemCard>
+      <ItemCard
+        :itemData="product"
+        v-for="product in products"
+        :key="product"
+      ></ItemCard>
     </div>
-    <Pagination v-if="paginationTotal > perPage" :perPage="15" :page="1" :totalGoods="paginationTotal" @updatePage="updatePage"></Pagination>
+    <Pagination
+      v-if="paginationTotal > perPage"
+      :perPage="15"
+      :page="1"
+      :totalGoods="paginationTotal"
+      @updatePage="updatePage"
+    ></Pagination>
   </div>
 </template>
 
 <script>
-
-import ItemCard from '@/components/item-card.vue'
-import SortingBar from '@/components/sorting-bar.vue'
-import Breadcrumbs from '@/components/breadcrumbs.vue'
-import Pagination from '@/components/pagination.vue'
-import {tableGames} from '@/data.js'
+import ItemCard from "@/components/item-card.vue";
+import SortingBar from "@/components/sorting-bar.vue";
+import Breadcrumbs from "@/components/breadcrumbs.vue";
+import Pagination from "@/components/pagination.vue";
+import { tableGames } from "@/data.js";
 
 export default {
-  name: 'Category',
+  name: "Category",
   components: {
     ItemCard,
     SortingBar,
     Breadcrumbs,
-    Pagination
+    Pagination,
   },
   data() {
     return {
       products: [],
       categories: this.categories,
-      hasPagination: true,      
+      hasPagination: true,
       paginationTotal: false,
       catalogRendered: false,
       waitForCatTree: false,
       tableGames,
-      categoryDescription: '',
-      categoryTitle: '',
-      categoryImg: ''
-    }
+      categoryDescription: "",
+      categoryTitle: "",
+      categoryImg: "",
+    };
   },
   methods: {
     loadProducts(page = 1) {
-      this.tableGames.forEach(item => {
+      this.tableGames.forEach((item) => {
         if (item.slug == this.$route.params.category) {
-          this.categoryDescription = item.content
-          this.categoryTitle = item.name
-          this.categoryImg = item.img
-        } else {            
-            item.subcategorys.forEach(item => {
-
-              if (item.slug == this.$route.params.category) {
-                this.categoryDescription = item.content
-                this.categoryTitle = item.name
-                this.categoryImg = item.icon
-              }
-
-              if (this.$route.params.subcategory) {
-                item.subcategorys.forEach(item => {
-                  if (item.slug == this.$route.params.subcategory) {
-                    this.categoryDescription = item.content
-                    this.categoryTitle = item.name
-                    this.categoryImg = item.img
-                  }
-                })
-              }
-            })            
-          }
-      })
+          this.categoryDescription = item.content;
+          this.categoryTitle = item.name;
+          this.categoryImg = item.img;
+        } else {
+          item.subcategorys.forEach((item) => {
+            if (item.slug == this.$route.params.category) {
+              this.categoryDescription = item.content;
+              this.categoryTitle = item.name;
+              this.categoryImg = item.icon;
+            }
+            if (this.$route.params.subcategory) {
+              item.subcategorys.forEach((item) => {
+                if (item.slug == this.$route.params.subcategory) {
+                  this.categoryDescription = item.content;
+                  this.categoryTitle = item.name;
+                  this.categoryImg = item.img;
+                }
+              });
+            }
+          });
+        }
+      });
 
       this.products = [];
       // eslint-disable-next-line no-unused-vars
-      let catId = 0
-      let app = this
+      let catId = 0;
+      let app = this;
       if (this.$store.getters.TREE.length) {
+        let slug = this.$route.params.category;
+        let slug2 = this.$route.params.subcategory;
 
-        let slug = this.$route.params.category
-        let slug2 = this.$route.params.subcategory
-
-        this.$store.getters.TREE.forEach((item,index) => {
+        this.$store.getters.TREE.forEach((item, index) => {
           if (item == slug2) catId = index;
-          if(item == slug) catId = index;
+          if (item == slug) catId = index;
           return false;
-        })
-
+        });
       } else {
         let self = this;
-        this.waitForCatTree = setInterval(function() {
+        this.waitForCatTree = setInterval(function () {
           if (typeof self.$store.getters.TREE !== "undefined") {
             clearInterval(app.waitForCatTree);
-            app.loadProducts()
+            app.loadProducts();
           }
-        },1000)
+        }, 1000);
         return false;
       }
-      
-      fetch('http://api.foxhole.club/api/categories/' + catId +'?page=' + page)
+
+      fetch("http://api.foxhole.club/api/categories/" + catId + "?page=" + page)
         .then((response) => {
-          if(response.ok) return response.json();
+          if (response.ok) return response.json();
         })
         .then((json) => {
-          console.log(json)
-          if(json.total) this.paginationTotal = json.total
+          if (json.total) this.paginationTotal = json.total;
 
-          json.data.forEach(element => {
+          json.data.forEach((element) => {
+            let _images = [];
 
-            let _images = []
+            element.images.forEach((item) => {
+              _images.push("http://api.foxhole.club/files/" + item.path);
+            });
 
-            element.images.forEach( item => {
-              _images.push('http://api.foxhole.club/files/' + item.path)
-            })
-            
             let product = {
               discont: element.discount,
               id: element.id,
@@ -132,31 +137,30 @@ export default {
               title: element.title,
               desc: element.description,
               short_description: element.short_description,
-              price : element.price,
-              age : element.age_from + '-' + element.age_to,
-              time : element.game_time,
-              players : element.players_from + '-' + element.players_to,
+              price: element.price,
+              age: element.age_from + "-" + element.age_to,
+              time: element.game_time,
+              players: element.players_from + "-" + element.players_to,
               pics: _images,
               description: element.description,
-              amount: element.amount
-            }
-            this.products.push(product);   
-          })                
-        })
-   },
+              amount: element.amount,
+            };
+            this.products.push(product);
+          });
+        });
+    },
     updatePage(page) {
-      this.loadProducts(page)
+      this.loadProducts(page);
     },
     renderFilteredProducts(json) {
-      this.products = []
-      json.data.forEach(element => {
+      this.products = [];
+      json.data.forEach((element) => {
+        let _images = [];
 
-        let _images = []
+        element.images.forEach((item) => {
+          _images.push("http://api.foxhole.club/files/" + item.path);
+        });
 
-        element.images.forEach( item => {
-          _images.push('http://api.foxhole.club/files/' + item.path)
-        })
-        
         let product = {
           discont: element.discount,
           id: element.id,
@@ -165,33 +169,33 @@ export default {
           title: element.title,
           desc: element.description,
           short_description: element.short_description,
-          price : element.price,
-          age : element.age_from + '-' + element.age_to + ' лет',
-          time : element.game_time + ' мин',
-          players : element.players_from + '-' + element.players_to,                    
+          price: element.price,
+          age: element.age_from + "-" + element.age_to + " лет",
+          time: element.game_time + " мин",
+          players: element.players_from + "-" + element.players_to,
           pics: _images,
           description: element.description,
-          amount: element.amount
-        }
-        this.products.push(product);   
-      }) 
-    }
+          amount: element.amount,
+        };
+        this.products.push(product);
+      });
+    },
   },
   mounted() {
     this.loadProducts();
   },
-  watch:{
-    $route(){
-        if (typeof this.$route.params.category !== 'undefined') {
-          this.categorySlug = this.$route.params.category
-        }
-        if (typeof this.$route.params.subcategory !== 'undefined') {
-          this.subcategorySlug = this.$route.params.subcategory
-        }
-       this.loadProducts();
-      }, 
+  watch: {
+    $route() {
+      if (typeof this.$route.params.category !== "undefined") {
+        this.categorySlug = this.$route.params.category;
+      }
+      if (typeof this.$route.params.subcategory !== "undefined") {
+        this.subcategorySlug = this.$route.params.subcategory;
+      }
+      this.loadProducts();
+    },
   },
-}
+};
 </script>
 
 <style scoped>
@@ -202,7 +206,7 @@ export default {
 
 .intro {
   display: grid;
-  grid-template-columns: auto 270px;
+  grid-template-columns: auto 250px;
   grid-template-rows: 1fr 1fr 1fr 1fr;
   column-gap: 30px;
   padding: 30px 0;
@@ -210,7 +214,7 @@ export default {
 
 .intro__text {
   grid-row: span 3;
-  border: 1px solid #CB7D49;
+  border: 1px solid #cb7d49;
   border-radius: 15px;
   padding: 15px;
   font-size: 24px;
@@ -243,6 +247,5 @@ export default {
   .category h1 {
     margin-bottom: 31px;
   }
-
 }
 </style>

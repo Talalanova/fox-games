@@ -99,5 +99,6 @@ export default {
 <style scoped>
 .newsales {
   padding: 40px 10px;
+  position: relative;
 }
 </style>

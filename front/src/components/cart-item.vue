@@ -27,7 +27,7 @@
     >
     <span class="counter" v-if="itemData.amount > 0">
       <button @click.prevent="deleteFromCart(itemData)">-</button>
-      <p>{{ itemData.pivot.quantity }}</p>
+      <button>{{ itemData.pivot.quantity }}</button>
       <button
         v-if="itemData.pivot.quantity < itemData.amount"
         @click.prevent="addToCart(itemData)"
@@ -196,12 +196,14 @@ export default {
   border-radius: 10px;
   max-height: 45px;
   margin: auto 0;
-  font-size: 23px;
-  padding: 5px 0;
+  font-size: 21px;
+  padding: 5px 2px;
 }
 
 .counter p {
-  margin: auto 0;
+  margin: 0;
+  padding: 0;
+  display: block;
 }
 
 .item__outofstock p {
@@ -214,8 +216,6 @@ export default {
   border: none;
   background-color: #cb7d49;
   color: white;
-  max-height: 45px;
-  border-radius: 10px;
   font-size: 23px;
   cursor: pointer;
 }
@@ -259,7 +259,7 @@ input[type="checkbox"]:checked + label::before {
 
 @media (max-width: 568px) {
   .cart-item {
-    grid-template-columns: 95px auto;
+    grid-template-columns: 130px auto;
     padding: 2% 2% 2% 6%;
     margin: 20px 0;
     column-gap: 5px;
@@ -277,7 +277,14 @@ input[type="checkbox"]:checked + label::before {
 
   .counter {
     order: 3;
-    max-width: 120px;
+    /* max-width: 120px; */
+  }
+
+  .counter button {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 0;
+    margin: auto 0;
   }
 
   .cart-item__price--discont {
@@ -296,12 +303,12 @@ input[type="checkbox"]:checked + label::before {
   }
 
   .cart-item label::before {
-    left: -113px;
+    left: -149px;
     top: 0;
   }
 
   .cart-item label::after {
-    left: -111px;
+    left: -146px;
     top: 2px;
   }
 }

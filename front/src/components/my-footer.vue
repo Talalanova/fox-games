@@ -41,7 +41,7 @@
       </li>
       <li>
         <router-link to="/privacy"
-          >Политика<br />конфиденциальности</router-link
+          >Политика<br />конф-ти</router-link
         >
       </li>
     </ul>
@@ -116,7 +116,7 @@ export default {
   list-style: none;
   color: white;
   padding: 0 5px;
-  margin: 0;
+  margin: 0 auto;
   text-align: left;
 }
 

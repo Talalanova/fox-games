@@ -76,22 +76,24 @@
           </div>
           <p class="sorting__label">Цена</p>
           <SliderRange v-model="priceValue"></SliderRange>
-          <input
-            class="sorting__checkbox"
-            type="checkbox"
-            value="discont"
-            id="discont"
-            name="discount"
-          />
-          <label for="discont">Только со скидкой</label>
-          <input
-            class="sorting__checkbox"
-            type="checkbox"
-            value="true"
-            name="available"
-            id="inStock"
-          />
-          <label for="inStock">В наличии</label>
+          <div class="label__wrap">
+            <input
+              class="sorting__checkbox"
+              type="checkbox"
+              value="discont"
+              id="discont"
+              name="discount"
+            />
+            <label for="discont">Только со скидкой</label>
+            <input
+              class="sorting__checkbox"
+              type="checkbox"
+              value="true"
+              name="available"
+              id="inStock"
+            />
+            <label for="inStock">В наличии</label>
+          </div>
           <p class="sorting__label">Количество игроков</p>
           <PlayerRange v-model="playersAmount"></PlayerRange>
           <span class="players"
@@ -430,8 +432,8 @@ input[type="checkbox"]:checked + label::before {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .sorting {
-  }
+.label__wrap {
+  display: flex;
+  flex-direction: column;
 }
 </style>

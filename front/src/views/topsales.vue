@@ -98,5 +98,6 @@ export default {
 <style scoped>
 .topsales {
   padding: 40px 10px;
+  position: relative;
 }
 </style>

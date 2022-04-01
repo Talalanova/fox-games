@@ -184,13 +184,12 @@ export default {
     rgb(75, 1, 1) 95%
   );
   background: linear-gradient(180deg, rgb(255, 175, 102) 1%, rgb(75, 1, 1) 95%);
-
   align-items: baseline;
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   margin-left: auto;
-  padding: 8px 80px;
+  padding: 8px 5%;
   border-radius: 0 0 0 20px;
 }
 

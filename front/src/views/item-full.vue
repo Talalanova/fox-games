@@ -988,6 +988,7 @@ export default {
     flex-direction: row;
     margin: 15px 0;
     overflow: scroll;
+    max-height: 90px;
   }
 
   .price {

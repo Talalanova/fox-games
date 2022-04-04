@@ -67,7 +67,7 @@ export default {
   text-align: left;
   column-gap: 15px;
   font-family: "Nunito", "Arial", sans-serif;
-  font-size: 22px;
+  font-size: 21px;
   line-height: 30px;
   position: relative;
 }

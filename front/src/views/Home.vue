@@ -85,8 +85,33 @@ export default {
         })
         .then((json) => {
           json.data.forEach((element) => {
-            let _images = [];
+            //Age,players,time validation
+            let age = "";
+            if (typeof element.age_from !== "undefined") {
+              age += element.age_from + "-";
+              if (typeof element.age_to !== "undefined") {
+                age += element.age_to;
+              } else {
+                age = '';
+              }
+            }
 
+            if (element.age_from == null) age = null;
+            let time = "";
+            if (element.game_time == null) {
+              time = null;
+            } else {
+              time = element.game_time;
+            }
+            let players = "";
+            if (element.players_from == null) {
+              players = null;
+            } else {
+              players = element.players_from + "-" + element.players_to;
+            }
+
+            let _images = [];
+            element.images.sort((a,b)=>(a.position - b.position))
             element.images.forEach((item) => {
               _images.push("http://api.foxhole.club/files/" + item.path);
             });
@@ -99,9 +124,9 @@ export default {
               title: element.title,
               desc: element.description,
               price: element.price,
-              age: element.age_from + "-" + element.age_to,
-              time: element.game_time,
-              players: element.players_from + "-" + element.players_to,
+              age: age,
+              time: time,
+              players: players,
               pics: _images,
               description: element.description,
               short_description: element.short_description,
@@ -122,8 +147,32 @@ export default {
         })
         .then((json) => {
           json.data.forEach((element) => {
-            let _images = [];
+            //Age,players,time validation
+            let age = "";
+            if (typeof element.age_from !== "undefined") {
+              age += element.age_from + "-";
+              if (typeof element.age_to !== "undefined") {
+                age += element.age_to;
+              } else {
+                age = '';
+              }
+            }
 
+            if (element.age_from == null) age = null;
+            let time = "";
+            if (element.game_time == null) {
+              time = null;
+            } else {
+              time = element.game_time;
+            }
+            let players = "";
+            if (element.players_from == null) {
+              players = null;
+            } else {
+              players = element.players_from + "-" + element.players_to;
+            }
+            let _images = [];
+            element.images.sort((a,b)=>(a.position - b.position))
             element.images.forEach((item) => {
               _images.push("http://api.foxhole.club/files/" + item.path);
             });
@@ -136,9 +185,9 @@ export default {
               title: element.title,
               desc: element.description,
               price: element.price,
-              age: element.age_from + "-" + element.age_to,
-              time: element.game_time,
-              players: element.players_from + "-" + element.players_to,
+              age: age,
+              time: time,
+              players: players,
               pics: _images,
               description: element.description,
               short_description: element.short_description,

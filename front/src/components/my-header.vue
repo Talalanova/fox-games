@@ -140,6 +140,7 @@ export default {
           .then((json) => {
             json.forEach((element) => {
               let _images = [];
+              element.images.sort((a,b)=>(a.position - b.position))
               element.images.forEach((item) => {
                 _images.push("http://api.foxhole.club/files/" + item.path);
               });
@@ -229,18 +230,19 @@ export default {
   display: flex;
   flex-direction: column;
   position: absolute;
-  width: 100%;
-  top: 100%;
+  width: calc(100% - 12px);
+  top: 110%;
   background-color: white;
   z-index: 1;
   font-size: 15px;
   line-height: 17px;
   border: 1px solid #cb7d49;
-  border-radius: 0 5px 5px 5px;
+  border-radius: 5px;
   overflow-y: auto;
   left: 0;
   right: 0;
   max-height: 400px;
+  padding: 5px;
 }
 
 .datalist__row {
@@ -251,6 +253,10 @@ export default {
   color: #333333;
   min-height: 35px;
   text-align: right;
+}
+
+.datalist__row:hover {
+  color: #cb7d49;
 }
 
 .header__cart {

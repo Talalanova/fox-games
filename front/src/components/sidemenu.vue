@@ -166,7 +166,7 @@ export default {
         .then((json) => {
           json.data.forEach((element) => {
             let _images = [];
-
+            element.images.sort((a,b)=>(a.position - b.position))
             element.images.forEach((item) => {
               _images.push("http://api.foxhole.club/files/" + item.path);
             });
@@ -557,7 +557,7 @@ export default {
   background-repeat: no-repeat;
   background-color: rgba(207, 128, 75, 0.8);
   border-radius: 10px;
-  min-height: 190px;
+  min-height: 172px;
   min-width: 172px;
   word-break: break-word;
   z-index: 11;
@@ -611,7 +611,7 @@ export default {
 .sidemenu__ad span {
   max-width: 170px;
   display: inline-block;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 @media (max-width: 1080px) {

@@ -134,7 +134,7 @@ export default {
 .cart-item {
   display: grid;
   grid-template-columns: 23px 95px 40% 100px auto;
-  column-gap: 15px;
+  column-gap: 10px;
   border: 1px solid #cb7d49;
   border-radius: 10px;
   overflow: hidden;
@@ -256,6 +256,11 @@ input[type="checkbox"]:checked + label::before {
   background-color: #cb7d49;
   border-color: #cb7d49;
 }
+@media (max-width: 680px) {
+  .cart-item {
+  grid-template-columns: 23px 95px 36% 100px auto;
+  }
+}
 
 @media (max-width: 568px) {
   .cart-item {
@@ -272,7 +277,6 @@ input[type="checkbox"]:checked + label::before {
   .cart-item__title {
     font-size: 18px;
     line-height: 19px;
-    text-align: right;
   }
 
   .counter {
@@ -292,6 +296,7 @@ input[type="checkbox"]:checked + label::before {
     gap: 4%;
     margin: 15px auto;
     flex-direction: row;
+    flex-wrap: wrap;
     font-size: 21px;
     line-height: 22px;
     margin: 15px auto 15px 0;

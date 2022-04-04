@@ -9,11 +9,10 @@
       <router-link to="/Catalog">{{ categoryTitle }}</router-link>
     </Breadcrumbs>
     <div class="intro">
-      <span>
+      <span v-if="!categoryDescription"></span>   
         <span v-if="categoryDescription" class="intro__text">{{
           categoryDescription
         }}</span>
-      </span>
       <span class="intro__pic" v-if="categoryImg != null">
         <img :src="categoryImg" width="250" height="" />
       </span>
@@ -120,14 +119,38 @@ export default {
           if (response.ok) return response.json();
         })
         .then((json) => {
-          if (json.total) this.paginationTotal = json.total;
+        if (json.total) this.paginationTotal = json.total;
 
           json.data.forEach((element) => {
             let _images = [];
-
+            element.images.sort((a,b)=>(a.position - b.position))
             element.images.forEach((item) => {
               _images.push("http://api.foxhole.club/files/" + item.path);
             });
+            //Age,players,time validation
+            let age = "";
+            if (typeof element.age_from !== "undefined") {
+              age += element.age_from + "-";
+              if (typeof element.age_to !== "undefined") {
+                age += element.age_to;
+              } else {
+                age = '';
+              }
+            }
+
+            if (element.age_from == null) age = null;
+            let time = "";
+            if (element.game_time == null) {
+              time = null;
+            } else {
+              time = element.game_time;
+            }
+            let players = "";
+            if (element.players_from == null) {
+              players = null;
+            } else {
+              players = element.players_from + "-" + element.players_to;
+            }
 
             let product = {
               discont: element.discount,
@@ -138,9 +161,9 @@ export default {
               desc: element.description,
               short_description: element.short_description,
               price: element.price,
-              age: element.age_from + "-" + element.age_to,
-              time: element.game_time,
-              players: element.players_from + "-" + element.players_to,
+              age: age,
+              time: time,
+              players: players,
               pics: _images,
               description: element.description,
               amount: element.amount,
@@ -213,7 +236,7 @@ export default {
 }
 
 .intro__text {
-  grid-row: span 3;
+  grid-row: span 2;
   border: 1px solid #cb7d49;
   border-radius: 15px;
   padding: 15px;

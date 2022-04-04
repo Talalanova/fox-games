@@ -394,6 +394,7 @@ footer {
   footer {
     min-height: 600px;
     background-image: url("~@/assets/footer-mobile.svg");
+    background-position: -57px 0px;
   }
   .wrapper {
     display: block;

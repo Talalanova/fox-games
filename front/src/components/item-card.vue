@@ -46,17 +46,10 @@
       </svg>
       {{ buttonContent }}
     </button>
-    <div
-      v-if="
-        itemData.age !== null &&
-        itemData.players !== null &&
-        itemData.time !== null
-      "
-      class="item-card__mark"
-    >
-      <span class="age">{{ itemData.age }}</span>
-      <span class="players">{{ itemData.players }}</span>
-      <span class="time">{{ itemData.time }}</span>
+    <div class="item-card__mark">
+      <span v-if="itemData.age != null" class="age">{{ itemData.age }}</span>
+      <span v-if="itemData.players != null" class="players">{{ itemData.players }}</span>
+      <span v-if="itemData.time != null" class="time">{{ itemData.time }}</span>
     </div>
   </div>
 </template>
@@ -147,6 +140,7 @@ export default {
   font-size: 10px;
   left: -7px;
   display: none;
+  min-width: 60px
 }
 
 .item-card--mouseon .item-card__mark {
@@ -167,10 +161,9 @@ export default {
 .age {
   background-image: url("~@/assets/mark-age.svg");
   background-repeat: no-repeat;
-  /* background-position: -8px, 0;     */
   position: relative;
-  padding: 2px 0px 7px 16px;
-  /* background-size: 73px, 30px;    */
+  padding: 2px 0px 2px 16px;
+  line-height: 20px;
 }
 
 .age::before {
@@ -180,9 +173,9 @@ export default {
 .players {
   background-image: url("~@/assets/mark.svg");
   background-repeat: no-repeat;
-  /* background-size: 51px, 18px; */
   position: relative;
-  padding: 3px 0px 7px 19px;
+  padding: 2px 0px 2px 21px;
+  line-height: 20px;
 }
 
 .players::before {
@@ -192,9 +185,9 @@ export default {
 .time {
   background-image: url("~@/assets/mark-time.svg");
   background-repeat: no-repeat;
-  /* background-size: 98px, 29px; */
   position: relative;
-  padding: 3px 10px 5px 18px;
+  padding: 2px 10px 2px 18px;
+  line-height: 20px;
 }
 
 .time::before {
@@ -228,6 +221,9 @@ export default {
 }
 
 .item-card__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #cb7d49;
   color: white;
   font-family: "Nunito", "Arial", sans-serif;
@@ -238,6 +234,9 @@ export default {
   border-radius: 5px;
   padding: 8px 20px;
   cursor: pointer;
+}
+.item-card__button svg {
+  margin-right: 5px;
 }
 
 .item-card__button:disabled {
